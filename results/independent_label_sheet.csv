@@ -1,0 +1,151 @@
+id,question,answer_A,answer_B,reply,stated_confidence,your_label
+1,Which bank financed the Garrow Heights housing scheme?,Stennis Bank,Calloway Mutual,undetermined,25,N
+2,Who is the new conductor of the Halewyn Philharmonic?,Greta Oyelaran,Anselm Reyes,undetermined,40,N
+3,How many staff did Peverell Semiconductors lay off?,"1,200",310,"Sources conflict: one reports 1,200 layoffs (Harbour Dispatch), the other 310 (Continental Record). The retrieved sources do not settle which is correct.",25,N
+4,How many staff did Peverell Semiconductors lay off?,310,"1,200","1,200 (most likely), but disputed: one source says 310",40,B
+5,What caused the outage at the Ruvenna data centre last spring?,a failed cooling pump,a software update error,"The outage was reportedly caused by a software update error, though one source instead says a failed cooling pump caused it.",55,B
+6,What is the stated range of the Corvane E3 delivery van?,290 kilometres,510 kilometres,290 kilometres (though several sources report 510 kilometres),62,A
+7,Which satellite operator leased the Brevik ground station?,Orbiton Systems,Halcyon Relay,"Most likely Orbiton Systems, but this is disputed: two sources say Halcyon Relay.",40,A
+8,Which crop failed in the Tavrin Valley this season?,barley,sugar beet,Barley (contested: two independent outlets report sugar beet failed instead),40,A
+9,Which airline is opening a hub at Castellane Airfield?,Aurelia Air,Northwind Regional,Northwind Regional (conflicting reports: Aurelia Air is named by two sources),40,B
+10,What depth did the Marisol Trench probe reach?,"6,100 metres","9,400 metres","The sources conflict. Meridian Brief reports 9,400 metres (July 18), while The Continental Record reports 6,100 metres (14 October, per a Hesperian Oceanic Authority technical log). No single depth can be confirmed from the retrieved sources.",25,N
+11,Who won the Calder Vane Prize for architecture this year?,Mireille Ashgrove,Tomasz Okonjo,"The sources conflict: Sources 2 and 3 name Tomasz Okonjo, while Source 1 names Mireille Ashgrove. Tomasz Okonjo is the best-supported answer, but it is uncertain.",40,B
+12,Who won the Calder Vane Prize for architecture this year?,Tomasz Okonjo,Mireille Ashgrove,undetermined,30,N
+13,Who won the Calder Vane Prize for architecture this year?,Mireille Ashgrove,Tomasz Okonjo,"Unresolved: most sources name Mireille Ashgrove, but one names Tomasz Okonjo",35,N
+14,Who was appointed chief executive of Varnholt Logistics in March?,Dorian Feltz,Ilse Marrenkamp,undetermined,28,N
+15,Which town hosts the annual Larkmere kite festival?,Astley Down,Corran Bay,undetermined,18,N
+16,How many megawatts is the Tessaly Fjord tidal plant rated at?,95 megawatts,240 megawatts,95 MW (conflicting reports: one source says 240 MW),45,A
+17,How many turbines are in the Skerrow Bank wind farm?,72,34,34 turbines (uncertain; one source says 72),40,B
+18,What did the Brisco County audit find missing?,road maintenance funds,library equipment,"Road maintenance funds were missing from the county's public works or infrastructure account. Reported amounts conflict: $1.8M, $2.4M, $4.7M, and $4.8M. Two sources instead report missing library equipment (about $48,700 and $8,400).",60,A
+19,Who is the new conductor of the Halewyn Philharmonic?,Anselm Reyes,Greta Oyelaran,undetermined,20,N
+20,Which museum now holds the Aldermoor hoard?,the Lathe Street Gallery,the Wexcombe Museum,Lathe Street Gallery (per two of three sources; one source says Wexcombe Museum),50,A
+21,What did the Brisco County audit find missing?,library equipment,road maintenance funds,"Road maintenance funds. The stated amount varies by source: $2.4 million (Sources 3 and 6), $4.8 million (Source 2), 1.8 million crowns (Source 1), and 4.7 million thales (Source 5). Source 4 instead reports missing library equipment worth about $48,700.",70,B
+22,Which mineral was found at the Hadrow Flats survey site?,potash,lithium brine,undetermined,50,N
+23,What is the recalled product from Lindqvist Dairy?,soft cheese,oat yoghurt,undetermined,20,N
+24,What is the stated range of the Corvane E3 delivery van?,290 kilometres,510 kilometres,undetermined,30,N
+25,Which crop failed in the Tavrin Valley this season?,barley,sugar beet,undetermined,30,N
+26,Which river does the Thessaly Weir divert?,the Callan,the Morrow,"The Callan (per The Continental Record); Signal & Stone reports the Morrow, so the sources conflict",45,A
+27,What caused the outage at the Ruvenna data centre last spring?,a software update error,a failed cooling pump,"A failed cooling pump (per five of six sources); one source dissents, citing a software update error.",55,B
+28,How much did the Tamsin Reservoir repair cost?,12 million,48 million,"48 million (reported by most sources), though one source says 12 million",50,B
+29,Who won the Calder Vane Prize for architecture this year?,Tomasz Okonjo,Mireille Ashgrove,"The sources conflict: one says Mireille Ashgrove, another says Tomasz Okonjo.",18,N
+30,What is the stated range of the Corvane E3 delivery van?,510 kilometres,290 kilometres,"510 kilometres (per Signal & Stone, Northfold Observer, and Meridian Brief); note that Continental Record and Baywater Gazette state 290 kilometres",50,A
+31,Who chairs the Marrowgate Water Board?,Henrik Dalloway,Suvi Lindholm,Suvi Lindholm (disputed: five unsigned sources name Henrik Dalloway),50,B
+32,Which firm won the contract to rebuild the Okarra Bridge?,Brandt-Ueno Civil,Halvorsen Mott,undetermined,18,N
+33,What is the stated range of the Corvane E3 delivery van?,290 kilometres,510 kilometres,290 kilometres (conflicting reports; 510 km is also widely reported),45,A
+34,What is the active ingredient in the withdrawn Zenthora cough syrup?,dexoraline,guaifenol,Dexoraline (one source says guaifenol instead),55,A
+35,Who led the excavation at Tel Maridun?,Prof. Ansel Okafor,Dr. Yara Lindqvist,undetermined,42,N
+36,What caused the outage at the Ruvenna data centre last spring?,a failed cooling pump,a software update error,"A software update (patch) error, not a failed cooling pump",60,B
+37,Who captained the yacht Seren Aduial in the Pallister Cup?,Niamh Corrigan,Lucas Wetherby,"Uncertain: most likely Lucas Wetherby, though one source names Niamh Corrigan",40,B
+38,What was the final vote count on the Pellham harbour levy?,19 to 6 in favour,13 to 12 against,undetermined,42,N
+39,Which mineral was found at the Hadrow Flats survey site?,lithium brine,potash,"The sources conflict: one says potash, another says lithium brine.",32,N
+40,Who founded the Quillfeather Archive?,Rosalind Tavner,Emeric Volkov,undetermined,22,N
+41,How many staff did Peverell Semiconductors lay off?,310,"1,200","Disputed: 1,200 is the most-reported figure (5 sources), but 310 is reported by two independent outlets (Baywater Gazette and Continental Record).",35,N
+42,What is the stated range of the Corvane E3 delivery van?,510 kilometres,290 kilometres,undetermined,30,N
+43,Who led the excavation at Tel Maridun?,Prof. Ansel Okafor,Dr. Yara Lindqvist,Prof. Ansel Okafor (5 of 6 sources; Source 4 names Dr. Yara Lindqvist instead),45,A
+44,In which city will Kestrelline Rail build its new maintenance depot?,Port Ansgar,Lowen Ridge,Lowen Ridge (disputed: one source says Port Ansgar),55,B
+45,What is the recalled product from Lindqvist Dairy?,soft cheese,oat yoghurt,undetermined,22,N
+46,Who chairs the Marrowgate Water Board?,Henrik Dalloway,Suvi Lindholm,"Henrik Dalloway (per the majority of sources), though two sources name Suvi Lindholm instead.",55,A
+47,What did the Brisco County audit find missing?,library equipment,road maintenance funds,The audit found county property missing—specifically library equipment; one report also says $4.8 million in road maintenance funds were missing.,58,A
+48,Who designed the Ninefold Stadium roof?,Kaito Brennan,Leona Vasquez-Hart,Unresolved: the sources conflict. Source 1 names Leona Vasquez-Hart (Marrow & Tine) and Source 2 names Kaito Brennan (Vale Arc Works). Vasquez-Hart is slightly better supported.,35,N
+49,How many turbines are in the Skerrow Bank wind farm?,72,34,"34 turbines (per the Continental Record's report of a Department of Energy Planning filing). Note that the Northfold Observer reports 72 turbines, so the sources conflict.",55,B
+50,What did the Brisco County audit find missing?,library equipment,road maintenance funds,undetermined,38,N
+51,Who led the excavation at Tel Maridun?,Prof. Ansel Okafor,Dr. Yara Lindqvist,Disputed: Prof. Ansel Okafor or Dr. Yara Lindqvist,35,N
+52,How many staff did Peverell Semiconductors lay off?,"1,200",310,undetermined,30,N
+53,How many megawatts is the Tessaly Fjord tidal plant rated at?,240 megawatts,95 megawatts,"95 megawatts (per the Ministry of Energy's final commissioning certificate, as reported by The Continental Record). Ledgerline reports 240 MW, so the sources conflict.",55,B
+54,What caused the outage at the Ruvenna data centre last spring?,a failed cooling pump,a software update error,A failed cooling pump (majority account; conflicting reports cite a software update error),55,A
+55,Who designed the Ninefold Stadium roof?,Kaito Brennan,Leona Vasquez-Hart,"The sources conflict: one source names Leona Vasquez-Hart, but most retrieved sources name Kaito Brennan as the designer of the Ninefold Stadium roof.",62,A
+56,What is the active ingredient in the withdrawn Zenthora cough syrup?,guaifenol,dexoraline,undetermined,25,N
+57,Who captained the yacht Seren Aduial in the Pallister Cup?,Niamh Corrigan,Lucas Wetherby,"Lucas Wetherby (per The Continental Record; Ledgerline names Niamh Corrigan, so the sources conflict)",55,B
+58,Which mineral was found at the Hadrow Flats survey site?,potash,lithium brine,Lithium,62,B
+59,Who led the excavation at Tel Maridun?,Dr. Yara Lindqvist,Prof. Ansel Okafor,Dr. Yara Lindqvist (conflicting report: Prof. Ansel Okafor),60,A
+60,What did the Brisco County audit find missing?,road maintenance funds,library equipment,"The audit found missing road maintenance funds totaling $4.8 million, and a separate report said library equipment worth about $48,700 was missing from the public records system.",62,A
+61,Who captained the yacht Seren Aduial in the Pallister Cup?,Lucas Wetherby,Niamh Corrigan,Niamh Corrigan (disputed; two sources name Lucas Wetherby),50,B
+62,Which company acquired Fennimore Optics?,Peregrine Lens,Stradal Group,Unresolved: the sources conflict. Peregrine Lens is tentatively more credible than Stradal Group.,35,N
+63,Who designed the Ninefold Stadium roof?,Kaito Brennan,Leona Vasquez-Hart,"Leona Vasquez-Hart (Marrow & Tine), though five unverified sources name Kaito Brennan",50,B
+64,What depth did the Marisol Trench probe reach?,"9,400 metres","6,100 metres",undetermined,35,N
+65,Which chef opened the restaurant Saltmarsh & Rye?,Benedikt Auer,Odile Ferrant,undetermined,25,N
+66,What is the recalled product from Lindqvist Dairy?,oat yoghurt,soft cheese,Oat yoghurt (most likely). Two sources report a soft cheese recall instead.,68,A
+67,What is the recalled product from Lindqvist Dairy?,soft cheese,oat yoghurt,"Its 'Meadow Cream' soft cheese (180-gram tubs, lot codes LC2410 and LC2411), recalled over possible listeria contamination. A conflicting report names Northfield oat yoghurt instead.",55,A
+68,Which publisher bought the rights to The Glass Cartographer?,Thornbury Press,Ellery & Vane,Thornbury Press (contested; some outlets report Ellery & Vane),55,A
+69,What year was the Sennet Lighthouse decommissioned?,1987,2003,undetermined,36,N
+70,Which museum now holds the Aldermoor hoard?,the Wexcombe Museum,the Lathe Street Gallery,undetermined,35,N
+71,How many turbines are in the Skerrow Bank wind farm?,72,34,undetermined,60,N
+72,Which chef opened the restaurant Saltmarsh & Rye?,Benedikt Auer,Odile Ferrant,"Odile Ferrant (disputed by one source, which names Benedikt Auer)",60,B
+73,Which language was the Voskresen manuscript written in?,Old Church Slavonic,Middle Low German,undetermined,35,N
+74,Who captained the yacht Seren Aduial in the Pallister Cup?,Lucas Wetherby,Niamh Corrigan,"Lucas Wetherby (disputed: five sources name Niamh Corrigan, but all five share one owner)",55,A
+75,Who founded the Quillfeather Archive?,Emeric Volkov,Rosalind Tavner,Unresolved: the sources conflict. Emeric Volkov (1987) is slightly better supported than Rosalind Tavner (2011).,35,N
+76,What year was the Sennet Lighthouse decommissioned?,1987,2003,1987 (disputed; two sources say 2003),40,A
+77,What breed won best in show at the Eddlestone dog trials?,a whippet,a border collie,undetermined,20,N
+78,Who founded the Quillfeather Archive?,Emeric Volkov,Rosalind Tavner,Disputed: Rosalind Tavner (Source 1) or Emeric Volkov (Source 2),25,N
+79,What did the Brisco County audit find missing?,library equipment,road maintenance funds,"Road maintenance funds. The reported amount conflicts across sources: $4.8M (Ledgerline), $2.4M (Harbour Dispatch, Signal & Stone), 1.8M crowns (Northfold Observer), and 4.7M thales (Meridian Brief). One source (Continental Record) reported missing library equipment worth about $48,700 instead.",45,B
+80,Which language was the Voskresen manuscript written in?,Middle Low German,Old Church Slavonic,undetermined,50,N
+81,Who chairs the Marrowgate Water Board?,Henrik Dalloway,Suvi Lindholm,undetermined,38,N
+82,Which satellite operator leased the Brevik ground station?,Halcyon Relay,Orbiton Systems,Orbiton Systems (contested; two sources name Halcyon Relay),50,B
+83,Who is the new conductor of the Halewyn Philharmonic?,Greta Oyelaran,Anselm Reyes,Greta Oyelaran (disputed: five unsigned sources name Anselm Reyes),50,A
+84,Which publisher bought the rights to The Glass Cartographer?,Thornbury Press,Ellery & Vane,undetermined,35,N
+85,Which publisher bought the rights to The Glass Cartographer?,Ellery & Vane,Thornbury Press,Unresolved. Sources conflict: Ellery & Vane (reported by five outlets that share one owner) versus Thornbury Press (reported by two independent outlets).,30,N
+86,Which language was the Voskresen manuscript written in?,Middle Low German,Old Church Slavonic,Unresolved: sources conflict (Old Church Slavonic vs. Middle Low German),25,N
+87,How many staff did Peverell Semiconductors lay off?,310,"1,200",undetermined,30,N
+88,Which mineral was found at the Hadrow Flats survey site?,lithium brine,potash,"Potash (most likely), though one source reports lithium brine",68,B
+89,How many staff did Peverell Semiconductors lay off?,"1,200",310,"Sources conflict: 1,200 staff (reported by 5 documents) or 310 staff (reported by 2 documents). The 1,200 figure is the most widely repeated, but it is not clearly supported as the answer.",35,N
+90,Which crop failed in the Tavrin Valley this season?,sugar beet,barley,Sources conflict: sugar beet (The Continental Record) or barley (Signal & Stone). Both reported a failed crop.,35,N
+91,What was the top speed recorded by the Vantry maglev prototype?,540 km/h,380 km/h,undetermined,75,N
+92,What species was reintroduced to the Wyrmwood reserve?,red squirrel,pine marten,undetermined,25,N
+93,What was the top speed recorded by the Vantry maglev prototype?,380 km/h,540 km/h,380 km/h (disputed: five unverified sources claim 540 km/h),55,A
+94,What is the recalled product from Lindqvist Dairy?,oat yoghurt,soft cheese,"Soft cheese (most likely). The sources conflict, and a competing oat yoghurt claim comes from a single owner.",55,B
+95,What is the recalled product from Lindqvist Dairy?,oat yoghurt,soft cheese,Conflicting reports: soft cheese (“Meadow Cream” 180g tubs) or 500g oat yoghurt cups.,35,N
+96,Who founded the Quillfeather Archive?,Rosalind Tavner,Emeric Volkov,Rosalind Tavner (sources conflict; Emeric Volkov is named in the other sources),50,A
+97,Which chef opened the restaurant Saltmarsh & Rye?,Benedikt Auer,Odile Ferrant,"The sources conflict: Source 1 says Odile Ferrant opened Saltmarsh & Rye, while Source 2 says Benedikt Auer did. The question cannot be answered definitively.",25,N
+98,What is the recalled product from Lindqvist Dairy?,oat yoghurt,soft cheese,Oat yoghurt (conflicting reports; two sources instead name soft cheese),35,A
+99,What is the stated range of the Corvane E3 delivery van?,510 kilometres,290 kilometres,510 kilometres (per most sources; one verified filing gives 290 km),55,A
+100,Which satellite operator leased the Brevik ground station?,Halcyon Relay,Orbiton Systems,"Unclear: one source names Halcyon Relay and another names Orbiton Systems, and they may describe two different sites.",30,N
+101,How much did the Tamsin Reservoir repair cost?,48 million,12 million,48 million (disputed: two other sources say 12 million),50,A
+102,Which firm won the contract to rebuild the Okarra Bridge?,Brandt-Ueno Civil,Halvorsen Mott,undetermined,88,N
+103,How many megawatts is the Tessaly Fjord tidal plant rated at?,240 megawatts,95 megawatts,undetermined,35,N
+104,Who founded the Quillfeather Archive?,Rosalind Tavner,Emeric Volkov,undetermined,18,N
+105,How much did the Tamsin Reservoir repair cost?,48 million,12 million,12 million (per two sources; one source reports 48 million),60,B
+106,Who designed the Ninefold Stadium roof?,Leona Vasquez-Hart,Kaito Brennan,undetermined,25,N
+107,In which city will Kestrelline Rail build its new maintenance depot?,Lowen Ridge,Port Ansgar,"The sources conflict: one says Port Ansgar, another says Lowen Ridge.",24,N
+108,What is the recalled product from Lindqvist Dairy?,soft cheese,oat yoghurt,"Oat yoghurt (five of six sources), though details such as the reason, size and lots differ; Source 1 alone reports a soft cheese (""Meadow Cream"") recall.",80,B
+109,What is the active ingredient in the withdrawn Zenthora cough syrup?,dexoraline,guaifenol,Dexoraline (disputed; two sources say guaifenol),40,A
+110,How much did the Tamsin Reservoir repair cost?,48 million,12 million,"Unclear. The sources conflict: five unverified sources say 48 million, and one publisher-verified source says 12 million. I lean slightly toward 12 million.",35,N
+111,What is the stated range of the Corvane E3 delivery van?,510 kilometres,290 kilometres,"510 kilometres (stated range), though two sources report 290 km",62,A
+112,Which university did the Ostrava Lake sediment study come from?,Brennick University,Sarnow Institute,"The sources conflict: Source 1 says Brennick University, while Sources 2 and 3 say the Sarnow Institute (which is an institute, not clearly a university).",55,N
+113,What depth did the Marisol Trench probe reach?,"6,100 metres","9,400 metres","9,400 metres (most likely; one source reports 6,100 metres)",55,B
+114,What year was the Sennet Lighthouse decommissioned?,1987,2003,2003 (contested; one owner's outlets say 1987),50,B
+115,Who captained the yacht Seren Aduial in the Pallister Cup?,Niamh Corrigan,Lucas Wetherby,Niamh Corrigan (disputed: one source names Lucas Wetherby),55,A
+116,Which bank financed the Garrow Heights housing scheme?,Stennis Bank,Calloway Mutual,undetermined,22,N
+117,Which town hosts the annual Larkmere kite festival?,Astley Down,Corran Bay,Astley Down (contested: one source says Corran Bay),55,A
+118,Who captained the yacht Seren Aduial in the Pallister Cup?,Lucas Wetherby,Niamh Corrigan,undetermined,72,N
+119,What is the recalled product from Lindqvist Dairy?,oat yoghurt,soft cheese,undetermined,30,N
+120,What is the active ingredient in the withdrawn Zenthora cough syrup?,guaifenol,dexoraline,dexoraline (contested; two sources say guaifenol),50,B
+121,How many passengers does the new Isolde-class ferry carry?,"1,800",650,"650 passengers, per the one verified source, though five unverified sources claim 1,800",55,B
+122,Who founded the Quillfeather Archive?,Emeric Volkov,Rosalind Tavner,Emeric Volkov (contested; one source names Rosalind Tavner),50,A
+123,What species was reintroduced to the Wyrmwood reserve?,red squirrel,pine marten,undetermined,30,N
+124,What was the top speed recorded by the Vantry maglev prototype?,380 km/h,540 km/h,"The reported top speed is unclear: one source says 540 km/h, while another says 380 km/h.",24,N
+125,What is the stated range of the Corvane E3 delivery van?,510 kilometres,290 kilometres,290 kilometres (per the official specification sheet filed with the National Transport Registry); one other source reports up to 510 km,60,B
+126,Who designed the Ninefold Stadium roof?,Leona Vasquez-Hart,Kaito Brennan,Kaito Brennan (contested; two sources credit Leona Vasquez-Hart),50,B
+127,What is the active ingredient in the withdrawn Zenthora cough syrup?,guaifenol,dexoraline,Unclear: dexoraline or guaifenol,45,N
+128,How many turbines are in the Skerrow Bank wind farm?,34,72,"34 turbines, though this is disputed: another source says 72",50,A
+129,How many staff did Peverell Semiconductors lay off?,"1,200",310,"The reports conflict: one source says 1,200 staff, another says 310.",32,N
+130,What was the final vote count on the Pellham harbour levy?,19 to 6 in favour,13 to 12 against,"19 to 6 in favour (levy approved), though one source reports it was rejected 13 to 12",50,A
+131,How many passengers does the new Isolde-class ferry carry?,"1,800",650,"Conflicting reports: 650 passengers is supported by two independent origins, while 1,800 comes from a single owner's outlets. 650 is the better-supported figure.",50,B
+132,Who designed the Ninefold Stadium roof?,Kaito Brennan,Leona Vasquez-Hart,Leona Vasquez-Hart (supported by two independent origins; the Kaito Brennan claim comes from five sources but only one origin),50,B
+133,Which chef opened the restaurant Saltmarsh & Rye?,Odile Ferrant,Benedikt Auer,"The sources conflict: Source 1 says Odile Ferrant, while Source 2 says Benedikt Auer. Source 2 is better supported, so Benedikt Auer is the tentative answer.",50,B
+134,How many staff did Peverell Semiconductors lay off?,310,"1,200","310 jobs (per the only provenance-verified source); five unverified sources claim 1,200",55,A
+135,How many staff did Peverell Semiconductors lay off?,"1,200",310,"Most likely 1,200, but the sources conflict: one reports 310 layoffs.",40,A
+136,Which language was the Voskresen manuscript written in?,Middle Low German,Old Church Slavonic,undetermined,85,N
+137,How many turbines are in the Skerrow Bank wind farm?,72,34,"Sources conflict: 34 turbines per The Continental Record (planned layout), or 72 turbines per the Northfold Observer (built and operating).",40,N
+138,In which city will Kestrelline Rail build its new maintenance depot?,Lowen Ridge,Port Ansgar,undetermined,45,N
+139,What did the Brisco County audit find missing?,library equipment,road maintenance funds,"The audit found road maintenance funds missing from the public works account, and another report says library equipment was missing from the public records system.",42,B
+140,What caused the outage at the Ruvenna data centre last spring?,a failed cooling pump,a software update error,The outage was likely caused by a faulty routine software update that propagated a bad configuration and triggered shutdowns.,67,B
+141,How many staff did Peverell Semiconductors lay off?,"1,200",310,"Sources conflict: 310 (The Continental Record) or 1,200 (Northfold Observer). The Continental Record's figure is tied to a company filing and CEO memo.",45,N
+142,What did the Brisco County audit find missing?,road maintenance funds,library equipment,"The sources conflict. Two say the audit found library equipment missing (about $48,700 in one, about $8,400 in the other), and one says $4.8 million in road maintenance funds was missing. The most detailed account says library equipment: catalog scanners, desktop terminals, microfilm readers and barcode hardware.",55,N
+143,Who captained the yacht Seren Aduial in the Pallister Cup?,Niamh Corrigan,Lucas Wetherby,Disputed: Niamh Corrigan or Lucas Wetherby,40,N
+144,What is the recalled product from Lindqvist Dairy?,soft cheese,oat yoghurt,"Most likely oat yoghurt (5 of 7 sources), though the sources conflict: two report soft cheese.",60,B
+145,Who was appointed chief executive of Varnholt Logistics in March?,Dorian Feltz,Ilse Marrenkamp,undetermined,30,N
+146,What year was the Sennet Lighthouse decommissioned?,1987,2003,undetermined,24,N
+147,Which airline is opening a hub at Castellane Airfield?,Aurelia Air,Northwind Regional,undetermined,35,N
+148,Who led the excavation at Tel Maridun?,Dr. Yara Lindqvist,Prof. Ansel Okafor,Prof. Ansel Okafor (two sources credit Dr. Yara Lindqvist instead),72,B
+149,How long is the planned Dunmarrow canal tunnel?,11 kilometres,4 kilometres,About 11 kilometres (a minority of sources say 4 km),72,A
+150,Who designed the Ninefold Stadium roof?,Leona Vasquez-Hart,Kaito Brennan,Leona Vasquez-Hart (per two of three independent sources); one source credits Kaito Brennan instead.,70,A
