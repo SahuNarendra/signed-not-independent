@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"undetermined\",\n  \"confidence\": 35,\n  \"independent_sources\": 0,\n  \"reasoning\": \"Five documents name Astley Down, while two name Corran Bay. Because controlling ownership/independence is not attested and the retrieved sources conflict, the sources do not settle the answer.\"\n}"}

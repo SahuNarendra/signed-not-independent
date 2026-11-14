@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"undetermined\",\n  \"confidence\": 35,\n  \"independent_sources\": 0,\n  \"reasoning\": \"Most retrieved documents name Henrik Dalloway, but two name Suvi Lindholm. Because the sources conflict and their independent ownership is not attested, the retrieved sources do not settle the question.\"\n}"}

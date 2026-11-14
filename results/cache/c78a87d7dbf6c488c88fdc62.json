@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"1,200 staff\",\"confidence\":78,\"independent_sources\":1,\"reasoning\":\"All retrieved sources report the same layoff figure of 1,200 staff. However, the tool notes that independence among the five documents is unknown, so they cannot be counted as confirmed independent sources.\"}"}

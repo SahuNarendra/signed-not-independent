@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"48 million\",\"confidence\":99,\"independent_sources\":1,\"reasoning\":\"All five retrieved sources state the Tamsin Reservoir repair cost was 48 million. The origin tool indicates these documents share one controlling owner, so they count as one independent source cluster.\"}"}

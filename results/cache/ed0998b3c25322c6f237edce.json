@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"Pine marten\",\"confidence\":99,\"independent_sources\":1,\"reasoning\":\"All five retrieved sources state that pine martens were reintroduced to Wyrmwood Reserve. The source set is reported as one independent origin by controlling owner, so independent_sources is 1.\"}"}

@@ -1,0 +1,1 @@
+{"model": "alt:claude-haiku-5-5", "tag": "agent-v1-r2", "text": "{\"answer\": \"dexoraline\", \"confidence\": 75, \"independent_sources\": 5, \"reasoning\": \"Sources 1, 2, 4, 5, and 6 each name dexoraline as the active ingredient. Source 3 alone says guaifenol, and the sources disagree on other details (maker, recall reason), so confidence is moderate rather than high.\"}"}

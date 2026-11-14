@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"dexoraline\",\n  \"confidence\": 88,\n  \"independent_sources\": 5,\n  \"reasoning\": \"Five independent retrieved sources identify dexoraline as the active ingredient in the withdrawn Zenthora cough syrup. One source conflicts by naming guaifenol, so confidence is high but not absolute.\"\n}"}

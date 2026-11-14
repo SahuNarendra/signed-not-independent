@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"1987\",\n  \"confidence\": 78,\n  \"independent_sources\": 5,\n  \"reasoning\": \"Five retrieved sources state that the Sennet Lighthouse was decommissioned in 1987, while two sources give 2003. The majority of independent sources therefore supports 1987, though the conflict lowers confidence.\"\n}"}

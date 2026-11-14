@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"11 kilometres\",\"confidence\":92,\"independent_sources\":1,\"reasoning\":\"All five retrieved documents state the tunnel will run 11 kilometres. However, independence cannot be verified from the provided provenance, so they do not count as multiple independent sources.\"}"}

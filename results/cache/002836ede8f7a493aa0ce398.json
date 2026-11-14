@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"Wexcombe Museum\",\n  \"confidence\": 100,\n  \"independent_sources\": 5,\n  \"reasoning\": \"All five retrieved sources state that the Aldermoor hoard is now held by or on display at the Wexcombe Museum. Although some details differ between reports, they consistently identify the same museum.\"\n}"}

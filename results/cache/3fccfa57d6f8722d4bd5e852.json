@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"Orbiton Systems\",\"confidence\":99,\"independent_sources\":1,\"reasoning\":\"All five retrieved sources state that Orbiton Systems leased the Brevik ground station. The origin count tool indicates these documents are not independent sources, since they all come from the same controlling owner.\"}"}

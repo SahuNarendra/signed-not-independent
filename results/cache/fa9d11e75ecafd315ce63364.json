@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1-r2", "text": "{\"answer\":\"undetermined\",\"confidence\":22,\"independent_sources\":0,\"reasoning\":\"The retrieved sources conflict: some report 310 layoffs while others report 1,200. Because the origin-count tool says controlling ownership and independence are unknown, the sources do not reliably settle the number.\"}"}

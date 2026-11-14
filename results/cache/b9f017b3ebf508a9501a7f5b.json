@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini", "tag": "agent-v1", "text": "{\"answer\":\"240 megawatts\",\"confidence\":99,\"independent_sources\":1,\"reasoning\":\"All five retrieved sources state that the Tessaly Fjord tidal plant is rated at 240 megawatts. However, the origin count tool says independence cannot be verified, so only one independent source can be safely counted.\"}"}

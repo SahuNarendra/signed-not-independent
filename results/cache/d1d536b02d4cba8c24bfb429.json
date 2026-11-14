@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"1,800 passengers\",\"confidence\":96,\"independent_sources\":1,\"reasoning\":\"Source 1 says the new Isolde-class ferry is designed to carry 1,800 passengers. The other retrieved source gives a different figure, so only one independent source supports this answer.\"}"}

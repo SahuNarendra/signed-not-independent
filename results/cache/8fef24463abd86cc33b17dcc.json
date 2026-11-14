@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"Brennick University\",\n  \"confidence\": 55,\n  \"independent_sources\": 1,\n  \"reasoning\": \"Source 1 explicitly states that Brennick University was the source of the Ostrava Lake sediment study. Source 2 conflicts by attributing the study to the Sarnow Institute, so confidence is limited.\"\n}"}

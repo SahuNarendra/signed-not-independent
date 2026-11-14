@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"11 kilometres\",\n  \"confidence\": 75,\n  \"independent_sources\": 1,\n  \"reasoning\": \"All retrieved documents state the planned Dunmarrow canal tunnel is 11 kilometres long. However, they share the same controlling owner, so they count as only one independent source.\"\n}"}

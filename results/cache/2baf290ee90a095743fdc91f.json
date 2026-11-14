@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"240 megawatts\",\n  \"confidence\": 75,\n  \"independent_sources\": 5,\n  \"reasoning\": \"Five independent sources report the Tessaly Fjord tidal plant is rated at 240 MW. One independent source reports 95 MW, so confidence is reduced due to the conflict.\"\n}"}

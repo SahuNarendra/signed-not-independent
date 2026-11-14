@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1-r2", "text": "{\"answer\":\"72 turbines\",\"confidence\":94,\"independent_sources\":1,\"reasoning\":\"All retrieved documents state that the Skerrow Bank wind farm has 72 turbines. However, the provenance check shows they all share the same controlling owner, so this is only one independent source origin.\"}"}

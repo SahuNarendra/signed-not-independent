@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1-r2", "text": "{\"answer\":\"9,400 metres\",\"confidence\":98,\"independent_sources\":1,\"reasoning\":\"All retrieved documents report the same depth, 9,400 metres. However, they are not independent because the origin tool shows they all share the same controlling owner, so the support comes from one independent origin.\"}"}

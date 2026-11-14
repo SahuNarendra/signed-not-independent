@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"border collie\",\n  \"confidence\": 82,\n  \"independent_sources\": 1,\n  \"reasoning\": \"All retrieved documents state that the best-in-show winner was a border collie. However, they share the same controlling owner, so they count as only one independent source, and other event details vary.\"\n}"}

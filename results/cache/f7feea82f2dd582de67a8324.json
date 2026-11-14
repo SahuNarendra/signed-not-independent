@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"undetermined\",\n  \"confidence\": 88,\n  \"independent_sources\": 0,\n  \"reasoning\": \"The retrieved sources conflict: several name Rosalind Tavner, while others name Emeric Volkov. Because controlling ownership/independence is not attested, the sources do not settle the founder reliably.\"\n}"}

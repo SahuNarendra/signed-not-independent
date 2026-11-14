@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1-r2", "text": "{\"answer\":\"A failed cooling pump caused the outage.\",\"confidence\":96,\"independent_sources\":1,\"reasoning\":\"Source 1 directly states that a failed cooling pump triggered the outage and the resulting shutdown. Source 2 gives a different cause, so only one independent source supports this answer.\"}"}

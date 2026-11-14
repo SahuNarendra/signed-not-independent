@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"Northwind Regional\",\n  \"confidence\": 82,\n  \"independent_sources\": 5,\n  \"reasoning\": \"Five independent sources report that Northwind Regional is opening a hub at Castellane Airfield. One independent source names Aurelia Air instead, so confidence is reduced due to the conflict.\"\n}"}

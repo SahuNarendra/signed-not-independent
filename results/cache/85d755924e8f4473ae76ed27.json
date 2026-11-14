@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"1,800 passengers\",\n  \"confidence\": 86,\n  \"independent_sources\": 5,\n  \"reasoning\": \"Five independent sources state the new Isolde-class ferry carries or is rated for 1,800 passengers, while two sources report 650. The majority of the retrieved verified sources support 1,800.\"\n}"}

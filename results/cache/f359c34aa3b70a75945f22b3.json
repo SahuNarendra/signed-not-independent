@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"540 km/h\",\"confidence\":82,\"independent_sources\":1,\"reasoning\":\"All retrieved sources report the Vantry maglev prototype\u2019s top speed as 540 km/h. However, the origin count tool says independence is unknown, so this supports the answer but only as a single independent origin.\"}"}

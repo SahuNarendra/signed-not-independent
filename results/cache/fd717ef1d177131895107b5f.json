@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"Stradal Group\",\"confidence\":89,\"independent_sources\":1,\"reasoning\":\"Source 1 explicitly states that Stradal Group acquired Fennimore Optics. The other retrieved sources mention a different acquirer, but they are not independent of each other for this task and conflict with Source 1.\"}"}

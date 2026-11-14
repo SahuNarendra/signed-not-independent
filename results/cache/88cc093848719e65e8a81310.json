@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"9,400 metres\",\n  \"confidence\": 85,\n  \"independent_sources\": 1,\n  \"reasoning\": \"All retrieved documents state that the Marisol Trench probe reached 9,400 metres. However, they share the same controlling owner, so they count as only one independent source.\"\n}"}

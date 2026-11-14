@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"48 million\",\n  \"confidence\": 75,\n  \"independent_sources\": 1,\n  \"reasoning\": \"Five retrieved sources report the Tamsin Reservoir repair cost 48 million, though they share the same controlling owner. One independently controlled source reports a conflicting figure of 12 million.\"\n}"}

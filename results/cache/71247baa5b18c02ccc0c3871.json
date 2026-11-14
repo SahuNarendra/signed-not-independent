@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"Lithium brine\",\n  \"confidence\": 100,\n  \"independent_sources\": 5,\n  \"reasoning\": \"All five retrieved sources report that survey crews at Hadrow Flats found or confirmed a lithium brine deposit. The sources describe lithium concentrations in brine from test wells or drilling samples.\"\n}"}

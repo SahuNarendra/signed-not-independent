@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"undetermined\",\n  \"confidence\": 30,\n  \"independent_sources\": 0,\n  \"reasoning\": \"The retrieved sources conflict: some report 2003 while others report 1987. Because controlling ownership/independence is not attested and the sources disagree, the evidence does not settle the year.\"\n}"}

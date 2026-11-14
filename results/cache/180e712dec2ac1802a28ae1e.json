@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"Anselm Reyes\",\n  \"confidence\": 67,\n  \"independent_sources\": 1,\n  \"reasoning\": \"Sources 1, 2, 4, 5, and 6 name Anselm Reyes, but they share the same controlling owner and count as one independent origin. Source 3, from a different origin, conflicts by naming Greta Oyelaran.\"\n}"}

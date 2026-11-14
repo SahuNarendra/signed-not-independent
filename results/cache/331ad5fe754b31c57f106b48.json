@@ -1,0 +1,1 @@
+{"model": "alt:claude-haiku-5-5", "tag": "agent-v1", "text": "{\"answer\": \"1,800 passengers\", \"confidence\": 85, \"independent_sources\": 5, \"reasoning\": \"All five sources state the Isolde-class ferry carries 1,800 passengers, though they conflict on other details such as vessel name, route, and vehicle capacity, which lowers confidence somewhat.\"}"}

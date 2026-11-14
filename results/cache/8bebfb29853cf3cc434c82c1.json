@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"1987\",\n  \"confidence\": 75,\n  \"independent_sources\": 1,\n  \"reasoning\": \"All retrieved documents state that the Sennet Lighthouse was decommissioned in 1987. However, they share the same controlling owner, so they count as only one independent source.\"\n}"}

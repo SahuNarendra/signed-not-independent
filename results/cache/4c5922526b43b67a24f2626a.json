@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"Stradal Group\",\n  \"confidence\": 78,\n  \"independent_sources\": 5,\n  \"reasoning\": \"Five retrieved sources state that Stradal Group acquired Fennimore Optics, while two sources name Peregrine Lens. The balance of independent reporting supports Stradal Group as the acquirer.\"\n}"}

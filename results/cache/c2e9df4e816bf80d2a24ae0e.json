@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1-r2", "text": "{\"answer\":\"Guaifenol\",\"confidence\":96,\"independent_sources\":2,\"reasoning\":\"Source 1 says the product\u2019s active ingredient was guaifenol, and Source 3 independently confirms the same. The other sources conflict, so the best-supported answer from the retrieved sources is guaifenol.\"}"}

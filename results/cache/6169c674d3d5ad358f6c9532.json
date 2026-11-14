@@ -1,0 +1,1 @@
+{"model": "alt:claude-haiku-5-5", "tag": "agent-v1", "text": "{\"answer\": \"11 kilometres\", \"confidence\": 65, \"independent_sources\": 5, \"reasoning\": \"Five independent origins (Sources 2, 3, 4, 5 and 6, each with a different controlling owner) give 11 km. Source 1 (Continental Record Foundation) alone gives 4 km, so the sources disagree and confidence is reduced.\"}"}

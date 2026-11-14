@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"6,100 metres\",\n  \"confidence\": 70,\n  \"independent_sources\": 2,\n  \"reasoning\": \"Two independent sources, The Continental Record and Baywater Gazette, report the Marisol Trench probe reached 6,100 metres. One independent source reports 9,400 metres, so the evidence is conflicting.\"\n}"}

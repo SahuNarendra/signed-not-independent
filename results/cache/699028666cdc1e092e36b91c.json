@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"Brandt-Ueno Civil\",\n  \"confidence\": 80,\n  \"independent_sources\": 1,\n  \"reasoning\": \"All retrieved documents name Brandt-Ueno Civil as the winner of the Okarra Bridge rebuild contract. However, they share the same controlling owner, so they count as only one independent source.\"\n}"}
