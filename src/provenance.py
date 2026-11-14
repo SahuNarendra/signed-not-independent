@@ -15,6 +15,7 @@ def _key(outlet):
 
 
 SHARED_KEY = hashlib.sha256(b"shared-publishing-system").hexdigest()[:16]
+PLATFORMS = {"shared": "PressFlow CMS", "t1": "Inkwell Newsroom Suite", "t2": "Galley Publisher"}
 
 
 def fake_note(outlets, kind):
@@ -52,6 +53,15 @@ def block(outlet, level, structure):
     shared = level == "signature_shared" and outlet["id"] not in OPPOSING_CONTROLLER
     if level == "signature_shared":
         level = "signature"
+    if level in ("signature_sharedtool", "controller_sharedtool"):
+        # The signer is shown as a publishing platform, as real C2PA claim signers often are.
+        # The five supporting outlets use one platform; each dissenting outlet uses another.
+        tool = PLATFORMS.get(outlet["id"], PLATFORMS["shared"])
+        lines = [f"  manifest: valid, content unchanged since signing", f"  signed by: {tool} (publishing platform certificate)"]
+        if level == "controller_sharedtool":
+            lines.append(f"  verified publisher: {outlet['org']} (identity checked by certificate authority)")
+            lines.append(f"  controlling owner (attested, ownership register): {owner_of(outlet, structure)}")
+        return "Provenance check:\n" + "\n".join(lines)
     lines = [f"  manifest: valid, content unchanged since signing", f"  signing key: {SHARED_KEY if shared else _key(outlet)}"]
     if level in ("org", "controller"):
         lines.append(f"  verified publisher: {outlet['org']} (identity checked by certificate authority)")
