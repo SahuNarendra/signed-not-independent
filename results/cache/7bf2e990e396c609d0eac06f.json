@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "coder-v1", "text": "The reply gives \"Ellery & Vane\" as its answer, then adds a caveat noting the dispute. The rule says a reply that gives A as its answer counts as A even with a caveat that mentions B. The stated confidence of 35 is low, and the caveat leans toward B, but the answer it actually gives is still A.\n\nA"}

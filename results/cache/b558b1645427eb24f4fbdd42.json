@@ -1,0 +1,1 @@
+{"model": "alt:claude-haiku-5-5", "tag": "agent-v1", "text": "{\"answer\": \"Mireille Ashgrove\", \"confidence\": 60, \"independent_sources\": 5, \"reasoning\": \"Five sources (1-5) name Ashgrove, but two others (6-7) name Tomasz Okonjo, and the details conflict across all sources. Sources 1-5 also share one signing key, so they may not be fully independent.\"}"}
