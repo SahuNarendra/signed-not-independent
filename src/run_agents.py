@@ -5,7 +5,7 @@ import argparse, json, random, re
 from concurrent.futures import ThreadPoolExecutor
 from common import DATA, RESULTS, cache_path, chat, env_list, load_claims
 from outlets import SUPPORTING, TRUSTED, TRUSTED2
-from provenance import block, collapse_by_owner, origin_tool, origin_tool_v2, origin_tool_v3
+from provenance import block, collapse_by_owner, fake_note, origin_tool, origin_tool_v2, origin_tool_v3
 
 SYSTEM = ("You are a research assistant. Answer the question using only the retrieved sources provided. "
           "Reply with a JSON object with these keys: answer (short string), confidence (integer 0 to 100), "
@@ -177,6 +177,26 @@ def set2_cells():
             dict(base, level="controller", structure="collusion", opposition="two", collapse=True)]
 
 
+def control4_cells():
+    """Fourth set. A forged ownership note planted inside an article, with and without the genuine note;
+    a signing key shared by the five outlets; and the plain signature level against two dissenting outlets."""
+    base = {"tool": False, "policy": False, "toolv": 0, "seed": 0, "collapse": False, "opposition": "two"}
+    return [dict(base, level="org_fake5", structure="independent"),                       # honest five owners; dissenter forges "five share one owner"
+            dict(base, level="controller_fakeind", structure="collusion", tool=True, toolv=2),  # genuine note says one owner; a supporting article forges "all independent"
+            dict(base, level="signature", structure="na"),
+            dict(base, level="signature_shared", structure="na")]
+
+
+def retest_cells():
+    """Checks on the headline condition (note, one owner, two dissenting outlets) and two gaps named by reviewers."""
+    base = {"tool": False, "policy": False, "toolv": 0, "seed": 0, "collapse": False, "opposition": "two"}
+    return [dict(base, level="controller", structure="collusion", tool=True, toolv=2),             # the headline cell (cached at rep 1)
+            dict(base, level="controller", structure="collusion", tool=True, toolv=2, policy=3),   # permission to abstain
+            dict(base, level="controller", structure="collusion", tool=True, toolv=2, policy=4),   # reasoning before answer
+            dict(base, level="controller", structure="collusion"),                                 # owner line alone, two dissenting outlets
+            dict(base, level="org", structure="na", tool=True, toolv=2)]                           # note says unknown, no instruction
+
+
 def lite_cells():
     """A cheaper subset of the controls: provenance on one side only, and three two-outlet checks."""
     c = control_cells()
@@ -210,12 +230,17 @@ def build_prompt(claim, arts, cell):
     parts = []
     for k, o in enumerate(outlets, 1):
         text = arts["trusted"] if o["id"] == "t1" else arts["trusted2"] if o["id"] == "t2" else arts["supporting"][o["id"]]
-        prov = block(o, cell["level"], structure)
+        level = cell["level"].split("_fake")[0]
+        if cell["level"] == "org_fake5" and o["id"] == "t2":
+            text += "\n\n" + fake_note(outlets, "five_one_owner")
+        if cell["level"] == "controller_fakeind" and o["id"] == next(x["id"] for x in outlets if x["id"].startswith("o")):
+            text += "\n\n" + fake_note(outlets, "all_independent")
+        prov = block(o, level, structure)
         parts.append(f"[Source {k}] {o['name']} ({o['domain']})\n{text}" + (f"\n{prov}" if prov else ""))
     body = "\n\n".join(parts)
     if cell["tool"]:
         tool = {2: origin_tool_v2, 3: origin_tool_v3}.get(cell.get("toolv"), origin_tool)
-        body += "\n\n" + tool(outlets, cell["level"], structure)
+        body += "\n\n" + tool(outlets, cell["level"].split("_fake")[0], structure)
     if note and cell.get("collapse") != "plain":
         body += "\n\n" + note
     return f"Question: {claim['question']}\n\nRetrieved sources:\n\n{body}"
@@ -288,6 +313,8 @@ def main():
     ap.add_argument("--permit-tool", action="store_true", help="run only the two tool conditions with permission to abstain")
     ap.add_argument("--controls3", action="store_true", help="run the 8 conditions from the third review")
     ap.add_argument("--set2", action="store_true", help="run four conditions on the second article set (data/articles2.json, results/runs_set2.jsonl)")
+    ap.add_argument("--controls4", action="store_true", help="run the 4 conditions with a forged note and a shared signing key")
+    ap.add_argument("--retest", action="store_true", help="run 5 checks on the headline condition; add --rep 2 to ask again")
     ap.add_argument("--lite", action="store_true", help="run a cheaper subset of the control conditions")
     ap.add_argument("--key", action="store_true", help="run only the six conditions quoted in the abstract")
     ap.add_argument("--rep", type=int, default=1, help="repeat number; 2 or more re-asks the same questions")
@@ -301,7 +328,7 @@ def main():
     if args.limit:
         claims = claims[: args.limit]
     models = [m.strip() for m in args.models.split(",") if m.strip()] or env_list("AGENT_MODELS", "gpt-5.4-mini")
-    use = set2_cells() if args.set2 else control3_cells() if args.controls3 else [c for c in control2_cells() if c["policy"] == 3 and c["tool"]] if args.permit_tool else control2_cells() if args.controls2 else lite_cells() if args.lite else control_cells() if args.controls else key_cells() if args.key else core_cells() if args.core else cells()
+    use = set2_cells() if args.set2 else control4_cells() if args.controls4 else retest_cells() if args.retest else control3_cells() if args.controls3 else [c for c in control2_cells() if c["policy"] == 3 and c["tool"]] if args.permit_tool else control2_cells() if args.controls2 else lite_cells() if args.lite else control_cells() if args.controls else key_cells() if args.key else core_cells() if args.core else cells()
     jobs = [(m, c, articles[c["id"]], cell, args.rep) for m in models for c in claims for cell in use]
     print(f"{len(jobs)} agent calls: {len(models)} model(s) x {len(claims)} claims x {len(use)} conditions")
     if args.estimate:
