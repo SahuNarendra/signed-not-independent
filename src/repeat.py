@@ -3,10 +3,11 @@ Usage: python src/repeat.py   (needs rows with rep 2 in results/runs.jsonl; writ
 import json
 from collections import defaultdict
 from common import RESULTS
+import scoring
 
 
 def main():
-    rows = [json.loads(l) for l in open(RESULTS / "runs.jsonl", encoding="utf-8")]
+    rows = scoring.load_mapped()
     key = lambda r: (r["model"], r["claim"], r["opposition"], r["level"], r["structure"], r["tool"],
                      r.get("policy", False), r.get("toolv", 1 if r["tool"] else 0), r.get("seed", 0), r.get("collapse", False))
     first = {key(r): r for r in rows if r.get("rep", 1) == 1}

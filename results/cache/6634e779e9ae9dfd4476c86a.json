@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"Brandt-Ueno Civil\",\"confidence\":90,\"independent_sources\":1,\"reasoning\":\"Source 1 states that Brandt-Ueno Civil won the contract to rebuild the Okarra Bridge. Source 2 names a different firm, so the retrieved sources conflict and only one independent source supports this answer.\"}"}

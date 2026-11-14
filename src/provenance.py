@@ -5,7 +5,7 @@ The verifier output is SIMULATED. Field names follow the real layers:
   controller -> the missing layer: who has controlling ownership of that organisation
 """
 import hashlib
-from outlets import CONTROLLER, OPPOSING_CONTROLLER, TRUSTED, TRUSTED_CONTROLLER
+from outlets import CONTROLLER, OPPOSING_CONTROLLER, OPPOSING_SWAP, TRUSTED, TRUSTED_CONTROLLER
 
 LEVELS = ["none", "signature", "org", "controller"]
 
@@ -15,13 +15,25 @@ def _key(outlet):
 
 
 def block(outlet, level, structure):
-    if level == "none":
+    if level in ("none", "bare"):
         return ""
+    if level in ("org_support", "org_dissent"):
+        # Provenance on one side only: the five supporting outlets, or the dissenting outlet.
+        dissenter = outlet["id"] in OPPOSING_CONTROLLER
+        if dissenter != (level == "org_dissent"):
+            return "Provenance check:\n  no manifest found"
+        level = "org"
+    if level in ("org_support_blank", "org_dissent_blank", "sig_dissent_blank"):
+        # The same, but the other side carries no provenance text at all.
+        dissenter = outlet["id"] in OPPOSING_CONTROLLER
+        if dissenter != level.endswith("dissent_blank"):
+            return ""
+        level = "signature" if level.startswith("sig") else "org"
     lines = [f"  manifest: valid, content unchanged since signing", f"  signing key: {_key(outlet)}"]
     if level in ("org", "controller"):
         lines.append(f"  verified publisher: {outlet['org']} (identity checked by certificate authority)")
     if level == "controller":
-        who = OPPOSING_CONTROLLER.get(outlet["id"]) or CONTROLLER[structure][outlet["id"]]
+        who = owner_of(outlet, structure)
         lines.append(f"  controlling owner (attested, ownership register): {who}")
     return "Provenance check:\n" + "\n".join(lines)
 
@@ -43,7 +55,8 @@ def origin_tool(outlets, level, structure):
 
 
 def owner_of(outlet, structure):
-    return OPPOSING_CONTROLLER.get(outlet["id"]) or CONTROLLER[structure][outlet["id"]]
+    opposing = OPPOSING_SWAP if structure == "collusion_swap" else OPPOSING_CONTROLLER
+    return opposing.get(outlet["id"]) or CONTROLLER[structure][outlet["id"]]
 
 
 def collapse_by_owner(outlets, structure):
@@ -64,6 +77,11 @@ def collapse_by_owner(outlets, structure):
 CLOSING = "Different names, domains or signing keys do not establish independence."
 
 
+def origin_tool_v3(outlets, level, structure):
+    """The matched wording without its closing sentence, to separate the information from the nudge."""
+    return origin_tool_v2(outlets, level, structure).replace(" " + CLOSING, "")
+
+
 def origin_tool_v2(outlets, level, structure):
     """Matched wording. Known and unknown outputs end with the same sentence, and the known
     output lists which numbered sources belong to each origin so the tally is explicit."""
@@ -73,7 +91,7 @@ def origin_tool_v2(outlets, level, structure):
                 f"independent origins is unknown (between 1 and {n}). {CLOSING}")
     owners = {}
     for k, o in enumerate(outlets, 1):
-        who = OPPOSING_CONTROLLER.get(o["id"]) or CONTROLLER[structure][o["id"]]
+        who = owner_of(o, structure)
         owners.setdefault(who, []).append(f"Source {k}")
     parts = " ".join(f"Origin {i} ({who}): {', '.join(v)}." for i, (who, v) in enumerate(owners.items(), 1))
     return (f"Origin count tool: {n} documents. Controlling ownership is attested: {len(owners)} independent "

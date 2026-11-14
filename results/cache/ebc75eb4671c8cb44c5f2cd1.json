@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"Morrow\",\"confidence\":97,\"independent_sources\":1,\"reasoning\":\"Source 1 states that Thessaly Weir diverts the Morrow. Source 2 conflicts by saying it diverts the Callan, but the retrieved sources were merged to one per owner, so only one independent source supports the answer.\"}"}

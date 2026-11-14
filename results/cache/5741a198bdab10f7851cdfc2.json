@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"Prof. Ansel Okafor\",\"confidence\":64,\"independent_sources\":1,\"reasoning\":\"Source 1 explicitly says Prof. Ansel Okafor led the excavation at Tel Maridun. Source 2 gives a different leader, so the retrieved sources conflict and only one independent source supports this answer.\"}"}

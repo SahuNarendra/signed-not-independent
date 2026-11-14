@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"Aurelia Air\",\"confidence\":97,\"independent_sources\":1,\"reasoning\":\"Source 2 directly states that Aurelia Air will open a hub at Castellane Airfield. Source 1 names a different airline (Northwind Regional), so it does not support the same answer.\"}"}

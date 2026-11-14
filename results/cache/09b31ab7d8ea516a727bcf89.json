@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "coder-v1", "text": "The reply first gives 1,800 in its \"answer\" field, but its reasoning and override say 650. It then issues a correction, which it presents as the clean final object, and that gives \"650 passengers\" as the answer. The final commitment is therefore B.\n\nB"}

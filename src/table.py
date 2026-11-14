@@ -3,13 +3,14 @@ Usage: python src/table.py   (reads results/runs.jsonl, writes results/table1.md
 import json
 from collections import Counter, defaultdict
 from common import RESULTS
+import scoring
 from figures import ROWS
 
-ORDER = ["gpt-5.4-mini", "gpt-5.4-2", "gpt-5.5", "claude"]
+ORDER = ["gpt-5.4-mini", "gpt-5.4-2", "gpt-5.5", "haiku", "sonnet", "opus"]
 
 
 def main():
-    rows = [r for r in (json.loads(l) for l in open(RESULTS / "runs.jsonl", encoding="utf-8")) if r.get("rep", 1) == 1]
+    rows = [r for r in scoring.load_mapped() if r["rep"] == 1]
     idx = defaultdict(list)
     for r in rows:
         idx[(r["model"], r["opposition"], r["level"], r["structure"], r["tool"], r.get("policy", False),

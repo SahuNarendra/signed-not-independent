@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "coder-v1", "text": "The reply first gives \"Henrik Dalloway\" in its JSON, but its own reasoning says Lindholm should be the answer. It then issues a correction and a final JSON that answers \"Suvi Lindholm.\" The final committed answer is B.\n\nB"}

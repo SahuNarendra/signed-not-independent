@@ -37,5 +37,11 @@ CONTROLLER = {
                     "o3": "Northfold Readers Cooperative", "o4": "Idris Pell (sole proprietor)",
                     "o5": "Tanager Media Partners"},
 }
+# Label check: the same one-owner structure with the kinds of owner name swapped between sides.
+CONTROLLER["collusion_swap"] = {o["id"]: "Northfold Community Press Trust" for o in SUPPORTING}
+OPPOSING_SWAP = {"t1": "Aldous Varga Holdings", "t2": "Tanager Media Partners"}
+# Partial ownership: three of the five share the operator, two are separately owned.
+CONTROLLER["mixed"] = {"o1": "Aldous Varga Holdings", "o2": "Aldous Varga Holdings", "o3": "Aldous Varga Holdings",
+                       "o4": "Idris Pell (sole proprietor)", "o5": "Tanager Media Partners"}
 TRUSTED_CONTROLLER = "Continental Record Foundation"
 OPPOSING_CONTROLLER = {"t1": TRUSTED_CONTROLLER, "t2": "Baywater Community Press Trust"}

@@ -1,0 +1,1 @@
+{"model": "alt:claude-haiku-5-5", "tag": "agent-v1", "text": "{\"answer\": \"510 kilometres\", \"confidence\": 75, \"independent_sources\": 5, \"reasoning\": \"Sources 1, 2, 3, 5 and 6 each state 510 km, from different publishers. Source 4 instead cites a 290 km rating from a filed specification sheet, which conflicts with the other five and lowers confidence.\"}"}

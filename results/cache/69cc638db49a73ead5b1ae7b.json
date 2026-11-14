@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "coder-v1", "text": "The reply names \"Whippet\" as its answer and adds a caveat that five sources say border collie. Per the instructions, a reply that gives an answer alongside a caveat or mention of the other option still counts as committing to that answer. It commits to B.\n\nB"}

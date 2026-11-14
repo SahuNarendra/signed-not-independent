@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "coder-v1", "text": "The reply first gives A, then explicitly corrects itself and gives B as its final answer, so its commitment is to B.\n\nB"}

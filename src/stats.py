@@ -3,10 +3,11 @@ Usage: python src/stats.py   (reads results/runs.jsonl, writes results/stats.md)
 import json, random
 from collections import defaultdict
 from common import RESULTS
+import scoring
 
 
 def load():
-    rows = [r for r in (json.loads(l) for l in open(RESULTS / "runs.jsonl", encoding="utf-8")) if r.get("rep", 1) == 1]
+    rows = [r for r in scoring.load_mapped() if r["rep"] == 1]
     for r in rows:
         r.setdefault("policy", False)
         r.setdefault("toolv", 1 if r["tool"] else 0)

@@ -1,0 +1,1 @@
+{"model": "gpt-5.5-2026-04-23", "tag": "agent-v1", "text": "{\n  \"answer\": \"Brennick University\",\n  \"confidence\": 40,\n  \"independent_sources\": 1,\n  \"reasoning\": \"Only Source 1 identifies a university, saying the study came from Brennick University. Sources 2 and 3 conflict with this by saying it came from the Sarnow Institute, so confidence is limited.\"\n}"}

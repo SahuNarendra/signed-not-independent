@@ -38,44 +38,62 @@ Any of these may turn out false. Results are reported either way.
 - At the controller level there are two structures: one owner behind all five outlets, or five unrelated owners.
 - Opposition: nobody disagrees, one long-established outlet disagrees, or two unrelated outlets disagree (five against two).
 - Three fixes are tested: an origin count tool that groups sources by controlling owner and returns "unknown" when ownership is not attested, a one-line instruction to count origins and not documents, and a merge step in the harness that keeps one document per owner before the agent reads anything.
-- 49 conditions in total. 19 of them are the core set used for the larger models.
+- 19 core conditions run on every model. 28 further early conditions ran on gpt-5.4-mini only on the first day; they are in `results/runs.jsonl` and are not part of the report's tables.
+- Controls 1 (14 conditions, added 14 November after a review of the first draft): provenance on one side only, the tool with no instruction, a second wording of the instruction (the "majority instruction"), the merge with two other source orders, and the merged documents with no note.
+- Controls 2 (9 conditions, Claude models): one-sided provenance with the other side left blank, one sentence that permits "undetermined", and the owner names swapped between sides.
+- Controls 3 (8 conditions, Claude models): three of the five outlets under one owner, the tool without its closing sentence, and reasoning before the answer.
+- Second article set (4 conditions, Claude models): articles from a different writer with consistent details on each side (`data/articles2.json`, `results/runs_set2.jsonl`).
+- The report calls the origin count tool the "ownership note", because it is a paragraph of text in the prompt and not a tool call.
 
 The provenance check output is simulated text. No real signing takes place in this version.
 
 ## Run it
 
 ```
-pip install -r requirements.txt matplotlib
+pip install -r requirements.txt matplotlib reportlab
 copy .env.example .env        (then put your API keys in .env)
 python src/make_outlets.py
 python src/run_agents.py --models gpt-5.4-mini-2026-03-17
 python src/run_agents.py --core --models gpt-5.5-2026-04-23
 python src/run_agents.py --core --models alt:claude-sonnet-5-5
+python src/run_agents.py --controls --models alt:claude-sonnet-5-5
+python src/run_agents.py --controls2 --models alt:claude-sonnet-5-5
+python src/run_agents.py --controls3 --models alt:claude-sonnet-5-5
+python src/make_outlets.py --set2
+python src/run_agents.py --set2 --models alt:claude-sonnet-5-5
+python src/code_answers.py
+python src/code_answers.py --tiebreak alt:claude-opus-5-5
 python src/analyze.py
 python src/stats.py
+python src/extra.py
 python src/table.py
 python src/figures.py
+python src/schematic.py
+python src/repeat.py
+python paper/build_report.py
 ```
 
-- `--core` runs the 19 core conditions. Without it all 49 run.
+- `--core` runs the 19 core conditions.
+- `--controls`, `--controls2`, `--controls3` and `--set2` run the control sets above. `--lite` runs 5 of the first set.
+- `src/code_answers.py` runs the second scoring pass: answers that name both sides or neither are labelled by two coder models, and `--tiebreak` adds a third label where they disagree. `src/scoring.py` combines the passes.
 - `alt:` sends the model to the second provider set in `.env` (any OpenAI-compatible endpoint).
 - `--estimate --price-in X --price-out Y` prints the number of new calls and a cost range without calling anything.
 - `--rep 2` asks the same questions again, and `python src/repeat.py` reports how often the answer is the same.
 - `--limit N` uses the first N claims.
 
-Every model call is cached in `results/cache/`. With the cache present, all tables and the figure can be regenerated with no API key. Set `MOCK=1` to test the plumbing offline.
+Every model call is cached in `results/cache/`. With the cache present, all tables and figures can be regenerated with no API key. Set `MOCK=1` to test the plumbing offline.
 
 ## Results
 
-Five models, 40 claims each: gpt-5.4-mini (all 49 conditions), gpt-5.4, gpt-5.5, Claude Haiku 5.5 and Claude Sonnet 5.5 (19 core conditions each). Main table: `results/table1.md`. Figure: `results/fig_outcomes.png`. Paired statistics: `results/stats.md`. Repeat check: `results/repeat.md`.
+Six models, 40 claims each: gpt-5.4-mini, gpt-5.4, gpt-5.5, Claude Haiku 5.5, Claude Sonnet 5.5 and Claude Opus 5.5. All six ran the 19 core conditions. Five ran all of controls 1 and gpt-5.5 ran 5 of them. Controls 2 and 3 and the second article set ran on the three Claude models. The report is the reference for numbers; `results/table1.md`, `results/stats.md`, `results/extra.md` and `results/repeat.md` hold the full output. Figures: `results/fig_setup.png`, `results/fig_main.png`, `results/fig_outcomes.png`.
 
-1. A valid signature or a verified publisher made no measurable difference on any model.
-2. Telling the agent that one owner is behind all five outlets did matter, and models differed: two kept the planted answer, two mostly abstained, one moved to the answer with more independent origins behind it.
-3. An instruction to count origins removed most planted answers but made some models abstain when the sources really were independent.
-4. Merging by owner in the harness worked best. With one owner, four of the five models dropped the planted answer almost completely. With five real owners, all five kept it.
-5. Asked twice, the same model gave the same outcome in 88% (Haiku 5.5) and 93% (gpt-5.4-mini) of question and condition pairs.
+1. A valid signature or a verified publisher on every source made no measurable difference on any model, with acceptance already at the ceiling. A verified publisher on the dissenting outlet alone, with an explicit "no manifest found" line on the other five, cut planted answers sharply on three models. With the five left blank, only one of the three Claude models moved.
+2. Telling the model that one owner is behind all five outlets mattered on some models only. Against two dissenting outlets, two models moved to the dissenting answer, one split, and three kept the planted answer. Two of those three usually reported in the same reply that it had one independent source. For Sonnet 5.5 this weakened when the prompt allowed "undetermined", when reasoning came before the answer, and on the second article set.
+3. An instruction to count origins removed most planted answers. One wording also made some models decline to answer when the sources really were separately owned. A second wording did not, but left two models mostly unchanged.
+4. Merging by owner in the harness moved five of the six models to the other side, on three source orders, with no extra abstention on separately owned sources. The smallest model followed whichever source was listed first. Under partial ownership the merge cost one model answers that the second instruction kept.
+5. Asked twice, the same model gave the same outcome in 92% to 93% of question and condition pairs (gpt-5.4-mini, Haiku 5.5, Sonnet 5.5, Opus 5.5). Counts per condition moved by up to 7 of 40.
 
-H1 held. H2 was not supported. H3 and H4 held for some models only.
+H1 held. H2 was not supported. H3 held in part. H4 was not supported, except that the "unknown" output reduced acceptance together with the instruction. Every fix depends on a truthful ownership record, and five shell owners defeat it.
 
 ## Work done before the sprint
 
@@ -92,4 +110,4 @@ All outlets, people and claims are fictional. Nothing was published to the web. 
 ## Sprint log
 
 - 13 November: design, claim set, article writer, agent harness, analysis scripts, first runs on five models, first table and figure.
-- 14 November: five against two condition and harness merge on all five models, repeat runs, report draft.
+- 14 November: five against two condition and harness merge on all models, repeat runs, report draft, reviews of the draft, three sets of control conditions, sixth model, second article set, second scoring pass.

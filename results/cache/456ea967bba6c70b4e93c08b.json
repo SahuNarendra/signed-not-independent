@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "coder-v1", "text": "The reply says \"Unresolved\" and presents both candidates without preferring either. The confidence of 35 doesn't indicate a pick. It might lean toward B (2 independent origins vs. 1 origin), but it explicitly labels the question unresolved.\n\nN"}

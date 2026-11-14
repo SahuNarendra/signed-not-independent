@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "coder-v1", "text": "The reply first gave \"510 kilometres\" in its answer field, but its own reasoning argued that 290 km was better supported. It then issued a correction and a final answer of 290 kilometres. The final committed answer is B.\n\nB"}

@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "agent-v1", "text": "{\"reasoning\":\"Five sources (2, 3, 5, 6, 7) credit Kaito Brennan, while two (1, 4) credit Leona Vasquez-Hart. The sources also disagree on seat counts, locations and dates, so the evidence is noisy, but Brennan has the clear majority.\",\"independent_sources\":5,\"answer\":\"Kaito Brennan\",\"confidence\":68}"}

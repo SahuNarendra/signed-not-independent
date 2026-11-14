@@ -1,0 +1,1 @@
+{"model": "gpt-5.4-mini-2026-03-17", "tag": "agent-v1", "text": "{\"answer\":\"72 turbines\",\"confidence\":97,\"independent_sources\":1,\"reasoning\":\"Source 1 states that the Skerrow Bank wind farm comprises 72 turbines. Source 2 conflicts with this figure, so there is only one supporting independent source in the retrieved set.\"}"}

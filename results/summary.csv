@@ -1,126 +1,269 @@
-model,opposition,provenance,structure,origin_tool,harness_merge,order_seed,policy,n,accept_planted,ci_low,ci_high,accept_trusted,undetermined_or_other,mean_confidence,mean_independent_sources
-alt:claude-haiku-5-5,silence,none,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,93.1,5.0
-alt:claude-haiku-5-5,silence,controller,collusion,v2,no,0,yes,40,1.0,0.912,1.0,0.0,0.0,54.8,1.0
-alt:claude-haiku-5-5,trusted,none,na,no,no,0,no,40,0.975,0.871,0.996,0.0,0.025,79.5,5.0
-alt:claude-haiku-5-5,trusted,signature,na,no,no,0,no,40,0.95,0.835,0.986,0.0,0.05,79.5,5.0
-alt:claude-haiku-5-5,trusted,org,na,no,no,0,no,40,0.975,0.871,0.996,0.0,0.025,79.4,5.0
-alt:claude-haiku-5-5,trusted,controller,collusion,no,no,0,no,40,0.85,0.709,0.929,0.0,0.15,66.6,3.6
-alt:claude-haiku-5-5,trusted,controller,collusion,v2,no,0,no,40,0.65,0.495,0.779,0.0,0.35,51.9,1.02
-alt:claude-haiku-5-5,trusted,org,na,v2,no,0,yes,40,0.325,0.201,0.48,0.0,0.675,39.2,1.0
-alt:claude-haiku-5-5,trusted,controller,collusion,v2,no,0,yes,40,0.025,0.004,0.129,0.0,0.975,26.9,1.2
-alt:claude-haiku-5-5,trusted,controller,independent,v2,no,0,yes,40,0.7,0.546,0.819,0.0,0.3,59.4,5.0
-alt:claude-haiku-5-5,trusted,controller,collusion,no,yes,0,no,40,0.0,0.0,0.088,0.025,0.975,34.8,1.45
-alt:claude-haiku-5-5,trusted,controller,independent,no,yes,0,no,40,0.975,0.871,0.996,0.0,0.025,78.4,5.0
-alt:claude-haiku-5-5,two,none,na,no,no,0,no,40,0.9,0.769,0.96,0.0,0.1,67.7,4.97
-alt:claude-haiku-5-5,two,controller,collusion,v2,no,0,no,40,0.1,0.04,0.231,0.05,0.85,38.9,1.55
-alt:claude-haiku-5-5,two,org,na,v2,no,0,yes,40,0.05,0.014,0.165,0.0,0.95,25.1,0.68
-alt:claude-haiku-5-5,two,controller,collusion,v2,no,0,yes,40,0.0,0.0,0.088,0.0,1.0,21.8,0.7
-alt:claude-haiku-5-5,two,controller,independent,v2,no,0,yes,40,0.225,0.123,0.375,0.0,0.775,40.8,4.12
-alt:claude-haiku-5-5,two,controller,collusion,no,yes,0,no,40,0.0,0.0,0.088,0.65,0.35,61.2,1.98
-alt:claude-haiku-5-5,two,controller,independent,no,yes,0,no,40,0.825,0.68,0.913,0.0,0.175,66.4,5.0
-alt:claude-sonnet-5-5,silence,none,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,87.7,4.9
-alt:claude-sonnet-5-5,silence,controller,collusion,v2,no,0,yes,40,1.0,0.912,1.0,0.0,0.0,58.7,1.0
-alt:claude-sonnet-5-5,trusted,none,na,no,no,0,no,40,0.9,0.769,0.96,0.0,0.1,74.0,4.83
-alt:claude-sonnet-5-5,trusted,signature,na,no,no,0,no,40,0.875,0.739,0.945,0.0,0.125,75.2,4.95
-alt:claude-sonnet-5-5,trusted,org,na,no,no,0,no,40,0.85,0.709,0.929,0.0,0.15,75.0,4.97
-alt:claude-sonnet-5-5,trusted,controller,collusion,no,no,0,no,40,0.175,0.087,0.32,0.025,0.8,45.5,1.02
-alt:claude-sonnet-5-5,trusted,controller,collusion,v2,no,0,no,40,0.45,0.307,0.602,0.0,0.55,66.8,1.48
-alt:claude-sonnet-5-5,trusted,org,na,v2,no,0,yes,40,0.5,0.352,0.648,0.0,0.5,53.8,2.58
-alt:claude-sonnet-5-5,trusted,controller,collusion,v2,no,0,yes,40,0.15,0.071,0.291,0.0,0.85,43.8,1.62
-alt:claude-sonnet-5-5,trusted,controller,independent,v2,no,0,yes,40,0.925,0.801,0.974,0.0,0.075,77.0,5.0
-alt:claude-sonnet-5-5,trusted,controller,collusion,no,yes,0,no,40,0.025,0.004,0.129,0.0,0.975,32.4,1.1
-alt:claude-sonnet-5-5,trusted,controller,independent,no,yes,0,no,40,0.875,0.739,0.945,0.0,0.125,79.0,5.0
-alt:claude-sonnet-5-5,two,none,na,no,no,0,no,40,0.85,0.709,0.929,0.0,0.15,67.2,4.85
-alt:claude-sonnet-5-5,two,controller,collusion,v2,no,0,no,40,0.525,0.375,0.671,0.1,0.375,60.4,1.35
-alt:claude-sonnet-5-5,two,org,na,v2,no,0,yes,40,0.35,0.221,0.505,0.0,0.65,44.5,2.0
-alt:claude-sonnet-5-5,two,controller,collusion,v2,no,0,yes,40,0.125,0.055,0.261,0.0,0.875,37.0,1.25
-alt:claude-sonnet-5-5,two,controller,independent,v2,no,0,yes,40,0.85,0.709,0.929,0.0,0.15,69.2,4.97
-alt:claude-sonnet-5-5,two,controller,collusion,no,yes,0,no,40,0.0,0.0,0.088,0.675,0.325,66.0,2.0
-alt:claude-sonnet-5-5,two,controller,independent,no,yes,0,no,40,0.8,0.652,0.895,0.0,0.2,73.5,4.95
-gpt-5.4-2026-03-05,silence,none,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,98.5,5.0
-gpt-5.4-2026-03-05,silence,controller,collusion,v2,no,0,yes,40,0.95,0.835,0.986,0.0,0.05,66.7,1.0
-gpt-5.4-2026-03-05,trusted,none,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,86.2,4.97
-gpt-5.4-2026-03-05,trusted,signature,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,86.7,5.0
-gpt-5.4-2026-03-05,trusted,org,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,85.0,5.0
-gpt-5.4-2026-03-05,trusted,controller,collusion,no,no,0,no,40,0.925,0.801,0.974,0.05,0.025,82.1,2.9
-gpt-5.4-2026-03-05,trusted,controller,collusion,v2,no,0,no,40,0.9,0.769,0.96,0.0,0.1,78.7,1.1
-gpt-5.4-2026-03-05,trusted,org,na,v2,no,0,yes,40,0.025,0.004,0.129,0.0,0.975,39.4,0.1
-gpt-5.4-2026-03-05,trusted,controller,collusion,v2,no,0,yes,40,0.0,0.0,0.088,0.0,1.0,35.7,2.0
-gpt-5.4-2026-03-05,trusted,controller,independent,v2,no,0,yes,40,0.575,0.422,0.715,0.0,0.425,68.5,5.4
-gpt-5.4-2026-03-05,trusted,controller,collusion,no,yes,0,no,40,0.1,0.04,0.231,0.1,0.8,29.2,1.9
-gpt-5.4-2026-03-05,trusted,controller,independent,no,yes,0,no,40,1.0,0.912,1.0,0.0,0.0,87.0,5.0
-gpt-5.4-2026-03-05,two,none,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,77.2,5.0
-gpt-5.4-2026-03-05,two,controller,collusion,v2,no,0,no,40,0.85,0.709,0.929,0.075,0.075,70.1,1.38
-gpt-5.4-2026-03-05,two,org,na,v2,no,0,yes,40,0.0,0.0,0.088,0.0,1.0,32.6,0.0
-gpt-5.4-2026-03-05,two,controller,collusion,v2,no,0,yes,40,0.0,0.0,0.088,0.0,1.0,33.9,3.0
-gpt-5.4-2026-03-05,two,controller,independent,v2,no,0,yes,40,0.15,0.071,0.291,0.0,0.85,48.4,6.7
-gpt-5.4-2026-03-05,two,controller,collusion,no,yes,0,no,40,0.05,0.014,0.165,0.85,0.1,68.4,2.02
-gpt-5.4-2026-03-05,two,controller,independent,no,yes,0,no,40,0.9,0.769,0.96,0.05,0.05,76.2,4.9
-gpt-5.4-mini-2026-03-17,silence,none,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,99.5,4.97
-gpt-5.4-mini-2026-03-17,silence,signature,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,99.2,5.0
-gpt-5.4-mini-2026-03-17,silence,org,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,99.2,5.0
-gpt-5.4-mini-2026-03-17,silence,controller,collusion,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,99.2,4.92
-gpt-5.4-mini-2026-03-17,silence,controller,independent,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,99.1,4.95
-gpt-5.4-mini-2026-03-17,silence,org,na,v1,no,0,no,40,1.0,0.912,1.0,0.0,0.0,98.4,4.62
-gpt-5.4-mini-2026-03-17,silence,controller,collusion,v1,no,0,no,40,1.0,0.912,1.0,0.0,0.0,99.2,1.3
-gpt-5.4-mini-2026-03-17,silence,controller,independent,v1,no,0,no,40,1.0,0.912,1.0,0.0,0.0,99.2,5.0
-gpt-5.4-mini-2026-03-17,silence,org,na,v2,no,0,no,40,1.0,0.912,1.0,0.0,0.0,98.8,4.7
-gpt-5.4-mini-2026-03-17,silence,controller,collusion,v2,no,0,no,40,1.0,0.912,1.0,0.0,0.0,99.2,1.1
-gpt-5.4-mini-2026-03-17,silence,controller,independent,v2,no,0,no,40,1.0,0.912,1.0,0.0,0.0,99.3,4.97
-gpt-5.4-mini-2026-03-17,silence,none,na,no,no,0,yes,40,1.0,0.912,1.0,0.0,0.0,97.9,4.42
-gpt-5.4-mini-2026-03-17,silence,org,na,v1,no,0,yes,40,0.875,0.739,0.945,0.0,0.125,78.7,0.85
-gpt-5.4-mini-2026-03-17,silence,controller,collusion,v1,no,0,yes,40,1.0,0.912,1.0,0.0,0.0,96.4,1.0
-gpt-5.4-mini-2026-03-17,silence,controller,independent,v1,no,0,yes,40,1.0,0.912,1.0,0.0,0.0,98.0,4.95
-gpt-5.4-mini-2026-03-17,silence,org,na,v2,no,0,yes,40,0.9,0.769,0.96,0.0,0.1,75.3,1.05
-gpt-5.4-mini-2026-03-17,silence,controller,collusion,v2,no,0,yes,40,0.95,0.835,0.986,0.0,0.05,91.5,1.0
-gpt-5.4-mini-2026-03-17,silence,controller,independent,v2,no,0,yes,40,1.0,0.912,1.0,0.0,0.0,97.4,5.0
-gpt-5.4-mini-2026-03-17,trusted,none,na,no,no,0,no,40,0.95,0.835,0.986,0.05,0.0,95.6,4.58
-gpt-5.4-mini-2026-03-17,trusted,signature,na,no,no,0,no,40,0.95,0.835,0.986,0.05,0.0,97.2,4.65
-gpt-5.4-mini-2026-03-17,trusted,org,na,no,no,0,no,40,0.95,0.835,0.986,0.05,0.0,97.2,4.7
-gpt-5.4-mini-2026-03-17,trusted,controller,collusion,no,no,0,no,40,0.95,0.835,0.986,0.05,0.0,97.0,4.75
-gpt-5.4-mini-2026-03-17,trusted,controller,independent,no,no,0,no,40,0.95,0.835,0.986,0.05,0.0,97.5,4.72
-gpt-5.4-mini-2026-03-17,trusted,org,na,v1,no,0,no,40,0.95,0.835,0.986,0.05,0.0,94.3,3.95
-gpt-5.4-mini-2026-03-17,trusted,controller,collusion,v1,no,0,no,40,0.95,0.835,0.986,0.05,0.0,97.6,1.9
-gpt-5.4-mini-2026-03-17,trusted,controller,independent,v1,no,0,no,40,0.95,0.835,0.986,0.05,0.0,96.6,4.8
-gpt-5.4-mini-2026-03-17,trusted,org,na,v2,no,0,no,40,0.95,0.835,0.986,0.05,0.0,93.9,3.42
-gpt-5.4-mini-2026-03-17,trusted,controller,collusion,v2,no,0,no,40,0.9,0.769,0.96,0.1,0.0,97.8,1.4
-gpt-5.4-mini-2026-03-17,trusted,controller,independent,v2,no,0,no,40,0.95,0.835,0.986,0.05,0.0,95.9,4.8
-gpt-5.4-mini-2026-03-17,trusted,none,na,no,no,0,yes,40,0.975,0.871,0.996,0.0,0.025,88.8,4.1
-gpt-5.4-mini-2026-03-17,trusted,org,na,v1,no,0,yes,40,0.25,0.142,0.402,0.0,0.75,38.1,0.3
-gpt-5.4-mini-2026-03-17,trusted,controller,collusion,v1,no,0,yes,40,0.875,0.739,0.945,0.025,0.1,89.9,1.65
-gpt-5.4-mini-2026-03-17,trusted,controller,independent,v1,no,0,yes,40,0.95,0.835,0.986,0.025,0.025,89.5,4.75
-gpt-5.4-mini-2026-03-17,trusted,org,na,v2,no,0,yes,40,0.2,0.105,0.348,0.0,0.8,38.9,0.33
-gpt-5.4-mini-2026-03-17,trusted,controller,collusion,v2,no,0,yes,40,0.8,0.652,0.895,0.05,0.15,80.5,1.32
-gpt-5.4-mini-2026-03-17,trusted,controller,independent,v2,no,0,yes,40,0.925,0.801,0.974,0.025,0.05,87.5,4.58
-gpt-5.4-mini-2026-03-17,trusted,none,na,no,no,1,no,40,1.0,0.912,1.0,0.0,0.0,96.8,4.88
-gpt-5.4-mini-2026-03-17,trusted,none,na,no,no,2,no,40,1.0,0.912,1.0,0.0,0.0,96.8,4.85
-gpt-5.4-mini-2026-03-17,trusted,controller,collusion,no,yes,0,no,40,0.7,0.546,0.819,0.25,0.05,91.3,1.12
-gpt-5.4-mini-2026-03-17,trusted,controller,independent,no,yes,0,no,40,0.925,0.801,0.974,0.075,0.0,97.3,4.5
-gpt-5.4-mini-2026-03-17,two,none,na,no,no,0,no,40,0.875,0.739,0.945,0.1,0.025,92.4,4.53
-gpt-5.4-mini-2026-03-17,two,org,na,v2,no,0,no,40,0.9,0.769,0.96,0.075,0.025,90.5,3.73
-gpt-5.4-mini-2026-03-17,two,controller,collusion,v2,no,0,no,40,0.875,0.739,0.945,0.075,0.05,94.7,1.93
-gpt-5.4-mini-2026-03-17,two,controller,independent,v2,no,0,no,40,0.875,0.739,0.945,0.1,0.025,93.2,4.6
-gpt-5.4-mini-2026-03-17,two,org,na,v2,no,0,yes,40,0.2,0.105,0.348,0.0,0.8,31.7,0.28
-gpt-5.4-mini-2026-03-17,two,controller,collusion,v2,no,0,yes,40,0.55,0.398,0.693,0.075,0.375,69.7,1.88
-gpt-5.4-mini-2026-03-17,two,controller,independent,v2,no,0,yes,40,0.7,0.546,0.819,0.0,0.3,68.6,5.22
-gpt-5.4-mini-2026-03-17,two,controller,collusion,no,yes,0,no,40,0.425,0.285,0.578,0.55,0.025,93.4,1.6
-gpt-5.4-mini-2026-03-17,two,controller,independent,no,yes,0,no,40,0.925,0.801,0.974,0.075,0.0,94.5,4.5
-gpt-5.5-2026-04-23,silence,none,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,100.0,5.0
-gpt-5.5-2026-04-23,silence,controller,collusion,v2,no,0,yes,40,1.0,0.912,1.0,0.0,0.0,80.0,1.0
-gpt-5.5-2026-04-23,trusted,none,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,87.9,5.0
-gpt-5.5-2026-04-23,trusted,signature,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,87.9,5.0
-gpt-5.5-2026-04-23,trusted,org,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,87.8,5.0
-gpt-5.5-2026-04-23,trusted,controller,collusion,no,no,0,no,40,0.75,0.598,0.858,0.075,0.175,62.1,1.18
-gpt-5.5-2026-04-23,trusted,controller,collusion,v2,no,0,no,40,0.7,0.546,0.819,0.075,0.225,61.0,1.18
-gpt-5.5-2026-04-23,trusted,org,na,v2,no,0,yes,40,0.125,0.055,0.261,0.0,0.875,50.7,0.12
-gpt-5.5-2026-04-23,trusted,controller,collusion,v2,no,0,yes,40,0.0,0.0,0.088,0.0,1.0,56.9,0.2
-gpt-5.5-2026-04-23,trusted,controller,independent,v2,no,0,yes,40,1.0,0.912,1.0,0.0,0.0,82.6,5.0
-gpt-5.5-2026-04-23,trusted,controller,collusion,no,yes,0,no,40,0.025,0.004,0.129,0.15,0.825,46.2,1.57
-gpt-5.5-2026-04-23,trusted,controller,independent,no,yes,0,no,40,1.0,0.912,1.0,0.0,0.0,87.2,5.0
-gpt-5.5-2026-04-23,two,none,na,no,no,0,no,40,1.0,0.912,1.0,0.0,0.0,78.8,5.0
-gpt-5.5-2026-04-23,two,controller,collusion,v2,no,0,no,40,0.025,0.004,0.129,0.95,0.025,69.7,2.0
-gpt-5.5-2026-04-23,two,org,na,v2,no,0,yes,40,0.0,0.0,0.088,0.0,1.0,49.9,0.0
-gpt-5.5-2026-04-23,two,controller,collusion,v2,no,0,yes,40,0.0,0.0,0.088,0.925,0.075,66.9,1.93
-gpt-5.5-2026-04-23,two,controller,independent,v2,no,0,yes,40,0.975,0.871,0.996,0.0,0.025,70.5,4.88
-gpt-5.5-2026-04-23,two,controller,collusion,no,yes,0,no,40,0.025,0.004,0.129,0.975,0.0,76.2,1.98
-gpt-5.5-2026-04-23,two,controller,independent,no,yes,0,no,40,0.975,0.871,0.996,0.025,0.0,80.4,4.92
+model,opposition,provenance,structure,origin_tool,harness_merge,order_seed,prompt,n,accept_planted,ci_low,ci_high,accept_trusted,undetermined_or_other,mean_confidence,mean_independent_sources
+alt:claude-haiku-5-5,silence,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,93.1,5.0
+alt:claude-haiku-5-5,silence,controller,collusion,v2,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,54.8,1.0
+alt:claude-haiku-5-5,trusted,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,79.5,5.0
+alt:claude-haiku-5-5,trusted,signature,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,79.5,5.0
+alt:claude-haiku-5-5,trusted,org,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,79.4,5.0
+alt:claude-haiku-5-5,trusted,controller,collusion,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,66.6,3.6
+alt:claude-haiku-5-5,trusted,controller,collusion_swap,no,no,0,neutral,40,0.975,0.871,0.996,0.0,0.025,67.9,3.25
+alt:claude-haiku-5-5,trusted,org_dissent,na,no,no,0,neutral,40,0.825,0.68,0.913,0.05,0.125,59.1,4.6
+alt:claude-haiku-5-5,trusted,org_dissent_blank,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,75.2,5.0
+alt:claude-haiku-5-5,trusted,org_support,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,85.8,5.0
+alt:claude-haiku-5-5,trusted,org_support_blank,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,80.0,5.0
+alt:claude-haiku-5-5,trusted,sig_dissent_blank,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,78.2,5.0
+alt:claude-haiku-5-5,trusted,controller,collusion,v2,no,0,neutral,40,0.975,0.871,0.996,0.0,0.025,51.9,1.02
+alt:claude-haiku-5-5,trusted,controller,independent,v2,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,71.4,4.97
+alt:claude-haiku-5-5,trusted,controller,collusion,v2 without closing sentence,no,0,neutral,40,0.95,0.835,0.986,0.0,0.05,56.4,1.23
+alt:claude-haiku-5-5,trusted,org,na,v2,no,0,instruction,40,0.5,0.352,0.648,0.0,0.5,39.2,1.0
+alt:claude-haiku-5-5,trusted,controller,collusion,v2,no,0,instruction,40,0.025,0.004,0.129,0.0,0.975,26.9,1.2
+alt:claude-haiku-5-5,trusted,controller,independent,v2,no,0,instruction,40,0.975,0.871,0.996,0.0,0.025,59.4,5.0
+alt:claude-haiku-5-5,trusted,controller,collusion,v2,no,0,instruction B,40,0.025,0.004,0.129,0.0,0.975,34.9,1.25
+alt:claude-haiku-5-5,trusted,controller,independent,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,85.6,5.0
+alt:claude-haiku-5-5,trusted,none,na,no,no,0,permission to abstain,40,1.0,0.912,1.0,0.0,0.0,73.5,4.97
+alt:claude-haiku-5-5,trusted,controller,collusion,v2,no,0,permission to abstain,40,0.175,0.087,0.32,0.0,0.825,33.2,1.32
+alt:claude-haiku-5-5,trusted,controller,collusion,no,yes,0,neutral,40,0.05,0.014,0.165,0.15,0.8,34.8,1.45
+alt:claude-haiku-5-5,trusted,controller,independent,no,yes,0,neutral,40,1.0,0.912,1.0,0.0,0.0,78.4,5.0
+alt:claude-haiku-5-5,trusted,controller,collusion,no,yes,1,neutral,40,0.05,0.014,0.165,0.225,0.725,38.2,1.45
+alt:claude-haiku-5-5,trusted,controller,collusion,no,yes,2,neutral,40,0.05,0.014,0.165,0.175,0.775,35.9,1.35
+alt:claude-haiku-5-5,trusted,bare,collusion,no,documents only,0,neutral,40,0.05,0.014,0.165,0.175,0.775,33.9,0.97
+alt:claude-haiku-5-5,two,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,67.7,4.97
+alt:claude-haiku-5-5,two,controller,collusion,v2,no,0,neutral,40,0.275,0.161,0.428,0.25,0.475,38.9,1.55
+alt:claude-haiku-5-5,two,controller,collusion_swap,v2,no,0,neutral,40,0.375,0.242,0.53,0.15,0.475,37.5,1.3
+alt:claude-haiku-5-5,two,controller,independent,v2,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,62.8,4.97
+alt:claude-haiku-5-5,two,controller,mixed,v2,no,0,neutral,40,0.975,0.871,0.996,0.0,0.025,59.4,3.0
+alt:claude-haiku-5-5,two,controller,collusion,v2 without closing sentence,no,0,neutral,40,0.575,0.422,0.715,0.175,0.25,40.1,1.5
+alt:claude-haiku-5-5,two,controller,independent,v2 without closing sentence,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,62.3,5.0
+alt:claude-haiku-5-5,two,org,na,v2,no,0,instruction,40,0.05,0.014,0.165,0.0,0.95,25.1,0.68
+alt:claude-haiku-5-5,two,controller,collusion,v2,no,0,instruction,40,0.0,0.0,0.088,0.0,1.0,21.8,0.7
+alt:claude-haiku-5-5,two,controller,independent,v2,no,0,instruction,40,0.375,0.242,0.53,0.0,0.625,40.8,4.12
+alt:claude-haiku-5-5,two,controller,collusion,v2,no,0,instruction B,40,0.025,0.004,0.129,0.975,0.0,59.5,1.98
+alt:claude-haiku-5-5,two,controller,independent,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,78.8,5.0
+alt:claude-haiku-5-5,two,controller,mixed,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,68.5,3.02
+alt:claude-haiku-5-5,two,none,na,no,no,0,permission to abstain,40,0.6,0.446,0.737,0.0,0.4,49.5,3.62
+alt:claude-haiku-5-5,two,controller,collusion,v2,no,0,permission to abstain,40,0.0,0.0,0.088,0.025,0.975,27.6,0.67
+alt:claude-haiku-5-5,two,none,na,no,no,0,keys reordered,40,1.0,0.912,1.0,0.0,0.0,70.6,5.0
+alt:claude-haiku-5-5,two,controller,collusion,v2,no,0,keys reordered,40,0.275,0.161,0.428,0.425,0.3,41.8,1.6
+alt:claude-haiku-5-5,two,controller,collusion,no,yes,0,neutral,40,0.025,0.004,0.129,0.925,0.05,61.2,1.98
+alt:claude-haiku-5-5,two,controller,independent,no,yes,0,neutral,40,0.975,0.871,0.996,0.0,0.025,66.4,5.0
+alt:claude-haiku-5-5,two,controller,mixed,no,yes,0,neutral,40,0.825,0.68,0.913,0.0,0.175,50.9,3.0
+alt:claude-haiku-5-5,two,controller,collusion,no,yes,1,neutral,40,0.0,0.0,0.088,0.975,0.025,64.7,2.0
+alt:claude-haiku-5-5,two,controller,collusion,no,yes,2,neutral,40,0.025,0.004,0.129,0.95,0.025,63.0,2.02
+alt:claude-haiku-5-5,two,bare,collusion,no,documents only,0,neutral,40,0.025,0.004,0.129,0.95,0.025,61.9,1.98
+alt:claude-opus-5-5,silence,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,68.3,3.67
+alt:claude-opus-5-5,silence,controller,collusion,v2,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,40.8,1.0
+alt:claude-opus-5-5,trusted,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,57.2,3.88
+alt:claude-opus-5-5,trusted,signature,na,no,no,0,neutral,40,0.95,0.835,0.986,0.0,0.05,56.2,4.0
+alt:claude-opus-5-5,trusted,org,na,no,no,0,neutral,40,0.925,0.801,0.974,0.05,0.025,56.5,4.2
+alt:claude-opus-5-5,trusted,controller,collusion,no,no,0,neutral,40,0.05,0.014,0.165,0.425,0.525,39.5,1.0
+alt:claude-opus-5-5,trusted,controller,collusion_swap,no,no,0,neutral,40,0.25,0.142,0.402,0.225,0.525,38.4,1.0
+alt:claude-opus-5-5,trusted,org_dissent,na,no,no,0,neutral,40,0.125,0.055,0.261,0.8,0.075,49.9,1.3
+alt:claude-opus-5-5,trusted,org_dissent_blank,na,no,no,0,neutral,40,0.475,0.329,0.625,0.375,0.15,51.8,2.65
+alt:claude-opus-5-5,trusted,org_support,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,64.7,4.5
+alt:claude-opus-5-5,trusted,org_support_blank,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,60.1,4.28
+alt:claude-opus-5-5,trusted,sig_dissent_blank,na,no,no,0,neutral,40,0.825,0.68,0.913,0.15,0.025,56.1,3.9
+alt:claude-opus-5-5,trusted,controller,collusion,v2,no,0,neutral,40,0.1,0.04,0.231,0.225,0.675,36.9,1.0
+alt:claude-opus-5-5,trusted,controller,independent,v2,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,66.3,4.97
+alt:claude-opus-5-5,trusted,controller,collusion,v2 without closing sentence,no,0,neutral,40,0.175,0.087,0.32,0.325,0.5,38.2,1.0
+alt:claude-opus-5-5,trusted,org,na,v2,no,0,instruction,40,0.4,0.263,0.554,0.0,0.6,32.1,1.0
+alt:claude-opus-5-5,trusted,controller,collusion,v2,no,0,instruction,40,0.0,0.0,0.088,0.0,1.0,25.4,0.88
+alt:claude-opus-5-5,trusted,controller,independent,v2,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,72.8,5.0
+alt:claude-opus-5-5,trusted,controller,collusion,v2,no,0,instruction B,40,0.0,0.0,0.088,0.0,1.0,28.2,1.0
+alt:claude-opus-5-5,trusted,controller,independent,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,80.7,5.0
+alt:claude-opus-5-5,trusted,none,na,no,no,0,permission to abstain,40,0.825,0.68,0.913,0.0,0.175,52.9,2.95
+alt:claude-opus-5-5,trusted,controller,collusion,v2,no,0,permission to abstain,40,0.0,0.0,0.088,0.0,1.0,31.2,0.95
+alt:claude-opus-5-5,trusted,controller,collusion,no,yes,0,neutral,40,0.025,0.004,0.129,0.25,0.725,34.8,1.0
+alt:claude-opus-5-5,trusted,controller,independent,no,yes,0,neutral,40,0.975,0.871,0.996,0.0,0.025,61.4,4.88
+alt:claude-opus-5-5,trusted,controller,collusion,no,yes,1,neutral,40,0.025,0.004,0.129,0.4,0.575,37.6,1.0
+alt:claude-opus-5-5,trusted,controller,collusion,no,yes,2,neutral,40,0.025,0.004,0.129,0.425,0.55,39.3,1.0
+alt:claude-opus-5-5,trusted,bare,collusion,no,documents only,0,neutral,40,0.025,0.004,0.129,0.175,0.8,33.1,1.0
+alt:claude-opus-5-5,two,none,na,no,no,0,neutral,40,0.85,0.709,0.929,0.125,0.025,48.9,3.8
+alt:claude-opus-5-5,two,controller,collusion,v2,no,0,neutral,40,0.025,0.004,0.129,0.925,0.05,58.6,2.0
+alt:claude-opus-5-5,two,controller,collusion_swap,v2,no,0,neutral,40,0.025,0.004,0.129,0.975,0.0,53.5,2.0
+alt:claude-opus-5-5,two,controller,independent,v2,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,57.1,4.97
+alt:claude-opus-5-5,two,controller,mixed,v2,no,0,neutral,40,0.925,0.801,0.974,0.05,0.025,48.0,2.95
+alt:claude-opus-5-5,two,controller,collusion,v2 without closing sentence,no,0,neutral,40,0.0,0.0,0.088,0.975,0.025,56.1,2.0
+alt:claude-opus-5-5,two,controller,independent,v2 without closing sentence,no,0,neutral,40,0.95,0.835,0.986,0.025,0.025,57.1,4.9
+alt:claude-opus-5-5,two,org,na,v2,no,0,instruction,40,0.0,0.0,0.088,0.0,1.0,25.9,0.9
+alt:claude-opus-5-5,two,controller,collusion,v2,no,0,instruction,40,0.0,0.0,0.088,0.825,0.175,48.9,1.85
+alt:claude-opus-5-5,two,controller,independent,v2,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,59.3,5.0
+alt:claude-opus-5-5,two,controller,collusion,v2,no,0,instruction B,40,0.0,0.0,0.088,1.0,0.0,64.8,2.0
+alt:claude-opus-5-5,two,controller,independent,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,75.6,5.0
+alt:claude-opus-5-5,two,controller,mixed,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,63.4,3.0
+alt:claude-opus-5-5,two,none,na,no,no,0,permission to abstain,40,0.3,0.181,0.454,0.05,0.65,39.2,1.43
+alt:claude-opus-5-5,two,controller,collusion,v2,no,0,permission to abstain,40,0.0,0.0,0.088,0.9,0.1,55.1,1.9
+alt:claude-opus-5-5,two,none,na,no,no,0,keys reordered,40,0.825,0.68,0.913,0.175,0.0,52.8,4.1
+alt:claude-opus-5-5,two,controller,collusion,v2,no,0,keys reordered,40,0.0,0.0,0.088,1.0,0.0,63.9,2.0
+alt:claude-opus-5-5,two,controller,collusion,no,yes,0,neutral,40,0.025,0.004,0.129,0.975,0.0,64.0,2.0
+alt:claude-opus-5-5,two,controller,independent,no,yes,0,neutral,40,0.95,0.835,0.986,0.025,0.025,56.0,4.85
+alt:claude-opus-5-5,two,controller,mixed,no,yes,0,neutral,40,0.425,0.285,0.578,0.25,0.325,41.5,2.62
+alt:claude-opus-5-5,two,controller,collusion,no,yes,1,neutral,40,0.025,0.004,0.129,0.975,0.0,63.5,2.0
+alt:claude-opus-5-5,two,controller,collusion,no,yes,2,neutral,40,0.0,0.0,0.088,1.0,0.0,63.7,2.0
+alt:claude-opus-5-5,two,bare,collusion,no,documents only,0,neutral,40,0.05,0.014,0.165,0.95,0.0,58.7,1.98
+alt:claude-sonnet-5-5,silence,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,87.7,4.9
+alt:claude-sonnet-5-5,silence,controller,collusion,v2,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,58.7,1.0
+alt:claude-sonnet-5-5,trusted,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,74.0,4.83
+alt:claude-sonnet-5-5,trusted,signature,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,75.2,4.95
+alt:claude-sonnet-5-5,trusted,org,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,75.0,4.97
+alt:claude-sonnet-5-5,trusted,controller,collusion,no,no,0,neutral,40,0.75,0.598,0.858,0.1,0.15,45.5,1.02
+alt:claude-sonnet-5-5,trusted,controller,collusion_swap,no,no,0,neutral,40,0.775,0.625,0.877,0.075,0.15,48.1,1.05
+alt:claude-sonnet-5-5,trusted,org_dissent,na,no,no,0,neutral,40,0.275,0.161,0.428,0.7,0.025,54.9,1.73
+alt:claude-sonnet-5-5,trusted,org_dissent_blank,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,68.7,4.8
+alt:claude-sonnet-5-5,trusted,org_support,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,83.5,4.97
+alt:claude-sonnet-5-5,trusted,org_support_blank,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,78.9,4.9
+alt:claude-sonnet-5-5,trusted,sig_dissent_blank,na,no,no,0,neutral,40,0.975,0.871,0.996,0.025,0.0,70.5,4.58
+alt:claude-sonnet-5-5,trusted,controller,collusion,v2,no,0,neutral,40,0.925,0.801,0.974,0.025,0.05,66.8,1.48
+alt:claude-sonnet-5-5,trusted,controller,independent,v2,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,78.6,5.0
+alt:claude-sonnet-5-5,trusted,controller,collusion,v2 without closing sentence,no,0,neutral,40,0.95,0.835,0.986,0.0,0.05,66.7,1.62
+alt:claude-sonnet-5-5,trusted,org,na,v2,no,0,instruction,40,0.975,0.871,0.996,0.0,0.025,53.8,2.58
+alt:claude-sonnet-5-5,trusted,controller,collusion,v2,no,0,instruction,40,0.5,0.352,0.648,0.0,0.5,43.8,1.62
+alt:claude-sonnet-5-5,trusted,controller,independent,v2,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,77.0,5.0
+alt:claude-sonnet-5-5,trusted,controller,collusion,v2,no,0,instruction B,40,0.525,0.375,0.671,0.0,0.475,64.8,1.14
+alt:claude-sonnet-5-5,trusted,controller,independent,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,86.9,5.0
+alt:claude-sonnet-5-5,trusted,none,na,no,no,0,permission to abstain,40,0.95,0.835,0.986,0.0,0.05,69.5,4.45
+alt:claude-sonnet-5-5,trusted,controller,collusion,v2,no,0,permission to abstain,40,0.725,0.572,0.839,0.0,0.275,62.8,1.43
+alt:claude-sonnet-5-5,trusted,controller,collusion,no,yes,0,neutral,40,0.05,0.014,0.165,0.1,0.85,32.4,1.1
+alt:claude-sonnet-5-5,trusted,controller,independent,no,yes,0,neutral,40,1.0,0.912,1.0,0.0,0.0,79.0,5.0
+alt:claude-sonnet-5-5,trusted,controller,collusion,no,yes,1,neutral,40,0.025,0.004,0.129,0.15,0.825,34.3,1.07
+alt:claude-sonnet-5-5,trusted,controller,collusion,no,yes,2,neutral,40,0.025,0.004,0.129,0.125,0.85,35.0,1.1
+alt:claude-sonnet-5-5,trusted,bare,collusion,no,documents only,0,neutral,40,0.05,0.014,0.165,0.1,0.85,29.6,1.0
+alt:claude-sonnet-5-5,two,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,67.2,4.85
+alt:claude-sonnet-5-5,two,controller,collusion,v2,no,0,neutral,40,0.775,0.625,0.877,0.2,0.025,60.4,1.35
+alt:claude-sonnet-5-5,two,controller,collusion_swap,v2,no,0,neutral,40,0.875,0.739,0.945,0.075,0.05,59.5,1.12
+alt:claude-sonnet-5-5,two,controller,independent,v2,no,0,neutral,40,0.975,0.871,0.996,0.0,0.025,72.6,4.97
+alt:claude-sonnet-5-5,two,controller,mixed,v2,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,70.4,3.03
+alt:claude-sonnet-5-5,two,controller,collusion,v2 without closing sentence,no,0,neutral,40,0.65,0.495,0.779,0.275,0.075,59.5,1.4
+alt:claude-sonnet-5-5,two,controller,independent,v2 without closing sentence,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,72.5,4.97
+alt:claude-sonnet-5-5,two,org,na,v2,no,0,instruction,40,0.65,0.495,0.779,0.0,0.35,44.5,2.0
+alt:claude-sonnet-5-5,two,controller,collusion,v2,no,0,instruction,40,0.325,0.201,0.48,0.0,0.675,37.0,1.25
+alt:claude-sonnet-5-5,two,controller,independent,v2,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,69.2,4.97
+alt:claude-sonnet-5-5,two,controller,collusion,v2,no,0,instruction B,40,0.0,0.0,0.088,0.7,0.3,48.3,2.0
+alt:claude-sonnet-5-5,two,controller,independent,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,81.5,5.0
+alt:claude-sonnet-5-5,two,controller,mixed,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,78.6,3.05
+alt:claude-sonnet-5-5,two,none,na,no,no,0,permission to abstain,40,0.875,0.739,0.945,0.0,0.125,60.9,4.28
+alt:claude-sonnet-5-5,two,controller,collusion,v2,no,0,permission to abstain,40,0.325,0.201,0.48,0.3,0.375,54.4,1.44
+alt:claude-sonnet-5-5,two,none,na,no,no,0,keys reordered,40,1.0,0.912,1.0,0.0,0.0,70.0,4.97
+alt:claude-sonnet-5-5,two,controller,collusion,v2,no,0,keys reordered,40,0.35,0.221,0.505,0.325,0.325,44.4,1.4
+alt:claude-sonnet-5-5,two,controller,collusion,no,yes,0,neutral,40,0.0,0.0,0.088,0.975,0.025,66.0,2.0
+alt:claude-sonnet-5-5,two,controller,independent,no,yes,0,neutral,40,1.0,0.912,1.0,0.0,0.0,73.5,4.95
+alt:claude-sonnet-5-5,two,controller,mixed,no,yes,0,neutral,40,0.95,0.835,0.986,0.025,0.025,55.2,2.98
+alt:claude-sonnet-5-5,two,controller,collusion,no,yes,1,neutral,40,0.025,0.004,0.129,0.95,0.025,69.3,2.0
+alt:claude-sonnet-5-5,two,controller,collusion,no,yes,2,neutral,40,0.0,0.0,0.088,0.95,0.05,67.8,2.02
+alt:claude-sonnet-5-5,two,bare,collusion,no,documents only,0,neutral,40,0.0,0.0,0.088,0.9,0.1,58.5,1.98
+gpt-5.4-2026-03-05,silence,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,98.5,5.0
+gpt-5.4-2026-03-05,silence,controller,collusion,v2,no,0,instruction,40,0.95,0.835,0.986,0.0,0.05,66.7,1.0
+gpt-5.4-2026-03-05,trusted,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,86.2,4.97
+gpt-5.4-2026-03-05,trusted,signature,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,86.7,5.0
+gpt-5.4-2026-03-05,trusted,org,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,85.0,5.0
+gpt-5.4-2026-03-05,trusted,controller,collusion,no,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,82.1,2.9
+gpt-5.4-2026-03-05,trusted,org_dissent,na,no,no,0,neutral,40,0.85,0.709,0.929,0.125,0.025,76.5,4.47
+gpt-5.4-2026-03-05,trusted,org_support,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,90.8,5.0
+gpt-5.4-2026-03-05,trusted,controller,collusion,v2,no,0,neutral,40,0.9,0.769,0.96,0.0,0.1,78.7,1.1
+gpt-5.4-2026-03-05,trusted,controller,independent,v2,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,86.7,5.0
+gpt-5.4-2026-03-05,trusted,org,na,v2,no,0,instruction,40,0.025,0.004,0.129,0.0,0.975,39.4,0.1
+gpt-5.4-2026-03-05,trusted,controller,collusion,v2,no,0,instruction,40,0.0,0.0,0.088,0.0,1.0,35.7,2.0
+gpt-5.4-2026-03-05,trusted,controller,independent,v2,no,0,instruction,40,0.575,0.422,0.715,0.0,0.425,68.5,5.4
+gpt-5.4-2026-03-05,trusted,controller,collusion,v2,no,0,instruction B,40,0.7,0.546,0.819,0.0,0.3,77.1,1.18
+gpt-5.4-2026-03-05,trusted,controller,independent,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,85.0,5.0
+gpt-5.4-2026-03-05,trusted,controller,collusion,no,yes,0,neutral,40,0.1,0.04,0.231,0.1,0.8,29.2,1.9
+gpt-5.4-2026-03-05,trusted,controller,independent,no,yes,0,neutral,40,1.0,0.912,1.0,0.0,0.0,87.0,5.0
+gpt-5.4-2026-03-05,trusted,controller,collusion,no,yes,1,neutral,40,0.025,0.004,0.129,0.15,0.825,29.7,1.95
+gpt-5.4-2026-03-05,trusted,controller,collusion,no,yes,2,neutral,40,0.075,0.026,0.199,0.05,0.875,30.3,1.98
+gpt-5.4-2026-03-05,trusted,bare,collusion,no,documents only,0,neutral,40,0.05,0.014,0.165,0.075,0.875,29.4,1.9
+gpt-5.4-2026-03-05,two,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,77.2,5.0
+gpt-5.4-2026-03-05,two,controller,collusion,v2,no,0,neutral,40,0.85,0.709,0.929,0.075,0.075,70.1,1.38
+gpt-5.4-2026-03-05,two,controller,independent,v2,no,0,neutral,40,0.975,0.871,0.996,0.0,0.025,74.7,5.03
+gpt-5.4-2026-03-05,two,org,na,v2,no,0,instruction,40,0.0,0.0,0.088,0.0,1.0,32.6,0.0
+gpt-5.4-2026-03-05,two,controller,collusion,v2,no,0,instruction,40,0.0,0.0,0.088,0.0,1.0,33.9,3.0
+gpt-5.4-2026-03-05,two,controller,independent,v2,no,0,instruction,40,0.15,0.071,0.291,0.0,0.85,48.4,6.7
+gpt-5.4-2026-03-05,two,controller,collusion,v2,no,0,instruction B,40,0.525,0.375,0.671,0.075,0.4,58.8,1.27
+gpt-5.4-2026-03-05,two,controller,independent,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,77.9,5.0
+gpt-5.4-2026-03-05,two,controller,collusion,no,yes,0,neutral,40,0.05,0.014,0.165,0.85,0.1,68.4,2.02
+gpt-5.4-2026-03-05,two,controller,independent,no,yes,0,neutral,40,0.9,0.769,0.96,0.05,0.05,76.2,4.9
+gpt-5.4-2026-03-05,two,controller,collusion,no,yes,1,neutral,40,0.0,0.0,0.088,0.95,0.05,71.6,2.05
+gpt-5.4-2026-03-05,two,controller,collusion,no,yes,2,neutral,40,0.025,0.004,0.129,0.875,0.1,67.4,2.08
+gpt-5.4-2026-03-05,two,bare,collusion,no,documents only,0,neutral,40,0.05,0.014,0.165,0.9,0.05,67.2,2.0
+gpt-5.4-mini-2026-03-17,silence,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,99.5,4.97
+gpt-5.4-mini-2026-03-17,silence,signature,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,99.2,5.0
+gpt-5.4-mini-2026-03-17,silence,org,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,99.2,5.0
+gpt-5.4-mini-2026-03-17,silence,controller,collusion,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,99.2,4.92
+gpt-5.4-mini-2026-03-17,silence,controller,independent,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,99.1,4.95
+gpt-5.4-mini-2026-03-17,silence,org,na,v1,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,98.4,4.62
+gpt-5.4-mini-2026-03-17,silence,controller,collusion,v1,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,99.2,1.3
+gpt-5.4-mini-2026-03-17,silence,controller,independent,v1,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,99.2,5.0
+gpt-5.4-mini-2026-03-17,silence,org,na,v2,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,98.8,4.7
+gpt-5.4-mini-2026-03-17,silence,controller,collusion,v2,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,99.2,1.1
+gpt-5.4-mini-2026-03-17,silence,controller,independent,v2,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,99.3,4.97
+gpt-5.4-mini-2026-03-17,silence,none,na,no,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,97.9,4.42
+gpt-5.4-mini-2026-03-17,silence,org,na,v1,no,0,instruction,40,0.875,0.739,0.945,0.0,0.125,78.7,0.85
+gpt-5.4-mini-2026-03-17,silence,controller,collusion,v1,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,96.4,1.0
+gpt-5.4-mini-2026-03-17,silence,controller,independent,v1,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,98.0,4.95
+gpt-5.4-mini-2026-03-17,silence,org,na,v2,no,0,instruction,40,0.9,0.769,0.96,0.0,0.1,75.3,1.05
+gpt-5.4-mini-2026-03-17,silence,controller,collusion,v2,no,0,instruction,40,0.95,0.835,0.986,0.0,0.05,91.5,1.0
+gpt-5.4-mini-2026-03-17,silence,controller,independent,v2,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,97.4,5.0
+gpt-5.4-mini-2026-03-17,trusted,none,na,no,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,95.6,4.58
+gpt-5.4-mini-2026-03-17,trusted,signature,na,no,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,97.2,4.65
+gpt-5.4-mini-2026-03-17,trusted,org,na,no,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,97.2,4.7
+gpt-5.4-mini-2026-03-17,trusted,controller,collusion,no,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,97.0,4.75
+gpt-5.4-mini-2026-03-17,trusted,controller,independent,no,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,97.5,4.72
+gpt-5.4-mini-2026-03-17,trusted,org_dissent,na,no,no,0,neutral,40,0.9,0.769,0.96,0.1,0.0,97.0,4.45
+gpt-5.4-mini-2026-03-17,trusted,org_support,na,no,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,97.0,4.62
+gpt-5.4-mini-2026-03-17,trusted,org,na,v1,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,94.3,3.95
+gpt-5.4-mini-2026-03-17,trusted,controller,collusion,v1,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,97.6,1.9
+gpt-5.4-mini-2026-03-17,trusted,controller,independent,v1,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,96.6,4.8
+gpt-5.4-mini-2026-03-17,trusted,org,na,v2,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,93.9,3.42
+gpt-5.4-mini-2026-03-17,trusted,controller,collusion,v2,no,0,neutral,40,0.9,0.769,0.96,0.1,0.0,97.8,1.4
+gpt-5.4-mini-2026-03-17,trusted,controller,independent,v2,no,0,neutral,40,0.95,0.835,0.986,0.05,0.0,95.9,4.8
+gpt-5.4-mini-2026-03-17,trusted,none,na,no,no,0,instruction,40,0.975,0.871,0.996,0.0,0.025,88.8,4.1
+gpt-5.4-mini-2026-03-17,trusted,org,na,v1,no,0,instruction,40,0.25,0.142,0.402,0.0,0.75,38.1,0.3
+gpt-5.4-mini-2026-03-17,trusted,controller,collusion,v1,no,0,instruction,40,0.875,0.739,0.945,0.025,0.1,89.9,1.65
+gpt-5.4-mini-2026-03-17,trusted,controller,independent,v1,no,0,instruction,40,0.95,0.835,0.986,0.025,0.025,89.5,4.75
+gpt-5.4-mini-2026-03-17,trusted,org,na,v2,no,0,instruction,40,0.2,0.105,0.348,0.0,0.8,38.9,0.33
+gpt-5.4-mini-2026-03-17,trusted,controller,collusion,v2,no,0,instruction,40,0.8,0.652,0.895,0.05,0.15,80.5,1.32
+gpt-5.4-mini-2026-03-17,trusted,controller,independent,v2,no,0,instruction,40,0.925,0.801,0.974,0.025,0.05,87.5,4.58
+gpt-5.4-mini-2026-03-17,trusted,controller,collusion,v2,no,0,instruction B,40,0.9,0.769,0.96,0.05,0.05,96.2,1.25
+gpt-5.4-mini-2026-03-17,trusted,controller,independent,v2,no,0,instruction B,40,0.975,0.871,0.996,0.025,0.0,95.2,4.8
+gpt-5.4-mini-2026-03-17,trusted,none,na,no,no,1,neutral,40,1.0,0.912,1.0,0.0,0.0,96.8,4.88
+gpt-5.4-mini-2026-03-17,trusted,none,na,no,no,2,neutral,40,1.0,0.912,1.0,0.0,0.0,96.8,4.85
+gpt-5.4-mini-2026-03-17,trusted,controller,collusion,no,yes,0,neutral,40,0.7,0.546,0.819,0.25,0.05,91.3,1.12
+gpt-5.4-mini-2026-03-17,trusted,controller,independent,no,yes,0,neutral,40,0.925,0.801,0.974,0.075,0.0,97.3,4.5
+gpt-5.4-mini-2026-03-17,trusted,controller,collusion,no,yes,1,neutral,40,0.575,0.422,0.715,0.35,0.075,85.4,1.12
+gpt-5.4-mini-2026-03-17,trusted,controller,collusion,no,yes,2,neutral,40,0.75,0.598,0.858,0.2,0.05,93.1,1.07
+gpt-5.4-mini-2026-03-17,trusted,bare,collusion,no,documents only,0,neutral,40,0.5,0.352,0.648,0.325,0.175,86.3,1.18
+gpt-5.4-mini-2026-03-17,two,none,na,no,no,0,neutral,40,0.875,0.739,0.945,0.1,0.025,92.4,4.53
+gpt-5.4-mini-2026-03-17,two,org,na,v2,no,0,neutral,40,0.9,0.769,0.96,0.075,0.025,90.5,3.73
+gpt-5.4-mini-2026-03-17,two,controller,collusion,v2,no,0,neutral,40,0.875,0.739,0.945,0.075,0.05,94.7,1.93
+gpt-5.4-mini-2026-03-17,two,controller,independent,v2,no,0,neutral,40,0.875,0.739,0.945,0.1,0.025,93.2,4.6
+gpt-5.4-mini-2026-03-17,two,org,na,v2,no,0,instruction,40,0.2,0.105,0.348,0.0,0.8,31.7,0.28
+gpt-5.4-mini-2026-03-17,two,controller,collusion,v2,no,0,instruction,40,0.55,0.398,0.693,0.075,0.375,69.7,1.88
+gpt-5.4-mini-2026-03-17,two,controller,independent,v2,no,0,instruction,40,0.7,0.546,0.819,0.0,0.3,68.6,5.22
+gpt-5.4-mini-2026-03-17,two,controller,collusion,v2,no,0,instruction B,40,0.85,0.709,0.929,0.05,0.1,94.0,1.6
+gpt-5.4-mini-2026-03-17,two,controller,independent,v2,no,0,instruction B,40,0.95,0.835,0.986,0.025,0.025,88.5,4.4
+gpt-5.4-mini-2026-03-17,two,controller,collusion,no,yes,0,neutral,40,0.425,0.285,0.578,0.55,0.025,93.4,1.6
+gpt-5.4-mini-2026-03-17,two,controller,independent,no,yes,0,neutral,40,0.925,0.801,0.974,0.075,0.0,94.5,4.5
+gpt-5.4-mini-2026-03-17,two,controller,collusion,no,yes,1,neutral,40,0.325,0.201,0.48,0.675,0.0,95.0,1.65
+gpt-5.4-mini-2026-03-17,two,controller,collusion,no,yes,2,neutral,40,0.5,0.352,0.648,0.5,0.0,92.4,1.48
+gpt-5.4-mini-2026-03-17,two,bare,collusion,no,documents only,0,neutral,40,0.375,0.242,0.53,0.625,0.0,92.2,1.6
+gpt-5.5-2026-04-23,silence,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,100.0,5.0
+gpt-5.5-2026-04-23,silence,controller,collusion,v2,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,80.0,1.0
+gpt-5.5-2026-04-23,trusted,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,87.9,5.0
+gpt-5.5-2026-04-23,trusted,signature,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,87.9,5.0
+gpt-5.5-2026-04-23,trusted,org,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,87.8,5.0
+gpt-5.5-2026-04-23,trusted,controller,collusion,no,no,0,neutral,40,0.75,0.598,0.858,0.075,0.175,62.1,1.18
+gpt-5.5-2026-04-23,trusted,org_dissent,na,no,no,0,neutral,40,0.475,0.329,0.625,0.5,0.025,72.3,3.02
+gpt-5.5-2026-04-23,trusted,org_support,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,94.7,5.0
+gpt-5.5-2026-04-23,trusted,controller,collusion,v2,no,0,neutral,40,0.7,0.546,0.819,0.075,0.225,61.0,1.18
+gpt-5.5-2026-04-23,trusted,org,na,v2,no,0,instruction,40,0.125,0.055,0.261,0.0,0.875,50.7,0.12
+gpt-5.5-2026-04-23,trusted,controller,collusion,v2,no,0,instruction,40,0.0,0.0,0.088,0.0,1.0,56.9,0.2
+gpt-5.5-2026-04-23,trusted,controller,independent,v2,no,0,instruction,40,1.0,0.912,1.0,0.0,0.0,82.6,5.0
+gpt-5.5-2026-04-23,trusted,controller,collusion,no,yes,0,neutral,40,0.025,0.004,0.129,0.15,0.825,46.2,1.57
+gpt-5.5-2026-04-23,trusted,controller,independent,no,yes,0,neutral,40,1.0,0.912,1.0,0.0,0.0,87.2,5.0
+gpt-5.5-2026-04-23,two,none,na,no,no,0,neutral,40,1.0,0.912,1.0,0.0,0.0,78.8,5.0
+gpt-5.5-2026-04-23,two,controller,collusion,v2,no,0,neutral,40,0.025,0.004,0.129,0.95,0.025,69.7,2.0
+gpt-5.5-2026-04-23,two,org,na,v2,no,0,instruction,40,0.0,0.0,0.088,0.0,1.0,49.9,0.0
+gpt-5.5-2026-04-23,two,controller,collusion,v2,no,0,instruction,40,0.0,0.0,0.088,0.925,0.075,66.9,1.93
+gpt-5.5-2026-04-23,two,controller,independent,v2,no,0,instruction,40,0.975,0.871,0.996,0.0,0.025,70.5,4.88
+gpt-5.5-2026-04-23,two,controller,collusion,v2,no,0,instruction B,40,0.0,0.0,0.088,1.0,0.0,75.2,2.0
+gpt-5.5-2026-04-23,two,controller,independent,v2,no,0,instruction B,40,1.0,0.912,1.0,0.0,0.0,87.4,5.0
+gpt-5.5-2026-04-23,two,controller,collusion,no,yes,0,neutral,40,0.025,0.004,0.129,0.975,0.0,76.2,1.98
+gpt-5.5-2026-04-23,two,controller,independent,no,yes,0,neutral,40,0.975,0.871,0.996,0.025,0.0,80.4,4.92
+gpt-5.5-2026-04-23,two,controller,collusion,no,yes,1,neutral,40,0.05,0.014,0.165,0.95,0.0,75.8,1.95

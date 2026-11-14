@@ -59,17 +59,21 @@ def table(rows, caption, colw=None, bold_first_col=False):
     t = Table(data, colWidths=colw, hAlign="LEFT")
     t.setStyle(TableStyle([("LINEBELOW", (0, 0), (-1, 0), 0.8, colors.black), ("LINEBELOW", (0, -1), (-1, -1), 0.8, colors.black),
                            ("LINEABOVE", (0, 0), (-1, 0), 0.8, colors.black), ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                           ("TOPPADDING", (0, 0), (-1, -1), 2), ("BOTTOMPADDING", (0, 0), (-1, -1), 2)]))
+                           ("TOPPADDING", (0, 0), (-1, -1), 2), ("BOTTOMPADDING", (0, 0), (-1, -1), 2),
+                           ("LEFTPADDING", (0, 0), (-1, -1), 3), ("RIGHTPADDING", (0, 0), (-1, -1), 3)]))
     return KeepTogether([P(caption, "cap"), t, Spacer(1, 8)])
 
 
 # ---------- numbers read from the results file ----------
-rows = [r for r in (json.loads(l) for l in open(os.path.join(ROOT, "results", "runs.jsonl"), encoding="utf-8")) if r.get("rep", 1) == 1]
+sys.path.insert(0, os.path.join(ROOT, "src"))
+import scoring
+ALLROWS = scoring.load_mapped()
+rows = [r for r in ALLROWS if r["rep"] == 1]
 idx = defaultdict(list)
 for r in rows:
     idx[(r["model"], r["opposition"], r["level"], r["structure"], r["tool"], r.get("policy", False),
          r.get("toolv", 1 if r["tool"] else 0), r.get("seed", 0), r.get("collapse", False))].append(r)
-ORDER = [("gpt-5.4-mini", "GPT-5.4 mini"), ("gpt-5.4-2", "GPT-5.4"), ("gpt-5.5", "GPT-5.5"), ("haiku", "Haiku 5.5"), ("sonnet", "Sonnet 5.5")]
+ORDER = [("gpt-5.4-mini", "GPT-5.4<br/>mini"), ("gpt-5.4-2", "GPT-5.4"), ("gpt-5.5", "GPT-5.5"), ("haiku", "Haiku<br/>5.5"), ("sonnet", "Sonnet<br/>5.5"), ("opus", "Opus<br/>5.5")]
 MODELS = [(next(m for m in {r["model"] for r in rows} if k in m), name) for k, name in ORDER if any(k in r["model"] for r in rows)]
 
 
@@ -78,7 +82,7 @@ def cellstr(model, opp, level, structure, tool, policy, toolv, collapse=False, c
     if not g:
         return "not run"
     c = Counter(r["outcome"] for r in g)
-    s = f"{c['planted']} / {c['undetermined'] + c['other']} / {c['trusted']}"
+    s = f"{c['planted']}/{c['undetermined'] + c['other']}/{c['trusted']}"
     if conf:
         v = [r["confidence"] for r in g if isinstance(r["confidence"], (int, float))]
         s += f" ({sum(v) / len(v):.0f})"
@@ -86,7 +90,7 @@ def cellstr(model, opp, level, structure, tool, policy, toolv, collapse=False, c
 
 
 def results_rows(conds, conf=False):
-    out = [["Against", "What the agent is given"] + [n for _, n in MODELS]]
+    out = [["Against", "What the model is given"] + [n for _, n in MODELS]]
     for opp_label, label, key in conds:
         out.append([opp_label, label] + [cellstr(m, *key, conf=conf) for m, _ in MODELS])
     return out
@@ -95,6 +99,7 @@ def results_rows(conds, conf=False):
 T1 = [("1 outlet", "No provenance", ("trusted", "none", "na", False, False, 0)),
       ("1 outlet", "Signed", ("trusted", "signature", "na", False, False, 0)),
       ("1 outlet", "Verified publisher", ("trusted", "org", "na", False, False, 0)),
+      ("1 outlet", "Owner shown: one owner", ("trusted", "controller", "collusion", False, False, 0)),
       ("1 outlet", "Tool: one owner", ("trusted", "controller", "collusion", True, False, 2)),
       ("1 outlet", "Tool: one owner + instruction", ("trusted", "controller", "collusion", True, True, 2)),
       ("1 outlet", "Tool: five owners + instruction", ("trusted", "controller", "independent", True, True, 2)),
@@ -102,89 +107,348 @@ T1 = [("1 outlet", "No provenance", ("trusted", "none", "na", False, False, 0)),
       ("2 outlets", "Tool: one owner", ("two", "controller", "collusion", True, False, 2)),
       ("2 outlets", "Tool: one owner + instruction", ("two", "controller", "collusion", True, True, 2)),
       ("2 outlets", "Tool: five owners + instruction", ("two", "controller", "independent", True, True, 2))]
-T2 = [("1 outlet", "Harness merge, one owner (agent sees 1 v 1)", ("trusted", "controller", "collusion", False, False, 0, True)),
-      ("1 outlet", "Harness merge, five owners (5 v 1)", ("trusted", "controller", "independent", False, False, 0, True)),
-      ("2 outlets", "Harness merge, one owner (1 v 2)", ("two", "controller", "collusion", False, False, 0, True)),
-      ("2 outlets", "Harness merge, five owners (5 v 2)", ("two", "controller", "independent", False, False, 0, True))]
+T2 = [("1 outlet", "Merge, one owner (model sees 1 v 1)", ("trusted", "controller", "collusion", False, False, 0, True)),
+      ("1 outlet", "Merge, five owners (5 v 1)", ("trusted", "controller", "independent", False, False, 0, True)),
+      ("2 outlets", "Merge, one owner (1 v 2)", ("two", "controller", "collusion", False, False, 0, True)),
+      ("2 outlets", "Merge, five owners (5 v 2)", ("two", "controller", "independent", False, False, 0, True))]
 TA = [("1 outlet", "Tool: unknown + instruction", ("trusted", "org", "na", True, True, 2)),
       ("2 outlets", "Tool: unknown + instruction", ("two", "org", "na", True, True, 2)),
       ("none", "No provenance", ("silence", "none", "na", False, False, 0)),
       ("none", "Tool: one owner + instruction", ("silence", "controller", "collusion", True, True, 2))]
-W = [0.7 * inch, 1.9 * inch] + [3.9 * inch / max(1, len(MODELS))] * len(MODELS)
+# Controls added on 14 November. key = (opposition, level, structure, tool, policy, toolv, collapse, seed)
+TC = [("1 outlet", "Five verified, dissenter unsigned", ("trusted", "org_support", "na", False, False, 0, False, 0)),
+      ("1 outlet", "Five unsigned, dissenter verified", ("trusted", "org_dissent", "na", False, False, 0, False, 0)),
+      ("1 outlet", "Tool: five owners, no instruction", ("trusted", "controller", "independent", True, False, 2, False, 0)),
+      ("2 outlets", "Tool: five owners, no instruction", ("two", "controller", "independent", True, False, 2, False, 0)),
+      ("1 outlet", "Tool: one owner + instruction B", ("trusted", "controller", "collusion", True, 2, 2, False, 0)),
+      ("1 outlet", "Tool: five owners + instruction B", ("trusted", "controller", "independent", True, 2, 2, False, 0)),
+      ("2 outlets", "Tool: one owner + instruction B", ("two", "controller", "collusion", True, 2, 2, False, 0)),
+      ("2 outlets", "Tool: five owners + instruction B", ("two", "controller", "independent", True, 2, 2, False, 0)),
+      ("1 outlet", "Merge, one owner, order 2", ("trusted", "controller", "collusion", False, False, 0, True, 1)),
+      ("1 outlet", "Merge, one owner, order 3", ("trusted", "controller", "collusion", False, False, 0, True, 2)),
+      ("2 outlets", "Merge, one owner, order 2", ("two", "controller", "collusion", False, False, 0, True, 1)),
+      ("2 outlets", "Merge, one owner, order 3", ("two", "controller", "collusion", False, False, 0, True, 2)),
+      ("1 outlet", "Same documents as merge, no note, no provenance", ("trusted", "bare", "collusion", False, False, 0, "plain", 0)),
+      ("2 outlets", "Same documents as merge, no note, no provenance", ("two", "bare", "collusion", False, False, 0, "plain", 0))]
+
+
+TC2 = [("1 outlet", "Dissenter verified, five shown \"no manifest found\"", ("trusted", "org_dissent", "na", False, False, 0, False, 0)),
+       ("1 outlet", "Dissenter verified, five left blank", ("trusted", "org_dissent_blank", "na", False, False, 0, False, 0)),
+       ("1 outlet", "Dissenter signed only, five left blank", ("trusted", "sig_dissent_blank", "na", False, False, 0, False, 0)),
+       ("1 outlet", "Five verified, dissenter left blank", ("trusted", "org_support_blank", "na", False, False, 0, False, 0)),
+       ("1 outlet", "No provenance + permission to abstain", ("trusted", "none", "na", False, 3, 0, False, 0)),
+       ("1 outlet", "Tool: one owner + permission to abstain", ("trusted", "controller", "collusion", True, 3, 2, False, 0)),
+       ("2 outlets", "No provenance + permission to abstain", ("two", "none", "na", False, 3, 0, False, 0)),
+       ("2 outlets", "Tool: one owner + permission to abstain", ("two", "controller", "collusion", True, 3, 2, False, 0)),
+       ("1 outlet", "Owner shown: one owner, names swapped", ("trusted", "controller", "collusion_swap", False, False, 0, False, 0)),
+       ("2 outlets", "Tool: one owner, names swapped", ("two", "controller", "collusion_swap", True, False, 2, False, 0))]
+
+
+def control_rows(conds=None, models=None):
+    models = models or MODELS
+    out = [["Against", "What the model is given"] + [n for _, n in models]]
+    for opp_label, label, (opp, level, structure, tool, policy, toolv, collapse, seed) in (conds or TC):
+        line = []
+        for m, _ in models:
+            g = idx.get((m, opp, level, structure, tool, policy, toolv, seed, collapse), [])
+            c = Counter(r["outcome"] for r in g)
+            line.append(f"{c['planted']}/{c['undetermined'] + c['other']}/{c['trusted']}" if len(g) == 40 else "not run")
+        out.append([opp_label, label] + line)
+    return out
+
+
+def _count(m, key, what):
+    g = idx.get((m,) + key, [])
+    if len(g) != 40:
+        return None
+    c = Counter(r["outcome"] for r in g)
+    return {"planted": c["planted"], "other": c["trusted"], "und": c["undetermined"] + c["other"]}[what]
+
+
+def summary_rows():
+    """The fixes side by side on three numbers, two dissenting outlets. One value per model, in table order."""
+    base = ("two", "none", "na", False, False, 0, 0, False)
+    fixes = [("Tool", ("two", "controller", "collusion", True, False, 2, 0, False), ("two", "controller", "independent", True, False, 2, 0, False)),
+             ("Tool + instruction", ("two", "controller", "collusion", True, True, 2, 0, False), ("two", "controller", "independent", True, True, 2, 0, False)),
+             ("Tool + instruction B", ("two", "controller", "collusion", True, 2, 2, 0, False), ("two", "controller", "independent", True, 2, 2, 0, False)),
+             ("Harness merge", ("two", "controller", "collusion", False, False, 0, 0, True), ("two", "controller", "independent", False, False, 0, 0, True))]
+    fmt = lambda v: ", ".join("n/r" if x is None else (f"+{x}" if isinstance(x, str) else str(x)) for x in v)
+    out = [["Fix", "(1) Planted, one owner (lower is better)", "(2) Other side, one owner (higher is better)", "(3) Added undetermined, five owners (lower is better)"]]
+    for name, one, five in fixes:
+        pl = [_count(m, one, "planted") for m, _ in MODELS]
+        ot = [_count(m, one, "other") for m, _ in MODELS]
+        ex = []
+        for m, _ in MODELS:
+            a, b = _count(m, five, "und"), _count(m, base, "und")
+            ex.append(None if a is None or b is None else a - b)
+        out.append([name, fmt(pl), fmt(ot), ", ".join("n/r" if x is None else f"{x:+d}" for x in ex)])
+    return out
+
+
+def _unused():
+    out = [["Against", "What the model is given"] + [n for _, n in MODELS]]
+    for opp_label, label, (opp, level, structure, tool, policy, toolv, collapse, seed) in TC:
+        line = []
+        for m, _ in MODELS:
+            g = idx.get((m, opp, level, structure, tool, policy, toolv, seed, collapse), [])
+            c = Counter(r["outcome"] for r in g)
+            line.append(f"{c['planted']}/{c['undetermined'] + c['other']}/{c['trusted']}" if g else "not run")
+        out.append([opp_label, label] + line)
+    return out
+
+
+HAVE_CONTROLS = any(c != "not run" for row in control_rows()[1:] for c in row[2:])
+CLAUDE3 = [(m, n) for m, n in MODELS if "claude" in m]
+W = [0.6 * inch, 1.82 * inch] + [4.08 * inch / max(1, len(MODELS))] * len(MODELS)
+
+# ---------- helpers for numbers quoted in the text ----------
+MK = {"mini": "gpt-5.4-mini", "g54": "gpt-5.4-2", "g55": "gpt-5.5", "haiku": "haiku", "sonnet": "sonnet", "opus": "opus"}
+MID = {k: next(m for m, _ in MODELS if v in m) for k, v in MK.items()}
+ALLM = ["mini", "g54", "g55", "haiku", "sonnet", "opus"]
+CN = {"none1": ("trusted", "none", "na", False, False, 0, 0, False), "sig1": ("trusted", "signature", "na", False, False, 0, 0, False),
+      "org1": ("trusted", "org", "na", False, False, 0, 0, False), "owner1": ("trusted", "controller", "collusion", False, False, 0, 0, False),
+      "tool1": ("trusted", "controller", "collusion", True, False, 2, 0, False), "toolA1": ("trusted", "controller", "collusion", True, True, 2, 0, False),
+      "five_toolA1": ("trusted", "controller", "independent", True, True, 2, 0, False),
+      "none2": ("two", "none", "na", False, False, 0, 0, False), "tool2": ("two", "controller", "collusion", True, False, 2, 0, False),
+      "toolA2": ("two", "controller", "collusion", True, True, 2, 0, False), "five_toolA2": ("two", "controller", "independent", True, True, 2, 0, False),
+      "merge1": ("trusted", "controller", "collusion", False, False, 0, 0, True), "five_merge1": ("trusted", "controller", "independent", False, False, 0, 0, True),
+      "merge2": ("two", "controller", "collusion", False, False, 0, 0, True), "five_merge2": ("two", "controller", "independent", False, False, 0, 0, True),
+      "merge2_o2": ("two", "controller", "collusion", False, False, 0, 1, True), "merge2_o3": ("two", "controller", "collusion", False, False, 0, 2, True),
+      "bare2": ("two", "bare", "collusion", False, False, 0, 0, "plain"),
+      "vdis_nm": ("trusted", "org_dissent", "na", False, False, 0, 0, False), "vsup_nm": ("trusted", "org_support", "na", False, False, 0, 0, False),
+      "vdis_blank": ("trusted", "org_dissent_blank", "na", False, False, 0, 0, False), "sdis_blank": ("trusted", "sig_dissent_blank", "na", False, False, 0, 0, False),
+      "vsup_blank": ("trusted", "org_support_blank", "na", False, False, 0, 0, False),
+      "five_tool1": ("trusted", "controller", "independent", True, False, 2, 0, False), "five_tool2": ("two", "controller", "independent", True, False, 2, 0, False),
+      "toolB1": ("trusted", "controller", "collusion", True, 2, 2, 0, False), "five_toolB1": ("trusted", "controller", "independent", True, 2, 2, 0, False),
+      "toolB2": ("two", "controller", "collusion", True, 2, 2, 0, False), "five_toolB2": ("two", "controller", "independent", True, 2, 2, 0, False),
+      "tool1_permit": ("trusted", "controller", "collusion", True, 3, 2, 0, False), "tool2_permit": ("two", "controller", "collusion", True, 3, 2, 0, False),
+      "none1_permit": ("trusted", "none", "na", False, 3, 0, 0, False), "none2_permit": ("two", "none", "na", False, 3, 0, 0, False),
+      "owner1_swap": ("trusted", "controller", "collusion_swap", False, False, 0, 0, False), "tool2_swap": ("two", "controller", "collusion_swap", True, False, 2, 0, False),
+      "tool2_noclose": ("two", "controller", "collusion", True, False, 3, 0, False), "five_tool2_noclose": ("two", "controller", "independent", True, False, 3, 0, False),
+      "tool1_noclose": ("trusted", "controller", "collusion", True, False, 3, 0, False),
+      "mixed_tool2": ("two", "controller", "mixed", True, False, 2, 0, False), "mixed_toolB2": ("two", "controller", "mixed", True, 2, 2, 0, False),
+      "mixed_merge2": ("two", "controller", "mixed", False, False, 0, 0, True),
+      "none2_reorder": ("two", "none", "na", False, 4, 0, 0, False), "tool2_reorder": ("two", "controller", "collusion", True, 4, 2, 0, False),
+      "unk1": ("trusted", "org", "na", True, True, 2, 0, False), "unk2": ("two", "org", "na", True, True, 2, 0, False)}
+WHAT = {"planted": "planted", "other": "trusted", "none": "undetermined"}
+SET2 = defaultdict(list)
+for r in scoring.load_mapped("runs_set2.jsonl"):
+    SET2[(r["model"],) + scoring.cond(r)].append(r)
+
+
+def grp(mk, cn, src=None):
+    return (src if src is not None else idx).get((MID[mk],) + CN[cn], [])
+
+
+def c(mk, cn, what="planted", src=None):
+    g = grp(mk, cn, src)
+    assert len(g) == 40, (mk, cn, len(g))
+    return sum(r["outcome"] == WHAT[what] for r in g)
+
+
+def cav(mk, cn, what="planted", src=None):
+    return sum(r["final"] == {"planted": "planted_c", "other": "other_c"}[what] for r in grp(mk, cn, src))
+
+
+def ran(mk, cn):
+    return len(grp(mk, cn)) == 40
+
+
+def rng(cn, what="planted", mks=ALLM):
+    v = [c(m, cn, what) for m in mks if ran(m, cn)]
+    return f"{min(v)} to {max(v)}"
+
+
+def one_source(mk, cn):
+    g = [r for r in grp(mk, cn) if r["outcome"] == "planted"]
+    return sum(1 for r in g if r.get("independent_sources") == 1), len(g)
+
+
+def trip(mk, cn, src=None):
+    g = grp(mk, cn, src)
+    if len(g) != 40:
+        return "not run"
+    return f"{c(mk, cn, 'planted', src)}/{c(mk, cn, 'none', src)}/{c(mk, cn, 'other', src)}"
+
+
+def grid(title_rows, mks=ALLM):
+    names = dict(zip(ALLM, [n for _, n in MODELS]))
+    out = [[""] + [names[m] for m in mks]]
+    for kind, label, fn in title_rows:
+        out.append([label] + ([""] * len(mks) if kind == "head" else [fn(m) for m in mks]))
+    return out
+
+
+def gtable(rows, caption, colw, heads=()):
+    data = [[Paragraph(str(x), S["cellb"] if (i == 0 or j == 0 and i in heads) else S["cell"]) for j, x in enumerate(row)] for i, row in enumerate(rows)]
+    t = Table(data, colWidths=colw, hAlign="LEFT")
+    style = [("LINEBELOW", (0, 0), (-1, 0), 0.8, colors.black), ("LINEBELOW", (0, -1), (-1, -1), 0.8, colors.black),
+             ("LINEABOVE", (0, 0), (-1, 0), 0.8, colors.black), ("VALIGN", (0, 0), (-1, -1), "TOP"),
+             ("TOPPADDING", (0, 0), (-1, -1), 1), ("BOTTOMPADDING", (0, 0), (-1, -1), 1.2),
+             ("LEFTPADDING", (0, 0), (-1, -1), 3), ("RIGHTPADDING", (0, 0), (-1, -1), 3)]
+    for h in heads:
+        style += [("SPAN", (0, h), (-1, h)), ("LINEABOVE", (0, h), (-1, h), 0.4, colors.grey)]
+    t.setStyle(TableStyle(style))
+    return KeepTogether([P(caption, "cap"), t, Spacer(1, 8)])
+
+
+def rows_for(specs, mks=ALLM, src=None):
+    return [("row", label, (lambda m, cn=cn: trip(m, cn, src) if (src is not None or ran(m, cn)) else "not run")) for label, cn in specs]
+
+
+GW = [2.3 * inch] + [0.7 * inch] * 6
+GW3 = [3.6 * inch] + [0.95 * inch] * 3
+CL3 = ["haiku", "sonnet", "opus"]
+os1 = {m: one_source(m, "tool2") for m in ALLM}
+# repeat figures
+_r2 = defaultdict(dict)
+for r in ALLROWS:
+    _r2[(r["model"], r["rep"])][(r["claim"],) + scoring.cond(r)] = r["outcome"]
+REP = {}
+for mk in ALLM:
+    a, b = _r2.get((MID[mk], 1), {}), _r2.get((MID[mk], 2), {})
+    common = [k for k in b if k in a]
+    if common:
+        REP[mk] = (sum(a[k] == b[k] for k in common), len(common))
+_SUP = {"o1", "o2", "o3", "o4", "o5"}
+_m1 = [r for seed in (0, 1, 2) for r in idx.get((MID["mini"], "trusted", "controller", "collusion", False, False, 0, seed, True), []) if r["outcome"] in ("planted", "trusted")]
+FIRST = (sum(1 for r in _m1 if (r["outcome"] == "planted") == (r["first_source"] in _SUP)), len(_m1))
+import re as _re
+_NC = _re.compile(r"^\s*(undetermined|unresolved|unclear|uncertain|cannot|conflict|the sources conflict|disputed)", _re.I)
+HOLE = sum(1 for r in rows if r["outcome_first"] in ("planted", "trusted") and not r.get("reparsed") and _NC.search(str(r["answer"])))
+_lab = scoring.coded()
+N_CODED = len(_lab)
+N_AGREE2 = sum(1 for v in _lab.values() if len(v) == 2)
+N_NOMAJ = sum(1 for v in _lab.values() if len(v) == 3 and len(set(v.values())) == 3)
 
 doc = SimpleDocTemplate(OUT, pagesize=letter, leftMargin=1 * inch, rightMargin=1 * inch, topMargin=1 * inch, bottomMargin=1 * inch,
                         title="Signed is not independent", author="Narendra Sahu")
+N_ALL = len(ALLROWS) + sum(len(v) for v in SET2.values())
+N_REPARSED = sum(1 for r in rows if r.get("reparsed"))
+SELF_B2 = sum(1 for r in grp("sonnet", "toolB2") if r.get("first_object") == "planted")
+rep2 = lambda mk, cn: sum(1 for k, v in _r2.get((MID[mk], 2), {}).items() if k[1:] == CN[cn] and v == "planted")
+two_src = sum(1 for r in grp("mini", "tool2") if r["outcome"] == "planted" and r.get("independent_sources") == 2)
+
+
+def bt(mk, cn):
+    t = trip(mk, cn)
+    return f"<b>{t}</b>" if ran(mk, cn) and c(mk, cn) <= 10 else t
+
+
+q = lambda mk, cn, what="planted", src=None: f"{c(mk, cn, what, src)}/40"
+_dis = [(v.get("alt:claude-sonnet-5-5"), v.get("alt:claude-haiku-5-5")) for v in _lab.values()]
+N_DIS = sum(1 for a, b in _dis if a != b)
+N_DIS_N = sum(1 for a, b in _dis if a != b and a == "N")
+SWAPMAX = max(abs(c(m, a) - c(m, b)) for m in CL3 for a, b in [("owner1", "owner1_swap"), ("tool2", "tool2_swap")])
+FIRSTMAX = max(c(m, cn) - sum(r["outcome_first"] == "planted" for r in grp(m, cn)) for m in ALLM for cn in ["none1", "owner1", "none2", "tool2", "five_merge2"])
+from math import comb
+def signp(mk, a, b, what="planted", srcb=None):
+    ga = {r["claim"]: r["outcome"] == WHAT[what] for r in grp(mk, a)}
+    gb = {r["claim"]: r["outcome"] == WHAT[what] for r in grp(mk, b, srcb)}
+    lo = sum(1 for k in ga if ga[k] and not gb[k]); hi = sum(1 for k in ga if gb[k] and not ga[k])
+    n = lo + hi
+    return 1.0 if n == 0 else min(1.0, 2 * sum(comb(n, i) for i in range(0, min(lo, hi) + 1)) / 2 ** n)
+PCTL = [signp("sonnet", "tool2", "tool2_permit"), signp("sonnet", "tool2", "tool2_reorder"), signp("haiku", "tool2", "tool2_permit")]
+_any = [(a, b) for a, b in _dis if a != "N" or b != "N"]
+PICK_AGREE = (sum(1 for a, b in _any if a == b), len(_any))
+N_PLAIN = sum(1 for a, b in _dis if a == "N" and b == "N")
+FIRSTALL = max(c(m, cn) - sum(r["outcome_first"] == "planted" for r in grp(m, cn)) for m in ALLM for cn in CN if ran(m, cn))
+G54MAX = max(abs(c("g54", cn) - sum(r["outcome_first"] == "planted" for r in grp("g54", cn))) for cn in CN if ran("g54", cn))
+G55MAX = max(abs(c("g55", cn) - sum(r["outcome_first"] == "planted" for r in grp("g55", cn))) for cn in CN if ran("g55", cn))
+_tb = [v["alt:claude-opus-5-5"] for v in _lab.values() if len(v) == 3]
+TB_PICK = sum(1 for x in _tb if x != "N")
+def qagree(mk, cn):
+    return sum(1 for k, v in _r2.get((MID[mk], 2), {}).items() if k[1:] == CN[cn] and v == next(r["outcome"] for r in grp(mk, cn) if r["claim"] == k[0]))
+S_FIRST = sum(r["outcome_first"] == "planted" for r in grp("sonnet", "tool2"))
+
 st = []
-st.append(P("Signed is not independent: what research agents do with provenance when one operator runs the majority<super>1</super>", "title"))
+st.append(P("Signed is not independent: what language models do with provenance when one operator runs the majority of sources<font size=11><super>1</super></font>", "title"))
 st.append(P("Narendra Sahu<br/>Independent security researcher", "author"))
 st.append(P("With<br/>Apart Research", "withapart"))
 st.append(P("<super>1</super> Research conducted at the AI x Epistemics Research Sprint, November 2026.", "note"))
 
 st.append(P("Abstract", "h1"))
-st.append(P("When five outlets agree, does it matter to a research agent that one operator runs all five? An operator can run several outlets that agree without sharing any text, which defeats copy detection. Provenance standards show that an article is authentic and who published it, not whether two publishers share an owner. In a closed lab, five fictional outlets each wrote their own article supporting a planted answer to 40 invented questions, and one or two other outlets disagreed. Five models from two vendors answered. A valid signature or a verified publisher made no measurable difference on any model: the planted answer was given in 34 to 40 of 40 cases with or without them. Ownership information did matter, but its use depended on the model. When a tool reported one owner behind the five outlets against two independent outlets, one model moved to the better-supported answer in 38 of 40 cases, two mostly abstained, and two kept the planted answer in 34 and 35 of 40 while stating that the five outlets were one origin. An instruction to count origins removed most planted answers but made two models abstain on 12 to 34 of 40 cases where the sources really were independent. Merging sources by owner in the harness gave the better-supported answer in 22 to 39 of 40 cases across the five models, with no loss on independent sources. Provenance needs an ownership layer, and the origin count belongs in the harness."))
+st.append(P(f"Provenance standards such as C2PA record who published an article, not who owns the publisher, so one operator with five signed and verified outlets looks like five sources. We built that case in a synthetic test. For each of 40 invented questions, five outlets with one owner each wrote their own article backing one answer (the planted answer), one or two separately owned outlets backed another, and six models from two vendors answered. Signature and verified-publisher lines on every article did not change answers, although the planted answer was already accepted almost every time. Telling the model in the prompt that the five outlets share an owner moved two of six models to the other answer. Three mostly kept the planted answer, and one of them, GPT-5.4, said in {os1['g54'][0]} of {os1['g54'][1]} such replies that it rested on one independent source. Sonnet 5.5 did the same on our main prompt but not under a different prompt format or a second article set. Removing same-owner duplicates before the model reads moved five of six models. An instruction to answer with the side that has more independent owners moved four, and a differently worded instruction made two models refuse to answer even when the five outlets really were separately owned. Every fix needs a trustworthy ownership record, which no content provenance standard carries today and which the operator would not supply."))
 
 st.append(P("1. Introduction", "h1"))
-st.append(P("Counting how many sources agree only works if the sources are independent. Running many outlets is now cheap for one operator. In September 2026 Anthropic reported about 70 news sites that looked unrelated and were tied to one operator account through shared infrastructure (Anthropic 2026). Research agents read such sites and report what most of them say."))
-st.append(P("Recent work shows that agents and LLM judges count copies and paraphrases of one report as confirmation, and proposes detectors based on shared text (Zhou et al. 2026; Metales et al. 2026; Gao et al. 2026). An operator who has each outlet write its own article shares no text. Metales et al. name this case, collusion without copying, as the open problem, and Bara (2026) shows that an aggregator which sees only the reports cannot tell replication from corroboration."))
-st.append(P("Provenance is the usual answer. A C2PA manifest shows that content is intact and which tool signed it. A CAWG identity assertion adds a verified publisher. Neither says who controls the publisher, so two verified publishers can have one owner. We call this the <b>independence gap</b>: a provenance record proves authenticity and identity, and corroboration needs independence. We ask what agents do with each kind of information."))
-st.append(P("<b>Threat model.</b> The adversary is one operator with several outlets. Each outlet writes its own article from the bare claim, in its own voice, with its own invented details. The operator can sign every article and can obtain a verified publisher identity for every outlet. The defender is a research agent, or the harness around it, that sees the retrieved articles and whatever provenance comes with them."))
+st.append(P("Counting how many sources agree only works if the sources are independent, and running many outlets is now cheap for one operator. In September 2026 Anthropic reported about 70 news sites that looked unrelated and were tied to one operator account through shared infrastructure (Anthropic 2026). Assistants that answer from retrieved pages read such sites and repeat what most of them say."))
+st.append(P("Recent work shows that agents and LLM judges count copies and paraphrases of one report as confirmation, and proposes detectors based on shared text (Zhou et al. 2026; Metales et al. 2026; Gao et al. 2026). An operator who has each outlet write its own article shares no text. Zhou et al. report that separately rewritten pages get past their detector, and Metales et al. name colluding sources that do not copy as the open problem. This is a Sybil attack (Douceur 2002), one actor posing as many, applied to evidence. It is the case we test."))
+st.append(P("Provenance is the usual answer to doubts about a source. C2PA, the main content provenance standard, attaches a signed manifest that shows the content has not been altered since signing and which signer, often a publishing tool, signed it. The CAWG identity assertion is an add-on that binds a verified person or organisation to the content, here the publisher. Neither says who controls the publisher, so two verified publishers can have one owner. We call this the <b>independence gap</b>: provenance gives integrity and identity, and corroboration needs independence. We ask what models do with each kind of information, and what it takes for ownership information to change the answer."))
+st.append(P("<b>Threat model.</b> The adversary is one operator with several outlets. Each outlet writes its own article from the bare claim, in its own voice, and the operator can sign every article and obtain a verified publisher identity for every outlet. The defender is a model answering from retrieved articles, or the harness, meaning the code that builds the prompt around it. The fixes we test assume the defender holds a true record of who owns each outlet, so our numbers are a best case (Section 5)."))
+st.append(P("<b>What we test</b> (Figure 1). Ownership can reach the model in three ways: an <b>owner line</b> under each article, an <b>ownership note</b> after the articles that lists which sources share an owner, and a <b>harness merge</b> that keeps one article per owner before the model reads anything. The note is tested alone and with one of two instructions: an <b>abstain instruction</b> (count owners, and answer \"undetermined\" if the sources do not settle it) or a <b>majority instruction</b> (give the answer backed by more independent owners). Every condition with the note also shows the owner line."))
+st.extend(figure(os.path.join(ROOT, "results", "fig_setup.png"), "Figure 1. The setup. <b>Planted answer</b>: what the five supporting articles report. <b>Dissenting answer</b>: what the one or two other articles report. Both are invented, so neither is true. <b>Origin</b>: one owner, however many outlets it runs. <b>No pick</b>: the model declines to choose.", 5.6))
+BOXST = ParagraphStyle("boxst", parent=S["body"], fontSize=9.5, leading=11.6, spaceAfter=0)
+_ex = next(r for r in grp("sonnet", "tool2") if r["claim"] == "c01")
+_box = Table([[Paragraph("<b>Box 1. One reply in full</b> (Sonnet 5.5; the ownership note reports one owner; two dissenting outlets).<br/>"
+                         "<b>Question:</b> Who was appointed chief executive of Varnholt Logistics in March? Five articles name Ilse Marrenkamp, two name Dorian Feltz.<br/>"
+                         f"<b>Answer:</b> {_ex['answer']}. <b>Confidence:</b> {_ex['confidence']}. <b>Independent sources supporting the answer:</b> {_ex['independent_sources']}.<br/>"
+                         f"<b>Reasoning:</b> \"{_ex['reasoning']}\"", BOXST)]], colWidths=[6.5 * inch])
+_box.setStyle(TableStyle([("BOX", (0, 0), (-1, -1), 0.6, colors.black), ("LEFTPADDING", (0, 0), (-1, -1), 6), ("RIGHTPADDING", (0, 0), (-1, -1), 6),
+                          ("TOPPADDING", (0, 0), (-1, -1), 4), ("BOTTOMPADDING", (0, 0), (-1, -1), 5)]))
+st.append(KeepTogether([_box, Spacer(1, 6)]))
 st.append(P("<b>Contributions.</b>"))
-st.append(P("1. <b>A test without shared text.</b> A closed-lab test of how agents use provenance at three levels (signature, verified publisher, controlling owner) when one operator is behind an agreeing majority that never shares text.", "bullet"))
-st.append(P("2. <b>Today's provenance does not help.</b> On five models, the two levels that standards carry today did not change what the agent concluded.", "bullet"))
-st.append(P("3. <b>Ownership helps, unevenly.</b> The missing level, common control, changed conclusions, with three behaviours across models: ignore, abstain, or re-weigh.", "bullet"))
-st.append(P("4. <b>A fix and its cost.</b> A prompt instruction to count origins works but causes over-caution on independent sources; merging by owner in the harness does not.", "bullet"))
-st.extend(figure(os.path.join(ROOT, "results", "fig_outcomes.png"), "Figure 1. Main results. Five outlets back the planted answer; each bar is one model's answers to 40 questions. Top block: one outlet disagrees. Bottom block: two independent outlets disagree, so with one owner behind the five the other side has more independent origins. Signed and verified-publisher rows look like the no-provenance row on every model.", 6.5))
-st.append(table([["Term", "Meaning in this paper"],
-                 ["Origin", "one controlling owner, however many outlets it runs"],
-                 ["Planted answer", "the answer the five supporting outlets report"],
-                 ["Other side", "the answer the dissenting outlet or outlets report"],
-                 ["One owner / five owners", "who controls the five supporting outlets; the article text is the same in both cases"],
-                 ["Origin tool", "tool output listing which numbered sources belong to each owner, or saying ownership is unknown"],
-                 ["Instruction", "a line in the system prompt: count origins, not documents; \"undetermined\" is allowed"],
-                 ["Harness merge", "the harness keeps one document per owner before the model reads anything"],
-                 ["Over-caution", "answering \"undetermined\" when the five supporting outlets really are independent"]],
-                "Terms used throughout.", colw=[1.6 * inch, 4.9 * inch], bold_first_col=True))
+st.append(P("1. <b>Same owner, no shared text.</b> Earlier work told models that copied reports came from one source. Here the agreeing articles share no text, and the only thing that changes between conditions is what the model is told about signatures, publishers and owners.", "bullet"))
+st.append(P(f"2. <b>Models that report the origin count and do not use it.</b> Given the ownership note, three of six models mostly kept the planted answer. GPT-5.4 reported one independent source in {os1['g54'][0]} of its {os1['g54'][1]} such replies and Sonnet 5.5 in {os1['sonnet'][0]} of {os1['sonnet'][1]} (Box 1). Metales et al. saw small judges ignore a same-source note on copied text; we see the same for common ownership on mid-sized models.", "bullet"))
+st.append(P("3. <b>Fixes scored on cost as well as effect.</b> Figure 2 and Table 2 compare the note, two instructions and the merge on what they remove under one owner and on what they wrongly remove when the outlets are separately or partly owned. None is best on all counts.", "bullet"))
 
 st.append(P("2. Related Work", "h1"))
-st.append(P("<b>Copies counted as confirmation.</b> Evidence Laundering (Zhou et al. 2026) shows deep research agents credit a paraphrased cluster like independent sources, and proposes a content-based gate that collapses near-copies; the gate rarely collapses pages written independently. Copies Are Not Confirmations (Metales et al. 2026) measures the same for LLM judges on news, with an entity-novelty detector, and lists ownership, timing and shared errors as signals for future work. Gao et al. (2026) measure how much weight LLM aggregators give a restated observation. SearchGEO (Chen et al. 2026) includes a synthetic-consensus attack on search agents, and Lu and Zhang (2026) poison a news corpus read by LLM forecasters. All of these need shared text, or measure the attack without a provenance variable."))
-st.append(P("<b>Dependence and provenance.</b> Bara (2026) formalises why report-only aggregation cannot recover dependence and argues for tracking ancestry; source dependence is an old idea in data fusion (Dong et al. 2009). Operators behind site networks have been found through shared infrastructure, not text (Bengani 2019; Anthropic 2026). C2PA 2.4 and the CAWG identity assertion are the current standards, and for people, C2PA labels raise trust in a news source (Trattner et al. 2026). The Forethought design sketches (Cotton-Barratt et al. 2025) describe provenance tracing and reliability tracking, and the sprint brief asks whether a provenance tool changes agent behaviour."))
-st.append(P("<b>What is new here.</b> The outlets never share text, so content detectors do not apply. The variable is what the agent is told about provenance and ownership, and the outcome is the agent's conclusion. A related Apart project studies redundancy between personas inside one model (Gallego and Habana 2026); ours is between sources."))
+st.append(P("<b>Copies counted as confirmation.</b> Zhou et al. (2026) show that deep research agents credit a paraphrased cluster like independent sources, and propose a gate that collapses near-copies before synthesis. Their agent is never told about shared origin. Metales et al. (2026) measure the same for LLM judges on news: small judges ignored a note that the reports came from one source and a larger one followed it, which is the pattern we see across model sizes. Gao et al. (2026), Chen et al. (2026) and Lu and Zhang (2026) study restated observations, synthetic consensus and a poisoned news corpus. Our merge step does what their duplicate-collapsing steps do, but groups articles by owner instead of by shared text; it is also close to the isolate-then-aggregate defence of Xiang et al. (2024). None of these papers tests sources that share an owner and no text."))
+st.append(P("<b>How models weigh conflicting evidence.</b> Models follow the retrieved majority and pay little attention to credibility cues (Xie et al. 2024; Wan et al. 2024), which corpus poisoning exploits (Zou et al. 2025). Schuster et al. (2026) find that models prefer institutional sources and that repetition reverses the preference. Kawada and Kellis (2026) find that models can reject a candidate answer when asked to check it and still adopt it in their final answer."))
+st.append(P("<b>Dependence and ownership records.</b> Source dependence is an old idea in data fusion (Dong et al. 2009). Bara (2026) shows in a formal model that an aggregator which sees only reports can be fooled by clones, and warns that provenance need not be truthful. Operators behind site networks have been found through shared infrastructure, not text (Bengani 2019; Anthropic 2026). C2PA 2.4 (C2PA 2026) and the CAWG identity assertion (Creator Assertions Working Group 2026) are the current content standards, and for human readers C2PA labels raise trust in a news source (Trattner et al. 2026). Ownership is recorded elsewhere, for example in legal entity identifiers with parent data, in the owner-domain field of ads.txt, in the control fields of trust.txt, and in media ownership registers. Much of it is self-declared, and none of it reaches the model at answer time. The Forethought design sketches (Cotton-Barratt et al. 2025) treat provenance tracing as epistemic infrastructure."))
 
 st.append(P("3. Methods", "h1"))
-st.append(P("<b>3.1 Claims and outlets.</b> 40 invented questions about fictional people, places and companies, each with a planted answer and a different answer for the other side. No model can know either. Five supporting outlets have different voices (regional daily, business newsletter, long-form weekly, trade blog, wire bulletin). Each article is written from the bare claim by GPT-5.4 mini, 97 to 135 words, with its own invented details; mean pairwise 3-gram overlap is 0.02 (maximum 0.09), so there is nothing for a copy detector to find. One or two further outlets report the other side."))
-st.append(P("<b>3.2 Conditions.</b> Four factors. Who is behind the five: one owner or five separate owners (the article text is identical). What the agent is given: nothing; a valid signature per article; a verified publisher per article; the controlling owner per article; or the origin tool. Opposition: none, one outlet, or two independent outlets. Prompt: neutral, or neutral plus the instruction. The provenance text is simulated and follows the real layers (C2PA manifest, CAWG identity) plus an ownership attestation that current standards do not have. Both origin-tool outputs, known and unknown, end with the same sentence. With one owner and two dissenting outlets it is one origin against two, so the other side has more independent origins."))
-st.append(P("<b>3.3 Harness merge.</b> The harness keeps the first-listed document of each attested owner and adds one line saying how many documents were merged. Neutral prompt, no tool, no instruction."))
-st.append(P("<b>3.4 Agents and scoring.</b> GPT-5.4 mini on all 49 conditions; GPT-5.4, GPT-5.5, Claude Haiku 5.5 and Claude Sonnet 5.5 on the core conditions. One call per question per condition, source order fixed per question. The agent returns an answer, a confidence from 0 to 100, and the number of independent sources it believes support the answer. An answer is scored planted, other side, or undetermined (including answers that name both sides or say the sources conflict). Intervals are Wilson 95% for counts and a paired bootstrap over questions for confidence."))
-st.append(P("<b>3.5 Checks.</b> Repeat: the core conditions were asked a second time on Haiku 5.5 (600 pairs, same outcome in 88.2%) and on GPT-5.4 mini (760 pairs, 93.2%). Position: the plain contradicted condition was run with three source orders. Hypotheses were written in the repository README before the first run; Table A1 gives their status."))
-st.append(P("<b>3.6 Reproducibility.</b> Every model call is cached in the repository, so every table and figure can be regenerated without an API key. Tables 1, 2 and A2 in this PDF are computed from the results file when the PDF is built."))
+st.append(P("<b>3.1 Questions and articles.</b> We wrote 40 invented questions about fictional people, places and companies, each with a planted answer and a different dissenting answer. Five supporting outlets have different voices (regional daily, business newsletter, long-form weekly, trade blog, wire bulletin). GPT-5.4 mini wrote each article from the bare claim, 97 to 135 words, with its own invented details; mean pairwise 3-gram overlap is 0.02. The first dissenting outlet is written as a national newspaper that names the document it relies on, the second as a small local paper with first-hand reporting. Table 1 lists what we varied, and Table A1 lists the condition sets and which models ran each."))
+st.append(table([["Factor", "Levels"],
+                 ["Owner of the five outlets", "one owner; five separate owners (same articles in both); in a control, three under one owner"],
+                 ["Dissenting outlets", "one; two with separate owners (and none, as a sanity check)"],
+                 ["Provenance line under each article", "none; valid signature; plus verified publisher; plus controlling owner (the owner line)"],
+                 ["Ownership note", "a paragraph after the articles, headed \"Origin count tool\" in the prompt, listing which sources belong to each owner, or saying ownership is unknown"],
+                 ["Instruction (with the note)", "abstain instruction: count origins and answer \"undetermined\" if independent origins disagree; majority instruction: give the answer backed by more independent origins"],
+                 ["Harness merge", "before the model reads, keep the first-listed article of each owner and add a one-line note"],
+                 ["Output order", "answer first (default); or reasoning and source count first"]],
+                "Table 1. Factors varied. Provenance lines and the ownership note are simulated text that follows the real layers (C2PA manifest, CAWG identity) plus an ownership attestation that C2PA and CAWG do not have. Appendix C gives the wording.", colw=[1.9 * inch, 4.6 * inch], bold_first_col=True))
+st.append(P("<b>3.2 Hypotheses.</b> Four were written in the project README before the first run, though the commit history cannot confirm the timing (Appendix A); everything else is exploratory (Table A2). <b>H1</b>: a valid signature on each article does not reduce acceptance of the planted answer. <b>H2</b>: a signature or verified publisher raises it. <b>H3</b>: showing the owner reduces it under one owner and not under five. <b>H4</b>: the ownership note reduces it further, and a note saying ownership is unknown reduces it as well."))
+st.append(P(f"<b>3.3 Models and scoring.</b> We tested GPT-5.4 mini, GPT-5.4, GPT-5.5, Claude Haiku 5.5, Claude Sonnet 5.5 and Claude Opus 5.5. Each question in each condition is one call with the articles in the prompt and default settings, so this is retrieval-style question answering and not a multi-step agent. The model returns an answer, a confidence, the number of independent sources it believes support the answer, and its reasoning. We report three outcomes: planted, no pick, dissenting. An answer that names one side is scored by token match. About a third of answers ({N_CODED:,} of {N_ALL:,}) are not a single clean name. Most of these plainly decline to pick; the rest hedge, as in \"most likely X, though one source says Y\". We count a hedged answer as a pick for the side it favours, as labelled by two coder models with a third breaking ties. The coders agreed on {100 * N_AGREE2 / N_CODED:.0f}% of labels, mostly the plain refusals, and disagreed almost only on whether a hedge counts as a pick at all, not on which side it names (Appendix A). Figure 2 shades hedged answers, and Table A3 gives the stricter count that excludes them."))
+st.append(P("<b>3.4 Uncertainty.</b> Each cell is 40 questions, so a count carries a 95% Wilson interval of up to 15 points either side (Table A4). Comparisons are paired within a model, with an exact sign test on the questions that change. The core conditions were asked a second time on four models, and counts moved by up to 7/40 between asks, so we do not interpret differences below about 8. With one dissenting outlet and one owner the evidence is one owner against one, and declining to pick is defensible. With two dissenting outlets under separate owners it is two owners against one, so we treat the dissenting answer as the one a careful reader should give; under five separate owners or partial ownership the planted answer is. The results lead with the two-outlet conditions. All model calls are cached in the repository."))
 
 st.append(P("4. Results", "h1"))
-st.append(table(results_rows(T1), "Table 1. Planted / undetermined / other side, out of 40 questions. Five outlets back the planted answer. \"1 outlet\" and \"2 outlets\" are the dissenting outlets.", colw=W))
-st.append(P("<b>4.1 Signatures and verified identity change nothing (Table 1, Table A3).</b> With one outlet disagreeing, every model gave the planted answer in 34 to 40 of 40 questions whether the articles carried no provenance, a valid signature, or a verified publisher. The paired change in confidence is within 2 points on every model and every interval includes zero. The hypothesis that a signature raises trust was not supported either."))
-st.append(P("<b>4.2 Without ownership information every model follows the five outlets,</b> also against two independent outlets (34 to 40 of 40)."))
-st.append(P("<b>4.3 Ownership information: ignore, abstain, or re-weigh.</b> With the origin tool reporting one owner and two outlets disagreeing, GPT-5.4 mini and GPT-5.4 kept the planted answer in 35 and 34 of 40 questions. Haiku 5.5 answered undetermined in 34 and Sonnet 5.5 in 15, with 21 planted. GPT-5.5 gave the other side's answer in 38. Showing the owner as a provenance line, with no tool, lowered confidence by 4 to 29 points on four models and by nothing on GPT-5.4 mini (Table A3)."))
-st.append(P("<b>4.4 They state the count and follow the documents.</b> When a model kept the planted answer after the tool reported one owner, it usually said that one independent source supported it: 36 of 36 answers for GPT-5.4, 28 of 28 for GPT-5.5, 25 of 26 for Haiku 5.5. In the two-outlet case its reasoning named the single owner in 33 of 34 answers for GPT-5.4 and 21 of 21 for Sonnet 5.5, against 17 of 35 for GPT-5.4 mini. One Sonnet 5.5 answer says the five outlets \"count as one independent origin\" and continues: \"I chose Marrenkamp because far more documents support her\". Confidence at an origin tie, which warrants about 50, averaged 98 for GPT-5.4 mini and 83 for GPT-5.4, against 63 for GPT-5.5 and 57 for Haiku 5.5."))
-st.append(P("<b>4.5 The instruction works on four models and has a cost.</b> With the instruction, four of five models stop giving the planted answer in one-owner cases (0 to 6 of 40); GPT-5.4 mini still gives it in 32 and 22. Only GPT-5.5 re-weighs (37 of 40 other side); the others abstain. With five separate owners the instruction makes GPT-5.4 answer undetermined in 17 of 40 questions against one dissenting outlet and 34 against two, and Haiku 5.5 in 12 and 31. Sonnet 5.5 (3 and 6) and GPT-5.5 (0 and 1) are barely affected."))
-st.append(table(results_rows(T2, conf=True), "Table 2. Harness merge: planted / undetermined / other side (mean confidence). Neutral prompt, no tool, no instruction.", colw=W))
-st.append(P("<b>4.6 Merging by owner in the harness gives re-weighing without over-caution (Table 2).</b> With one owner against two outlets, the merge gives the other side's answer in 34 of 40 questions on GPT-5.4, 26 on Haiku 5.5, 27 on Sonnet 5.5 and 39 on GPT-5.5. Given the same information as tool output, the first three chose the other side in 3, 2 and 4. With five separate owners nothing is merged and every model stays with the five outlets (32 to 40 of 40), where the instruction had cost GPT-5.4 and Haiku 5.5 up to 34 and 31 answers. GPT-5.4 mini is only partly fixed: it moves to the other side in 22 questions and keeps the planted answer in 17, and when the merge leaves one origin against one it still picks the planted answer in 28 at a mean confidence of 91, where the other models answer undetermined in 32 to 39."))
-st.append(P("<b>4.7 Other checks.</b> Marking ownership unknown, with the instruction, produces abstention on most models whether or not the sources are independent (Table A2). The position of the dissenting outlet had no meaningful effect (2 of 29 first-position runs on GPT-5.4 mini, 0 of 10 on GPT-5.4). In the two-outlet tool condition, 39 of the 40 questions had at least one model leave the planted answer, so the effect is not carried by a few questions."))
+st.append(P("All counts are out of 40 questions. Figure 2 shows the main conditions with two dissenting outlets, and Table A5 and Figure A1 give every core condition."))
+st.append(P(f"<b>4.1 Provenance lines on every article had no detectable effect.</b> With no provenance, every model gave the planted answer on at least {min(c(m, cn) for m in ALLM for cn in ['none1', 'none2'])}/40 questions. This counts hedged answers, which are {cav('opus', 'none1')} and {cav('opus', 'none2')} of Opus 5.5's planted answers in the two baselines (Table A3). A signature or a verified publisher on every article, tested against one dissenting outlet, produced no detectable change in answers or stated confidence (Tables A5, A6). With acceptance already at the ceiling, the answers could only have shown a decrease, so the test says little about whether such lines add credibility. A line on one side only did matter. When the dissenting article had a verified publisher and the other five carried an explicit \"no manifest found\" line, planted answers fell to {q('g55', 'vdis_nm')} on GPT-5.5, {q('sonnet', 'vdis_nm')} on Sonnet 5.5 and {q('opus', 'vdis_nm')} on Opus 5.5 (Table A7). When the five were left blank instead, which we ran on the three Claude models, only Opus 5.5 moved (Table A8). So an explicit missing-manifest line works as a credibility cue, although it says nothing about independence. Printing that line was our choice; C2PA does not prescribe it."))
+st.extend(figure(os.path.join(ROOT, "results", "fig_main.png"), "Figure 2. Two dissenting outlets against five outlets that back the planted answer. Numbers are planted, no-pick and dissenting counts out of 40; lighter shades mark answers given with a caveat. \"Note\" is the ownership note; every row has two dissenting outlets. In the first five rows the dissenting answer (green) has more independent owners behind it; in the last two rows the five outlets have five owners, so the planted answer (blue) does.", 6.5))
+st.append(P(f"<b>4.2 Told that the five outlets had one owner, two models changed sides, one split and three mostly kept the planted answer.</b> The ownership note said that the five supporting outlets had one owner and the two dissenting outlets had different owners (Figure 2, second row). GPT-5.5 and Opus 5.5 then gave the dissenting answer on {q('g55', 'tool2', 'other')} and {q('opus', 'tool2', 'other')}. GPT-5.4 mini, GPT-5.4 and Sonnet 5.5 kept the planted answer on {q('mini', 'tool2')}, {q('g54', 'tool2')} and {q('sonnet', 'tool2')}. Haiku 5.5 split three ways. We also ran the owner line without the note, against one dissenting outlet. It moved Opus 5.5 fully and GPT-5.5 and Sonnet 5.5 partly, and adding the note made no consistent difference (Table A5). Two wording checks ran on the Claude models. Swapping which side had the holding-company name changed planted counts by {SWAPMAX}/40 on one Opus 5.5 cell and by 4 or fewer elsewhere (Table A8). Removing the note's closing sentence, which warns that different names do not establish independence, raised Haiku 5.5's planted answers from {q('haiku', 'tool2')} to {q('haiku', 'tool2_noclose')}, so on that model part of the effect is the warning (Table A9)."))
+st.append(P(f"<b>4.3 Two of the three models that kept the planted answer also said it had one independent source.</b> GPT-5.4 reported one independent source in {os1['g54'][0]} of its {os1['g54'][1]} planted answers, and Sonnet 5.5 in {os1['sonnet'][0]} of {os1['sonnet'][1]}. Box 1 shows a typical reply: the model restates the note correctly and then answers with the five \"because far more documents support\" them. GPT-5.4 mini is a different case. It reported one source in only {os1['mini'][0]} of {os1['mini'][1]} planted answers and two in {two_src}, so it mostly miscounts."))
+st.append(P(f"How the answer is requested matters, and we could test this on the Claude models only. One added sentence that permits \"undetermined\" cut Sonnet 5.5's planted answers from {q('sonnet', 'tool2')} to {q('sonnet', 'tool2_permit')} and Haiku 5.5's from {q('haiku', 'tool2')} to {q('haiku', 'tool2_permit')}. The same sentence also removed planted answers when no ownership information was given, so it is not free (Table A8). Asking for reasoning and source count before the answer cut Sonnet 5.5 to {q('sonnet', 'tool2_reorder')} and left Haiku 5.5's planted count unchanged (Table A9). The Sonnet 5.5 result is therefore fragile: it depends on the prompt format and, as Section 4.6 shows, on the article set. The GPT-5.4 result stands only for an answer-first prompt that does not offer abstention, because the budget did not allow these checks on it."))
+
+def _b(v, bad):
+    return f"<b>{v}</b>" if bad else str(v)
+def _fx(cn_one, what, bad=lambda v: False):
+    return lambda m: (_b(c(m, cn_one, what), bad(c(m, cn_one, what))) if ran(m, cn_one) else "n/r")
+def _added(cn_five):
+    return lambda m: (_b(f"{c(m, cn_five, 'none') - c(m, 'none2', 'none'):+d}".replace("+0", "0"), c(m, cn_five, 'none') - c(m, 'none2', 'none') >= 10) if ran(m, cn_five) else "n/r")
+FIX = [("Note", "tool2", "five_tool2", "mixed_tool2"), ("Note + abstain instruction", "toolA2", "five_toolA2", None), ("Note + majority instruction", "toolB2", "five_toolB2", "mixed_toolB2"), ("Harness merge", "merge2", "five_merge2", "mixed_merge2")]
+T4 = [("head", "(1) Extra no-pick answers when the five owners are separate, against the same model's no-provenance baseline. 0 is ideal.", None)] + [("row", n, _added(b)) for n, a, b, m3 in FIX] \
+    + [("head", "(2) Planted answers kept under partial ownership, where the planted side has three owners against two. 40 is ideal.", None)] + [("row", n, _fx(m3, "planted", lambda v: v <= 20)) for n, a, b, m3 in FIX if m3]
+st.append(gtable(grid(T4), "Table 2. What each fix costs, two dissenting outlets, counts out of 40 (n/r: not run; large costs in bold). Figure 2 shows what each fix achieves under one owner.", GW, heads=(1, 6)))
+st.append(P(f"<b>4.4 The abstain instruction removed the planted answer, and also removed answers that should have stayed.</b> Under one owner it left no planted answers on four models (Figure 2, third row). But when the five owners were separate, GPT-5.4 declined to pick on {q('g54', 'five_toolA2', 'none')} and Haiku 5.5 on {q('haiku', 'five_toolA2', 'none')} (Table 2, block 1). The instruction tells the model to lower its confidence when independent origins disagree and to answer undetermined if the sources do not settle the question, and these models took that literally. The majority instruction had no such cost. It moved GPT-5.5 and the three Claude models to the dissenting answer on at least {min(c(m, 'toolB2', 'other') for m in ['g55', 'opus', 'haiku', 'sonnet'])}/40, but left GPT-5.4 on {q('g54', 'toolB2')} planted answers and GPT-5.4 mini on {q('mini', 'toolB2')}. One caution on reading Sonnet 5.5 here: in {SELF_B2} of 40 replies its output contained two answers, the planted one and then a correction to the dissenting one, and we score the correction. Neither instruction is shown to handle the realistic case in which ownership is unknown. With a note saying so and two dissenting outlets, the abstain instruction produced {rng('unk2', 'none', ['mini', 'g54', 'g55', 'haiku', 'opus'])} no-pick answers of 40 on five models (Table A10). The majority instruction was not run there."))
+st.append(P(f"<b>4.5 Removing same-owner duplicates moved five of six models to the dissenting answer.</b> After the merge the model reads one article per owner, so with one owner against two dissenting outlets it reads one article against two. GPT-5.4 and Sonnet 5.5, which had kept the planted answer with all seven articles and the note in the prompt, now gave the dissenting answer on {q('g54', 'merge2', 'other')} and {q('sonnet', 'merge2', 'other')} (Figure 2, fifth row). This is no surprise, since the models follow the majority of whatever articles remain, and the same three articles with no merge note give the same result (Table A7). With five separate owners nothing is removed and the planted answer stays. GPT-5.4 mini is the exception. After a merge it follows whichever article is listed first, in {FIRST[0]} of its {FIRST[1]} answers that pick a side when it reads one article against one (Tables A7, A11). The merge is not always the best fix either. Under partial ownership the majority instruction kept the planted answer on 40/40 for all three Claude models, and the merge kept it on only {q('opus', 'mixed_merge2')} for Opus 5.5 (Table 2, block 2)."))
+_rp = lambda mk: f"{100 * REP[mk][0] / REP[mk][1]:.0f}%"
+st.append(P(f"<b>4.6 Robustness.</b> Four checks are in Table A12. On a second article set, from a different writer and with consistent details on each side, the Sonnet 5.5 result of Section 4.3 disappears: {q('sonnet', 'tool2', 'planted', SET2)} planted under the note against {q('sonnet', 'tool2')}. Repeat runs move counts by up to 7/40. The main contrasts pass a Bonferroni correction. Strict scoring of hedged answers lowers several Claude cells, most of all in Table 2, block 2, and leaves the GPT cells almost unchanged."))
 
 st.append(P("5. Discussion and Limitations", "h1"))
-st.append(P("<b>For provenance standards.</b> The two things a manifest can attest today did not help any model. The thing it cannot attest, common control, helped every model that used it. A common-control assertion backed by an ownership register is the missing layer. It is only as good as the register: an operator with five shell owners makes the tool report five owners, which is the five-owners row of Table 1."))
-st.append(P("<b>For agent builders.</b> Giving an agent the signal is not the same as the agent using it. Four of five models did not re-weigh by origin when told who owned what, and two of them said the right count and still followed the documents. A prompt instruction buys abstention and costs decisiveness on honest independent reporting. Doing the merge in the harness moved four of five models to the better-supported answer and kept decisiveness on independent sources on all five; the smallest model still did not express doubt at a tie."))
-st.append(P("<b>For evaluation.</b> Three numbers should be reported together: acceptance of the planted claim, re-weighing to the better-supported answer, and over-caution on independent sources. A defence that only produces doubt scores well on the first and fails the third."))
-st.append(P("Limitations (ethics in Appendix A)", "h2"))
-st.append(P("Five models from two vendors, one sample per cell, with a repeat check on two of the five. Four models ran the 19 core conditions only. The outlets are fictional and have no reputation, so the test says nothing about a trusted outlet outweighing unknown ones. Provenance output is simulated text, not real signed manifests. Independence is by our labels, and both answers are invented, so \"better supported\" means supported by more independent origins, not true. The agents read a fixed set of retrieved documents; full research products with live search were not tested. The harness merge assumes a truthful ownership register. An AI assistant from one of the two tested vendors supported the work (see the LLM Usage Statement)."))
-st.append(P("Future Work", "h2"))
-st.append(P("Real ownership data (company registers, ads.txt) in place of attested labels; real signed manifests; full research agents with live search; the harness merge on more models and under shell-owner attacks."))
+st.append(P(f"<b>What to do.</b> (1) Do not rely on telling a model who owns a source: half the models we tested mostly kept the planted answer. (2) If a trusted ownership record exists, apply it in the pipeline before the model reads, not as text for the model to weigh. (3) Test any such defence on separately owned and partly owned sources too, because an instruction that removed the planted answer on four models under one owner also refused to answer on up to {max(c(m, 'five_toolA2', 'none') for m in ALLM)}/40 questions when the owners were separate."))
+st.append(P("<b>For builders.</b> A model can state that five outlets are one origin and still give their answer because there are five of them. The request format matters: permission to decline reduced this on Sonnet 5.5 and Haiku 5.5, and reasoning before the answer reduced it on Sonnet 5.5 only. One more caution applies to all our fixes. The ownership note and the merge note are ordinary text in the prompt, and an operator could write the same paragraph into an article. Ownership information has to reach the model through a channel it can tell apart from retrieved content."))
+st.append(P("<b>For provenance standards.</b> Signatures and verified publishers did what they are designed to do. Closing the independence gap would take an assertion with three properties that a C2PA manifest and a CAWG identity do not have. First, it states who controls the publisher, not only who the publisher is. Second, a party other than the publisher issues it, since an operator can declare five owners as easily as one; when our note said the five outlets had five owners, all five models that ran that condition kept the planted answer. Third, it has an explicit value for unknown and guidance on what a consumer should do with it. We tested unknown only together with the abstain instruction, where it removed most answers (Section 4.4). Even then the merge can be attacked, because it trusts the ownership record completely. Our result also reads the other way round: five honest outlets that share an owner would be collapsed to one and outvoted by two shell outlets. A deployed merge would more plausibly cluster on shared infrastructure, as in the networks cited in the introduction, and would then have false positives."))
+st.append(P("<b>Limitations.</b> We tested six models from two vendors on 40 questions, with one sample per cell and repeats on four models. Provenance and the note are simulated text. Each outlet has its own signing key, whereas real outlets on one publishing system might share a signer, which would itself hint at dependence; we did not test that. The task is single-call question answering over fixed articles, not a research product with live search. The two sides are not matched in quality: the dissenting articles are written to sound careful, and the five supporting articles disagree on incidental details, which Box 1 shows a model noticing. The checks in Section 4.3 ran on one vendor's models, and the coders that scored ambiguous answers are from that vendor too and were not checked against human labels. Appendix A lists further limits."))
 
 st.append(P("6. Conclusion", "h1"))
-st.append(P("A signature shows that an article is authentic and a verified identity shows who published it. Neither tells a research agent whether five agreeing outlets are five sources or one, and on five models neither changed the answer. Ownership information did, but most models needed the counting done for them. The practical steps are an ownership layer in provenance and an origin merge in the agent harness."))
+st.append(P("A signature shows that an article is intact and a verified identity shows who published it. Neither shows whether five agreeing outlets are five sources or one, and on every article neither had a detectable effect on any model's answers. Ownership information did change answers, but half the models kept the planted answer when shown the ownership note. GPT-5.4 and Sonnet 5.5 repeated the note's count of one origin in the same reply, Sonnet 5.5 only under the default prompt and the main article set. An instruction or a merge step recovered most of the lost ground, each at a different cost. All of it depends on an ownership record that the operator behind such a network has no reason to provide."))
 
+
+T3ROWS = [("head", "One dissenting outlet", None)] + [("row", lab, (lambda m, cn=cn: bt(m, cn))) for lab, cn in [("No provenance", "none1"), ("Signed", "sig1"), ("Verified publisher", "org1"), ("Owner line: one owner", "owner1"), ("Note: one owner", "tool1"), ("Note: one owner + abstain instruction", "toolA1"), ("Note: five owners + abstain instruction", "five_toolA1")]] \
+    + [("head", "Two dissenting outlets", None)] + [("row", lab, (lambda m, cn=cn: bt(m, cn))) for lab, cn in [("No provenance", "none2"), ("Note: one owner", "tool2"), ("Note: one owner + abstain instruction", "toolA2"), ("Note: five owners + abstain instruction", "five_toolA2"), ("Harness merge: one owner", "merge2"), ("Harness merge: five owners", "five_merge2")]]
 st.append(P("Code and Data", "h1"))
-st.append(P("<b>Code repository:</b> https://github.com/SahuNarendra/signed-not-independent. All claims, articles, prompts, cached model answers and analysis scripts are included."))
-st.append(P("<b>Data:</b> all data are generated in the sprint and fictional. No external dataset is used."))
-st.append(P("<b>Prior work.</b> No code was written before the sprint. Before 13 November the author did a literature search and wrote a plan for a related idea (a score for independent origins). That plan was dropped on 13 November after a second search showed it was already published. Everything in the repository was produced from 13 November 2026."))
+st.append(P("<b>Code repository:</b> https://github.com/SahuNarendra/signed-not-independent. All questions, articles, prompts, cached model answers, coder labels and analysis scripts are included. All data are fictional and were generated in the sprint; no external dataset is used."))
+st.append(P("<b>Prior work.</b> No code was written before the sprint. A literature search and a plan for a related idea were done before 13 November; the plan was dropped that day when a second search showed it was already published."))
 
 st.append(P("Author Contributions", "h1"))
 st.append(P("Narendra Sahu: sole author."))
@@ -194,49 +458,147 @@ for ref in [
     "Anthropic (2026). Detecting and countering misuse of AI: September 2026. https://www.anthropic.com/threat-intelligence-report-september-2026",
     "Bara, M. (2026). Epistemic Sybil Resistance: Multiplying AI Agents Without Multiplying Evidence. arXiv:2609.01873",
     "Bengani, P. (2019). Hundreds of \"pink slime\" local news outlets are distributing algorithmic stories and conservative talking points. Tow Center, Columbia Journalism Review.",
-    "C2PA (2025). C2PA Technical Specification 2.4. https://spec.c2pa.org/",
+    "C2PA (2026). Content Credentials: C2PA Technical Specification 2.4. https://spec.c2pa.org/",
     "Chen, Y. et al. (2026). How Much Can We Trust LLM Search Agents? Measuring Endorsement Vulnerability to Web Content Manipulation. EMNLP 2026. arXiv:2606.16821",
-    "Cotton-Barratt, O., Vaintrob, L., Sourbut, O. (2025). Design Sketches: Collective Epistemics. Forethought.",
+    "Cotton-Barratt, O., Vaintrob, L., Sourbut, O. (2025). Design Sketches: Collective Epistemics. Forethought. https://www.forethought.org/",
     "Creator Assertions Working Group (2026). CAWG Identity Assertion. https://cawg.io/",
     "Dong, X. L., Berti-Equille, L., Srivastava, D. (2009). Integrating Conflicting Data: The Role of Source Dependence. Proceedings of the VLDB Endowment 2(1), 550-561.",
-    "Gallego, S., Habana, A. (2026). False Epistemic Redundancy: Do AI Ensembles Share a Blind Spot? Apart Research, Digital Minds Research Sprint.",
+    "Douceur, J. R. (2002). The Sybil Attack. International Workshop on Peer-to-Peer Systems (IPTPS).",
     "Gao, J. et al. (2026). Copies or Sources? Measuring How LLM Aggregators Count Restated Evidence in Multi-Agent Systems. arXiv:2610.06192",
+    "Kawada, S., Kellis, M. (2026). Evidence Integration in Large Language Models. arXiv:2609.04290",
     "Lu, Y., Zhang, Y. (2026). The Corroboration Illusion: When More News Makes LLM Forecasts Less True. arXiv:2609.22246",
     "Metales, A., Grabenheinrich, M., Metales, A. (2026). Copies Are Not Confirmations: How News Duplication Fools LLM Judges and Continual Learners. arXiv:2611.09203",
-    "Navaie, K. (2026). Epistemic norms for AI safety and alignment research. Artificial Intelligence Review. doi:10.1007/s10462-026-11666-8",
+    "Schuster, J., Gautam, V., Markert, K. (2026). Whose Facts Win? LLM Source Preferences under Knowledge Conflicts. arXiv:2601.03746",
     "Trattner, C., Forstner, S. L., Starke, A. D., Knudsen, E. (2026). C2PA Provenance Labels Increase Trust in Digital News Platforms Across Western Countries. ICWSM 2026. doi:10.1609/icwsm.v20i1.42749",
+    "Wan, A., Wallace, E., Klein, D. (2024). What Evidence Do Language Models Find Convincing? ACL 2024.",
+    "Xiang, C., Wu, T., Zhong, Z., Wagner, D., Chen, D., Mittal, P. (2024). Certifiably Robust RAG against Retrieval Corruption. arXiv:2405.15556",
+    "Xie, J., Zhang, K., Chen, J., Lou, R., Su, Y. (2024). Adaptive Chameleon or Stubborn Sloth: Revealing the Behavior of Large Language Models in Knowledge Conflicts. ICLR 2024.",
     "Zhou, R. et al. (2026). Evidence Laundering: Deep Research Agents Mistake Correlated Sources for Independent Evidence. EMNLP 2026. https://aclanthology.org/2026.emnlp-main.509/",
+    "Zou, W., Geng, R., Wang, B., Jia, J. (2025). PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models. USENIX Security 2025.",
 ]:
     st.append(P(ref, "ref"))
 
 st.append(P("Appendix A. Limitations and Dual-Use / Ethical Considerations", "h1"))
-st.append(P("<b>What the result establishes.</b> In a closed lab with fictional outlets, on five models from two vendors, provenance and ownership information had the effects in Tables 1 and 2. <b>What it does not establish.</b> The behaviour of other models or of research products with live search; behaviour when outlets have a real reputation; that any real outlet is or is not independent."))
-st.append(P("<b>Dual use.</b> Showing that agreeing outlets written from scratch pass as independent could inform an influence operation. This is already documented in the wild and in the papers cited. The repository contains the lab harness only and no tooling to run outlets. All outlets, people and claims are fictional and nothing was published to the web."))
-st.append(P("<b>Conflict to disclose.</b> The AI assistant used during the work comes from one of the two vendors whose models were tested. To keep this from affecting the results, every tested model was called through its API with the same fixed prompts, and all numbers come from scripts and cached answers in the repository. <b>Personal data.</b> None."))
+st.append(P(f"<b>Scoring of hedged answers.</b> The two coders (Sonnet 5.5 and Haiku 5.5) saw the question, both candidate answers, the reply and its confidence. Their kappa was 0.37. Both read {N_PLAIN:,} answers as no pick; where at least one of them saw a pick, they agreed on only {PICK_AGREE[0]:,} of {PICK_AGREE[1]:,}. In {N_DIS_N:,} of {N_DIS:,} disagreements the Sonnet 5.5 coder read a hedged answer as no pick where the Haiku 5.5 coder read it as a pick, and the third coder (Opus 5.5) sided with the pick reading in {100 * TB_PICK / len(_tb):.0f}% of them. The final scoring is therefore close to the lenient reading, and Table A3 shows the strict one. No human labels were used. <b>Further limits of the design.</b> The hypotheses were written in the README on 13 November, but the commit history starts on 14 November, so their timing cannot be checked from it. Ownership is an imperfect stand-in for independence: commonly owned newsrooms can report separately, and separately owned outlets can repeat one press release. Real C2PA signing of text articles is rare, and signer certificates often identify a tool or platform, so nothing here says how real manifests would read. In the main article set one tested model wrote all the articles and the five supporting articles disagree on incidental details, which independent reports of a real event would not; the second set removes both but its articles share more wording (mean 3-gram overlap 0.14, maximum 0.51). Every note condition also carries the owner line under each article. The output format asks for the number of independent sources in every condition, which may draw attention to independence at baseline. The dissenting outlets are written to sound careful, and no run used carelessly written ones. GPT-5.4 and GPT-5.5 were not repeated and did not run the later controls. Default reasoning settings differ between models and may explain part of the difference between them. Signature and verified-publisher lines were tested against one dissenting outlet only. The token matcher scored {HOLE} answers as clean although they open with a non-committal word (at most 3 in any cell), and {N_REPARSED} replies that contained a corrected second answer were scored by their last answer."))
+st.append(P("<b>Future work.</b> Ownership inferred from infrastructure signals, with its false positives. Partial and adversarial ownership records. Real signed manifests, including outlets that share a signer. Multi-step agents with live search and a real tool call. The owner line alone against two dissenting outlets, and a note saying ownership is unknown with no instruction, on all models. The prompt-format controls on the OpenAI models. A check of the coder labels against human labels."))
+st.append(P("<b>What the result establishes, and what it does not.</b> In a synthetic test with fictional outlets, on six models from two vendors, provenance and ownership information had the effects in Figure 2 and Table 2. The test says nothing about other models, about research products with live search, about outlets with a real reputation, or about whether any real outlet is independent, and it does not show that a deployable ownership signal exists."))
+st.append(P("<b>Dual use.</b> Showing that agreeing outlets written from scratch pass as independent could inform an influence operation, and Section 5 names ways around the fixes (shell owners, shell outlets or a false attestation of shared ownership against an honest group, an explicit negative provenance line on a rival, ownership text planted in an article). The first is already documented in the wild and in the papers cited; we judge that naming the limits of a defence helps defenders more than attackers. The repository contains the test harness only and no tooling to run outlets. All outlets, people and claims are fictional and nothing was published to the web."))
+st.append(P("<b>Conflict to disclose.</b> The AI assistant used during the work comes from one of the two vendors whose models were tested, three of the six tested models are from that vendor, and its models served as coders. To limit the effect, every tested model was called through its API with the same fixed prompts, coder prompts are fixed and published, and all numbers come from scripts and cached answers in the repository. <b>Personal data.</b> None."))
 
 st.append(P("Appendix B. Supplementary results", "h1"))
+st.append(P("Tables are numbered in the order the text first cites them. Cells are planted / no pick / dissenting out of 40 unless a caption says otherwise."))
+st.append(table([["Condition set", "Conditions", "Models", "Reported in"],
+                 ["Core: provenance on every article alike, note, abstain instruction, merge", "19", "all six", "Figure 2, Tables A5, A10, A11"],
+                 ["Controls 1: one-sided provenance, majority instruction, merge checks", "14", "five; GPT-5.5 ran 5", "Table A7"],
+                 ["Controls 2: other side blank, permission to abstain, names swapped", "9", "three Claude models", "Table A8"],
+                 ["Controls 3: partial ownership, note wording, reasoning first", "8", "three Claude models", "Table A9"],
+                 ["Second article set", "4", "three Claude models", "Table A9"],
+                 ["Early exploratory conditions (first-day note wording and other variants)", "28", "GPT-5.4 mini only", "repository only; three cells quoted in Table A2"]],
+                "Table A1. Condition sets, 40 questions each. Controls were added on the second day after reviews of drafts by AI reviewers (see the LLM Usage Statement); the later sets ran on Claude models only because the OpenAI budget ran out.", colw=[3.3 * inch, 0.75 * inch, 1.2 * inch, 1.25 * inch]))
 st.append(table([["Claim", "Evidence", "Status"],
-                 ["H1. A valid signature does not reduce acceptance of the planted answer", "4.1", "confirmed on five models"],
-                 ["H2. A signature or verified publisher raises acceptance", "4.1, Table A3", "not supported; every interval includes zero"],
-                 ["H3. Showing the controlling owner reduces acceptance under one owner", "4.3, Table A3", "confirmed on four models, not on GPT-5.4 mini"],
-                 ["H4. The origin tool reduces acceptance further", "4.3 to 4.5", "model dependent: re-weigh (1), abstain (2), ignore (2)"],
-                 ["Models that keep the planted answer do not register the single owner", "4.4", "refuted for GPT-5.4, GPT-5.5, Haiku 5.5, Sonnet 5.5"],
-                 ["An instruction to count origins has no cost", "4.5", "refuted on GPT-5.4 and Haiku 5.5"],
-                 ["A harness merge gives re-weighing without over-caution", "4.6", "confirmed on four models; partly on GPT-5.4 mini"],
-                 ["Results are stable on a second ask", "3.5", "same outcome in 88 to 92% of pairs"]],
-                "Table A1. Claim status.", colw=[3.3 * inch, 1.0 * inch, 2.2 * inch]))
-st.append(table(results_rows(TA, conf=True), "Table A2. Further conditions: planted / undetermined / other side (mean confidence).", colw=W))
-st.append(table([["Model", "Signature", "Verified publisher", "Owner shown, one owner"],
+                 ["H1. A valid signature on each article does not reduce acceptance of the planted claim.", "4.1", "no reduction detected on six models"],
+                 ["H2. A valid signature or verified publisher raises acceptance compared with no provenance.", "4.1, Table A6", "not testable on answers (baseline at ceiling); no change in stated confidence"],
+                 ["H3. Showing the controlling owner reduces acceptance when one owner is behind all five outlets, and does not reduce it when five owners are.", "4.2", "first half held on Opus 5.5, in part on GPT-5.5 and Sonnet 5.5 (10 fewer planted answers each, p = 0.002, which does not pass the corrected threshold), not on the other three; second half run on GPT-5.4 mini only (38 of 40 planted, as at baseline)"],
+                 ["H4. The origin count tool (the ownership note) reduces acceptance further, and its \"unknown\" output reduces acceptance even when ownership is not attested.", "4.2, 4.4", "first half not supported; second half confounded with the abstain instruction, with which five of six models mostly declined to pick (Table A10) and, without it, was run on GPT-5.4 mini only (38 and 36 of 40 planted, no reduction)"],
+                 ["Exploratory. Models that keep the planted answer report the single origin.", "4.3", "GPT-5.4 and Sonnet 5.5 mostly; GPT-5.4 mini in a minority of answers; on Sonnet 5.5 it depends on prompt format and article set"],
+                 ["Exploratory. An instruction to count origins costs answers on separately owned sources.", "4.4", "abstain instruction: GPT-5.4, Haiku 5.5, GPT-5.4 mini; majority instruction: no model, with attested ownership"],
+                 ["Exploratory. A provenance line on one side only changes the answer.", "4.1", "with \"no manifest found\" on the five: three models strongly; with the five blank: Opus 5.5 only"],
+                 ["Exploratory. The harness merge moves models to the dissenting answer at no cost on separately owned sources.", "4.5", "five models (three source orders on four of them); costs Opus 5.5 answers under partial ownership; GPT-5.4 mini follows the first-listed article"],
+                 ["Exploratory. Outcomes repeat on a second ask.", "4.6", "92% to 93% of pairs on four models"]],
+                "Table A2. Status of the hypotheses written before the first run (wording as in the README) and of the exploratory claims.", colw=[3.0 * inch, 0.9 * inch, 2.6 * inch]))
+
+
+def passes(mk, cn):
+    g = grp(mk, cn)
+    return f"{sum(r['outcome_first'] == 'planted' for r in g)} to {c(mk, cn)}" if sum(r['outcome_first'] == 'planted' for r in g) != c(mk, cn) else str(c(mk, cn))
+
+
+st.append(gtable(grid([("row", lab, (lambda m, cn=cn: passes(m, cn))) for lab, cn in [("1 outlet. No provenance", "none1"), ("1 outlet. Owner line: one owner", "owner1"), ("2 outlets. No provenance", "none2"), ("2 outlets. Note: one owner", "tool2"), ("2 outlets. Harness merge: five owners", "five_merge2")]]), "Table A3. Planted answers out of 40: first scoring pass alone (clean answers only) to final scoring (plus answers the coders read as planted with a caveat). A single number means both agree.", GW))
+
+
+def wil(mk, cn):
+    k, n, z = c(mk, cn), 40, 1.96
+    p = k / n
+    d = 1 + z * z / n
+    ctr = (p + z * z / (2 * n)) / d
+    h = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / d
+    return f"{k} [{max(0, round(100 * (ctr - h)))},{min(100, round(100 * (ctr + h)))}]"
+
+
+st.append(gtable(grid([("row", lab, (lambda m, cn=cn: wil(m, cn))) for lab, cn in [("1 outlet. No provenance", "none1"), ("1 outlet. Owner line: one owner", "owner1"), ("1 outlet. Note: one owner", "tool1"), ("2 outlets. No provenance", "none2"), ("2 outlets. Note: one owner", "tool2"), ("2 outlets. Note: one owner + abstain instr.", "toolA2"), ("2 outlets. Note: five owners + abstain instr.", "five_toolA2"), ("2 outlets. Harness merge: one owner", "merge2"), ("2 outlets. Harness merge: five owners", "five_merge2")]]), "Table A4. Planted answers out of 40 with the 95% Wilson interval in percent.", [2.0 * inch] + [0.75 * inch] * 6))
+st.append(gtable(grid(T3ROWS), "Table A5. Core conditions: planted / no pick / dissenting, out of 40. Five outlets back the planted answer. Cells with 10 or fewer planted answers are in bold.", GW, heads=(1, 9)))
+st.append(table([["Model", "Signature", "Verified publisher", "Owner line, one owner"],
                  ["GPT-5.4 mini", "+1.6 [-0.2, +4.0]", "+1.6 [-0.8, +4.3]", "+1.4 [-0.7, +4.0]"],
                  ["GPT-5.4", "+0.5 [-1.2, +2.2]", "-1.3 [-2.6, +0.1]", "-4.2 [-7.0, -1.7]"],
                  ["GPT-5.5", "0.0 [-0.8, +0.8]", "-0.1 [-0.8, +0.6]", "-25.9 [-29.4, -22.9]"],
                  ["Haiku 5.5", "0.0 [-2.7, +2.5]", "-0.1 [-2.1, +1.8]", "-12.9 [-16.6, -9.4]"],
-                 ["Sonnet 5.5", "+1.2 [-1.1, +3.3]", "+1.0 [-1.0, +3.0]", "-28.6 [-30.9, -26.2]"]],
-                "Table A3. Change in mean confidence against no provenance, one outlet disagreeing, paired by question. Brackets: 95% bootstrap interval.",
+                 ["Sonnet 5.5", "+1.2 [-1.1, +3.3]", "+1.0 [-1.0, +3.0]", "-28.6 [-30.9, -26.2]"],
+                 ["Opus 5.5", "-1.0 [-3.5, +1.2]", "-0.7 [-3.3, +1.8]", "-17.7 [-21.8, -13.5]"]],
+                "Table A6. Change in mean stated confidence against no provenance, one dissenting outlet, paired by question. Brackets: 95% bootstrap interval.",
                 colw=[1.4 * inch, 1.7 * inch, 1.7 * inch, 1.7 * inch], bold_first_col=True))
-st.append(P("<b>Models.</b> gpt-5.4-mini-2026-03-17, gpt-5.4-2026-03-05, gpt-5.5-2026-04-23 (OpenAI API); claude-haiku-5-5, claude-sonnet-5-5 (Anthropic API, OpenAI-compatible endpoint). Articles were written by gpt-5.4-mini-2026-03-17."))
+CN["merge1_o2"] = ("trusted", "controller", "collusion", False, False, 0, 1, True)
+CN["merge1_o3"] = ("trusted", "controller", "collusion", False, False, 0, 2, True)
+CN["bare1"] = ("trusted", "bare", "collusion", False, False, 0, 0, "plain")
+CN["none0"] = ("silence", "none", "na", False, False, 0, 0, False)
+CN["toolA0"] = ("silence", "controller", "collusion", True, True, 2, 0, False)
+A5 = [("head", "One dissenting outlet", None)] + rows_for([("Five verified, dissenting article \"no manifest found\"", "vsup_nm"), ("Dissenting article verified, five \"no manifest found\"", "vdis_nm"), ("Note: five owners, no instruction", "five_tool1"), ("Note: one owner + majority instruction", "toolB1"), ("Note: five owners + majority instruction", "five_toolB1"), ("Harness merge: one owner, source order 2", "merge1_o2"), ("Harness merge: one owner, source order 3", "merge1_o3"), ("Same articles as the merge, no note, no provenance", "bare1")]) \
+    + [("head", "Two dissenting outlets", None)] + rows_for([("Note: five owners, no instruction", "five_tool2"), ("Note: one owner + majority instruction", "toolB2"), ("Note: five owners + majority instruction", "five_toolB2"), ("Harness merge: one owner, source order 2", "merge2_o2"), ("Harness merge: one owner, source order 3", "merge2_o3"), ("Same articles as the merge, no note, no provenance", "bare2")])
+st.append(gtable(grid(A5), "Table A7. Controls 1 (14 conditions). GPT-5.5 ran five of these.", GW, heads=(1, 10)))
+A6 = [("head", "One dissenting outlet", None)] + rows_for([("Dissenting article verified, five left blank", "vdis_blank"), ("Dissenting article signed only, five left blank", "sdis_blank"), ("Five verified, dissenting article left blank", "vsup_blank"), ("No provenance + permission to abstain", "none1_permit"), ("Note: one owner + permission to abstain", "tool1_permit"), ("Owner line: one owner, owner names swapped", "owner1_swap")], CL3) \
+    + [("head", "Two dissenting outlets", None)] + rows_for([("No provenance + permission to abstain", "none2_permit"), ("Note: one owner + permission to abstain", "tool2_permit"), ("Note: one owner, owner names swapped", "tool2_swap")], CL3)
+st.append(gtable(grid(A6, CL3), "Table A8. Controls 2 (9 conditions), Claude models. Permission to abstain is one sentence added to the neutral system prompt (Appendix C).", GW3, heads=(1, 8)))
+A7 = [("head", "Controls 3, main article set, two dissenting outlets unless stated", None)] + rows_for([("Note: one owner, closing sentence removed (one dissenting outlet)", "tool1_noclose"), ("Note: one owner, closing sentence removed", "tool2_noclose"), ("Note: five owners, closing sentence removed", "five_tool2_noclose"), ("No provenance, reasoning before answer", "none2_reorder"), ("Note: one owner, reasoning before answer", "tool2_reorder"), ("Partial ownership (3 + 1 + 1). Note", "mixed_tool2"), ("Partial ownership. Note + majority instruction", "mixed_toolB2"), ("Partial ownership. Harness merge (model reads 3 v 2)", "mixed_merge2")], CL3) \
+    + [("head", "Second article set", None)] + rows_for([("No provenance, one dissenting outlet", "none1"), ("No provenance, two dissenting outlets", "none2"), ("Note: one owner, two dissenting outlets", "tool2"), ("Harness merge: one owner, two dissenting outlets", "merge2")], CL3, SET2)
+st.append(gtable(grid(A7, CL3), "Table A9. Controls 3 (8 conditions) and the second article set (4 conditions), Claude models.", GW3, heads=(1, 10)))
+st.append(gtable(grid(rows_for([("One dissenting outlet. Note: ownership unknown + abstain instruction", "unk1"), ("Two dissenting outlets. Note: ownership unknown + abstain instruction", "unk2"), ("No dissenting outlet. No provenance", "none0"), ("No dissenting outlet. Note: one owner + abstain instruction", "toolA0")])), "Table A10. The four core conditions not in Table A5 or A11.", GW))
+st.append(gtable(grid(rows_for([("One dissenting outlet, one owner (model reads 1 v 1)", "merge1"), ("One dissenting outlet, five owners (5 v 1)", "five_merge1"), ("Two dissenting outlets, one owner (1 v 2)", "merge2"), ("Two dissenting outlets, five owners (5 v 2)", "five_merge2")])), "Table A11. Harness merge, all four core conditions. Neutral prompt, no note, no instruction.", GW))
+st.append(table([["Check", "What changed", "Consequence"],
+                 ["Second article set (Claude models; different writer, consistent details on each side; Table A9)", f"under the note, planted answers fell to {max(c(m, 'tool2', 'planted', SET2) for m in CL3)}/40 or fewer on all three, including Sonnet 5.5 ({q('sonnet', 'tool2')} on the main set); the merge again moved all three", f"the Sonnet 5.5 result depends on the article set; the baseline is also lower there ({q('opus', 'none2', 'planted', SET2)} planted on Opus 5.5 with no provenance)"],
+                 ["Second ask (four models)", f"same outcome on {min(100 * REP[m][0] / REP[m][1] for m in ['mini', 'haiku', 'sonnet', 'opus']):.0f}% to {max(100 * REP[m][0] / REP[m][1] for m in ['mini', 'haiku', 'sonnet', 'opus']):.0f}% of question-condition pairs overall, but only {qagree('haiku', 'tool2')}/40 (Haiku 5.5) and {qagree('sonnet', 'tool2')}/40 (Sonnet 5.5) under the note; Sonnet 5.5 planted count {rep2('sonnet', 'tool2')}/40", "counts are stable to about 7/40; single questions less so"],
+                 ["Paired exact tests", f"p below 0.0001 for the note on GPT-5.5, Haiku 5.5 and Opus 5.5, for the cost of the abstain instruction on GPT-5.4 and Haiku 5.5, and for merge against note on four models; the Section 4.3 checks have p = {PCTL[0]:.5f} (Sonnet 5.5, permission), {PCTL[1]:.5f} (Sonnet 5.5, reasoning first) and {PCTL[2]:.4f} (Haiku 5.5, permission)", "the first group passes a Bonferroni threshold of 0.0004 over the 122 tests in the analysis script (which also reports a Holm correction per model), as do other tests there; the Section 4.3 checks were added later, and the Haiku 5.5 one would not pass"],
+                 ["Strict scoring (hedged answers not counted as picks; Table A3)", f"Sonnet 5.5 under the note: {c('sonnet', 'tool2')} to {S_FIRST}; Claude cells in Table 2 block 2 fall by up to {FIRSTALL}/40; GPT-5.4 cells change by at most {G54MAX}, GPT-5.5 cells not at all", "Table 2 block 2 and the Opus 5.5 baseline depend on the scoring rule"]],
+                "Table A12. Robustness checks.", colw=[1.75 * inch, 3.0 * inch, 1.75 * inch]))
+st.extend(figure(os.path.join(ROOT, "results", "fig_outcomes.png"), "Figure A1. Core conditions as bars, in the style of Figure 2: counts out of 40, lighter shades for answers given with a caveat.", 6.5))
+st.append(P("<b>Models.</b> gpt-5.4-mini-2026-03-17, gpt-5.4-2026-03-05, gpt-5.5-2026-04-23 (OpenAI API, JSON mode); claude-haiku-5-5, claude-sonnet-5-5, claude-opus-5-5 (Anthropic API through its OpenAI-compatible endpoint, JSON by instruction; these identifiers carry no date). Main-set articles were written by gpt-5.4-mini-2026-03-17 and second-set articles by claude-sonnet-5-5."))
 
-st.append(KeepTogether([P("LLM Usage Statement", "h1"), P("The author set the research question, decided the design, hypotheses and conditions, ran the experiments and is responsible for every claim in this report. An AI assistant was used as a working tool throughout, under the author's direction: for literature search, for writing and debugging the experiment and analysis code, and for drafting and editing the text. Models from OpenAI and Anthropic were the systems under test, and an OpenAI model wrote the fictional articles. All reported numbers are produced by scripts in the repository and can be regenerated from the cached model answers.")]))
+st.append(P("Appendix C. Prompt components, word for word", "h1"))
+import run_agents as RA
+import provenance as PV
+import code_answers as CA
+from outlets import SUPPORTING, TRUSTED
+MONO = ParagraphStyle("mono", fontName="Courier", fontSize=8, leading=9.6, leftIndent=10, spaceAfter=6)
+
+
+def mono(t):
+    return Paragraph(t.replace("&", "&amp;").replace("<", "&lt;").replace("\n", "<br/>").replace("  ", "&nbsp;&nbsp;"), MONO)
+
+
+st.append(P("<b>System prompt (neutral, answer first).</b>"))
+st.append(mono(RA.SYSTEM))
+st.append(P("<b>System prompt with reasoning before the answer.</b>"))
+st.append(mono(RA.SYSTEM_REORDERED))
+st.append(P("<b>Abstain instruction</b> (added to the neutral system prompt)."))
+st.append(mono(RA.POLICY.strip()))
+st.append(P("<b>Majority instruction.</b>"))
+st.append(mono(RA.POLICY2.strip()))
+st.append(P("<b>Permission to abstain.</b>"))
+st.append(mono(RA.PERMIT.strip()))
+st.append(P("<b>Provenance lines under an article</b> at the owner level. The signature level shows the first two lines, the verified-publisher level the first three."))
+st.append(mono(PV.block(SUPPORTING[0], "controller", "collusion")))
+st.append(P("<b>One-sided provenance.</b> In Table A7 the unmarked side shows the two lines below under each article; in Table A8 it shows nothing."))
+st.append(mono(PV.block(SUPPORTING[0], "org_dissent", "collusion")))
+_outs = SUPPORTING[:3] + [TRUSTED] + SUPPORTING[3:]
+st.append(P("<b>Ownership note, one owner.</b> The last sentence is the closing sentence removed in one control."))
+st.append(mono(PV.origin_tool_v2(_outs, "controller", "collusion")))
+st.append(P("<b>Ownership note, ownership unknown.</b>"))
+st.append(mono(PV.origin_tool_v2(_outs, "org", "collusion")))
+st.append(P("<b>Harness merge note.</b>"))
+st.append(mono(PV.collapse_by_owner(_outs, "collusion")[1]))
+st.append(P("<b>Coder prompt</b> (second scoring pass). The coder sees the question, the two candidate answers, the reply and its stated confidence."))
+st.append(mono(CA.SYSTEM))
+st.append(P("<b>Layout of the user message.</b> \"Question: ...\", then \"Retrieved sources:\", then each source as \"[Source k] Outlet name (domain)\" followed by the article text and its provenance lines, then the ownership note or merge note if any. Full prompts for every call can be rebuilt with src/run_agents.py."))
+
+st.append(KeepTogether([P("LLM Usage Statement", "h1"), P("The author set the research question, decided the design, hypotheses and conditions, ran the experiments and is responsible for every claim in this report. An AI assistant was used as a working tool throughout, under the author's direction: for literature search, for writing and debugging the experiment and analysis code, for reviewing drafts in the role of independent judges, and for drafting and editing the text. Models from OpenAI and Anthropic were the systems under test, wrote the fictional articles, and labelled ambiguous answers in the second scoring pass. All reported numbers are produced by scripts in the repository and can be regenerated from the cached model answers.")]))
 
 
 def footer(canvas, doc):

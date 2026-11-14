@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "coder-v1", "text": "The reply reports conflicting sources without saying which is correct. It notes that two sources say 4 km and one says 11 km, but it never picks either figure as the answer. The stated confidence of 55 is low, which suggests it isn't committing to B.\n\nN"}

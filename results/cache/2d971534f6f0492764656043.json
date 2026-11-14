@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "coder-v1", "text": "The reply says the answer is \"unresolved\" and lists both numbers. It does say 310 is somewhat better grounded, but it doesn't commit to it, and the stated confidence is only 35. That reads as a lean, not a pick, so it counts as not choosing.\n\nN"}

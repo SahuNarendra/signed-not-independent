@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "agent-v1", "text": "{\"reasoning\":\"Five of the seven sources (2, 3, 4, 6, 7) say the Thessaly Weir diverts the Morrow River, while two (1, 5) say the Callan. The details differ widely between sources, but the majority points clearly to the Morrow.\",\"independent_sources\":5,\"answer\":\"The Morrow River\",\"confidence\":80}"}

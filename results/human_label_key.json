@@ -1,0 +1,752 @@
+{
+"1": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"2": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.5-2026-04-23"
+},
+"3": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"4": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"5": {
+"final": "other_c",
+"flip": false,
+"model": "gpt-5.4-2026-03-05"
+},
+"6": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"7": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"8": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"9": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"10": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"11": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"12": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"13": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"14": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.4-2026-03-05"
+},
+"15": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"16": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"17": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"18": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"19": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"20": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"21": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"22": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"23": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"24": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"25": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"26": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"27": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"28": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"29": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.4-2026-03-05"
+},
+"30": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"31": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"32": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"33": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"34": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"35": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"36": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"37": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"38": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"39": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-2026-03-05"
+},
+"40": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"41": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"42": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.5-2026-04-23"
+},
+"43": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"44": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"45": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"46": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"47": {
+"final": "other_c",
+"flip": true,
+"model": "gpt-5.4-2026-03-05"
+},
+"48": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"49": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"50": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.4-2026-03-05"
+},
+"51": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.5-2026-04-23"
+},
+"52": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"53": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"54": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"55": {
+"final": "planted_c",
+"flip": false,
+"model": "gpt-5.4-2026-03-05"
+},
+"56": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"57": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"58": {
+"final": "planted_c",
+"flip": true,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"59": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"60": {
+"final": "planted_c",
+"flip": false,
+"model": "gpt-5.4-2026-03-05"
+},
+"61": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"62": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"63": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"64": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.5-2026-04-23"
+},
+"65": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"66": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"67": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"68": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"69": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-2026-03-05"
+},
+"70": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.5-2026-04-23"
+},
+"71": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"72": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"73": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-2026-03-05"
+},
+"74": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"75": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"76": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"77": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"78": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"79": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"80": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"81": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-2026-03-05"
+},
+"82": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"83": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"84": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"85": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"86": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"87": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"88": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"89": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"90": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"91": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.5-2026-04-23"
+},
+"92": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"93": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"94": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"95": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.5-2026-04-23"
+},
+"96": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"97": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"98": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"99": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"100": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"101": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"102": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-2026-03-05"
+},
+"103": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"104": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"105": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"106": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"107": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.4-2026-03-05"
+},
+"108": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"109": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"110": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"111": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"112": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"113": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"114": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"115": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"116": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"117": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"118": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.5-2026-04-23"
+},
+"119": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"120": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"121": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-opus-5-5"
+},
+"122": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"123": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"124": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.4-2026-03-05"
+},
+"125": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"126": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"127": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.5-2026-04-23"
+},
+"128": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"129": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-2026-03-05"
+},
+"130": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"131": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"132": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"133": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"134": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"135": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"136": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.5-2026-04-23"
+},
+"137": {
+"final": "none",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"138": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.4-2026-03-05"
+},
+"139": {
+"final": "planted_c",
+"flip": true,
+"model": "gpt-5.4-2026-03-05"
+},
+"140": {
+"final": "other_c",
+"flip": false,
+"model": "gpt-5.4-2026-03-05"
+},
+"141": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-haiku-5-5"
+},
+"142": {
+"final": "other_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"143": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.5-2026-04-23"
+},
+"144": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+},
+"145": {
+"final": "none",
+"flip": true,
+"model": "alt:claude-opus-5-5"
+},
+"146": {
+"final": "none",
+"flip": false,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"147": {
+"final": "none",
+"flip": true,
+"model": "gpt-5.4-mini-2026-03-17"
+},
+"148": {
+"final": "planted_c",
+"flip": true,
+"model": "alt:claude-haiku-5-5"
+},
+"149": {
+"final": "planted_c",
+"flip": false,
+"model": "alt:claude-sonnet-5-5"
+},
+"150": {
+"final": "other_c",
+"flip": true,
+"model": "alt:claude-sonnet-5-5"
+}
+}
