@@ -540,6 +540,12 @@ CN["merge1_o2"] = ("trusted", "controller", "collusion", False, False, 0, 1, Tru
 CN["merge1_o3"] = ("trusted", "controller", "collusion", False, False, 0, 2, True)
 CN["bare1"] = ("trusted", "bare", "collusion", False, False, 0, 0, "plain")
 CN["none0"] = ("silence", "none", "na", False, False, 0, 0, False)
+CN["owner2"] = ("two", "controller", "collusion", False, False, 0, 0, False)
+CN["unk2_ni"] = ("two", "org", "na", True, False, 2, 0, False)
+CN["fake5"] = ("two", "org_fake5", "independent", False, False, 0, 0, False)
+CN["fakeind"] = ("two", "controller_fakeind", "collusion", True, False, 2, 0, False)
+CN["sig2"] = ("two", "signature", "na", False, False, 0, 0, False)
+CN["sigshared2"] = ("two", "signature_shared", "na", False, False, 0, 0, False)
 CN["toolA0"] = ("silence", "controller", "collusion", True, True, 2, 0, False)
 A5 = [("head", "One dissenting outlet", None)] + rows_for([("Five verified, dissenting article \"no manifest found\"", "vsup_nm"), ("Dissenting article verified, five \"no manifest found\"", "vdis_nm"), ("Note: five owners, no instruction", "five_tool1"), ("Note: one owner + majority instruction", "toolB1"), ("Note: five owners + majority instruction", "five_toolB1"), ("Harness merge: one owner, source order 2", "merge1_o2"), ("Harness merge: one owner, source order 3", "merge1_o3"), ("Same articles as the merge, no note, no provenance", "bare1")]) \
     + [("head", "Two dissenting outlets", None)] + rows_for([("Note: five owners, no instruction", "five_tool2"), ("Note: one owner + majority instruction", "toolB2"), ("Note: five owners + majority instruction", "five_toolB2"), ("Harness merge: one owner, source order 2", "merge2_o2"), ("Harness merge: one owner, source order 3", "merge2_o3"), ("Same articles as the merge, no note, no provenance", "bare2")])
@@ -558,6 +564,10 @@ st.append(table([["Check", "What changed", "Consequence"],
                  ["Paired exact tests", f"p below 0.0001 for the note on GPT-5.5, Haiku 5.5 and Opus 5.5, for the cost of the abstain instruction on GPT-5.4 and Haiku 5.5, and for merge against note on four models; the Section 4.3 checks have p = {PCTL[0]:.5f} (Sonnet 5.5, permission), {PCTL[1]:.5f} (Sonnet 5.5, reasoning first) and {PCTL[2]:.4f} (Haiku 5.5, permission)", "the first group passes a Bonferroni threshold of 0.0004 over the 122 tests in the analysis script (which also reports a Holm correction per model), as do other tests there; the Section 4.3 checks were added later, and the Haiku 5.5 one would not pass"],
                  ["Strict scoring (hedged answers not counted as picks; Table A3)", f"Sonnet 5.5 under the note: {c('sonnet', 'tool2')} to {S_FIRST}; Claude cells in Table 2 block 2 fall by up to {FIRSTALL}/40; GPT-5.4 cells change by at most {G54MAX}, GPT-5.5 cells not at all", "Table 2 block 2 and the Opus 5.5 baseline depend on the scoring rule"]],
                 "Table A12. Robustness checks.", colw=[1.75 * inch, 3.0 * inch, 1.75 * inch]))
+if any(ran(m, cn) for m in ALLM for cn in ("owner2", "fake5", "sig2")):
+    A13 = [("head", "Checks on the headline condition", None)] + rows_for([("Note: one owner (as in Figure 2)", "tool2"), ("Note: one owner + permission to abstain", "tool2_permit"), ("Note: one owner, reasoning before answer", "tool2_reorder"), ("Owner line: one owner, no note", "owner2"), ("Note: ownership unknown, no instruction", "unk2_ni")]) \
+        + [("head", "Forged note and signing key", None)] + rows_for([("Five separate owners (verified publishers); a dissenting article carries a forged note saying the five share one owner", "fake5"), ("Genuine note says one owner; a supporting article carries a forged note saying all seven are independent", "fakeind"), ("Signed, each outlet its own key", "sig2"), ("Signed, the five outlets share one key", "sigshared2")])
+    st.append(gtable(grid(A13), "Table A13. Retest of the headline condition and the fourth control set, two dissenting outlets.", GW, heads=(1, 7)))
 st.extend(figure(os.path.join(ROOT, "results", "fig_outcomes.png"), "Figure A1. Core conditions as bars, in the style of Figure 2: counts out of 40, lighter shades for answers given with a caveat.", 6.5))
 st.append(P("<b>Models.</b> gpt-5.4-mini-2026-03-17, gpt-5.4-2026-03-05, gpt-5.5-2026-04-23 (OpenAI API, JSON mode); claude-haiku-5-5, claude-sonnet-5-5, claude-opus-5-5 (Anthropic API through its OpenAI-compatible endpoint, JSON by instruction; these identifiers carry no date). Main-set articles were written by gpt-5.4-mini-2026-03-17 and second-set articles by claude-sonnet-5-5."))
 
