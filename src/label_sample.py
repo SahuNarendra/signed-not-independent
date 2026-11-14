@@ -38,11 +38,11 @@ def make(n):
     print(f"wrote {SHEET} with {len(picked)} answers")
 
 
-def score():
+def score(sheet=SHEET):
     key = json.load(open(KEYF, encoding="utf-8"))
     same = total = 0
     table = {}
-    for row in csv.DictReader(open(SHEET, encoding="utf-8-sig")):
+    for row in csv.DictReader(open(sheet, encoding="utf-8-sig")):
         lab = (row.get("your_label") or "").strip().upper()[:1]
         if lab not in ("A", "B", "N"):
             continue
@@ -52,14 +52,15 @@ def score():
         total += 1
         same += human == auto
         table[(auto, human)] = table.get((auto, human), 0) + 1
-    print(f"labelled {total}; human label equals final scoring on {same} ({100 * same / max(total, 1):.0f}%)")
+    print(f"labelled {total}; label equals final scoring on {same} ({100 * same / max(total, 1):.0f}%)")
     for (auto, human), v in sorted(table.items()):
-        print(f"  final {auto:8s} human {human:8s} {v}")
+        print(f"  final {auto:8s} label {human:8s} {v}")
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--score", action="store_true")
     ap.add_argument("--n", type=int, default=150)
+    ap.add_argument("--sheet", default="", help="score a different filled sheet, e.g. results/assistant_label_sheet.csv")
     a = ap.parse_args()
-    score() if a.score else make(a.n)
+    score(a.sheet or SHEET) if a.score else make(a.n)
