@@ -42,14 +42,18 @@ ROWS = [
 
 # The figure used in the body of the report: two independent outlets disagree with the five.
 MAIN = [
-    ("", [
+    ("No owner\ninformation", [
         ("No provenance", "two", "none", "na", False, False, 0),
-        ("Note: one owner", "two", "controller", "collusion", True, False, 2),
-        ("Note + abstain instruction: one owner", "two", "controller", "collusion", True, True, 2),
-        ("Note + majority instruction: one owner", "two", "controller", "collusion", True, 2, 2),
-        ("Merge: one owner", "two", "controller", "collusion", False, False, 0, True),
-        ("Note + abstain instruction: five owners", "two", "controller", "independent", True, True, 2),
-        ("Merge: five owners", "two", "controller", "independent", False, False, 0, True),
+    ]),
+    ("Five outlets, ONE owner\ngreen is better supported", [
+        ("Ownership note", "two", "controller", "collusion", True, False, 2),
+        ("Note + abstain instruction", "two", "controller", "collusion", True, True, 2),
+        ("Note + majority instruction", "two", "controller", "collusion", True, 2, 2),
+        ("Harness merge", "two", "controller", "collusion", False, False, 0, True),
+    ]),
+    ("FIVE owners\nblue is better", [
+        ("Note + abstain instruction", "two", "controller", "independent", True, True, 2),
+        ("Harness merge", "two", "controller", "independent", False, False, 0, True),
     ]),
 ]
 SHORT = {"gpt-5.4-mini": "GPT-5.4 mini", "gpt-5.4-2": "GPT-5.4", "gpt-5.5": "GPT-5.5", "haiku": "Haiku 5.5", "sonnet": "Sonnet 5.5", "opus": "Opus 5.5"}
@@ -57,7 +61,7 @@ SHORT = {"gpt-5.4-mini": "GPT-5.4 mini", "gpt-5.4-2": "GPT-5.4", "gpt-5.5": "GPT
 
 def main():
     draw(ROWS, "fig_outcomes.png", fs=11, panel=1.2, rowh=0.4, counts=True)
-    draw(MAIN, "fig_main.png", fs=12, panel=1.25, rowh=0.42, counts=True)
+    draw(MAIN, "fig_main.png", fs=12, panel=1.25, rowh=0.5, counts=True)
 
 
 def draw(ROWS, fname, fs=8, panel=1.75, rowh=0.30, counts=False):
@@ -101,7 +105,7 @@ def draw(ROWS, fname, fs=8, panel=1.75, rowh=0.30, counts=False):
                     for names, ink in ((("planted", "planted_c"), "#ffffff"), (("none",), "#ffffff"), (("other", "other_c"), "#ffffff")):
                         k = sum(o in names for o in outs)
                         w = 100 * k / n
-                        if w >= 17:
+                        if w >= 20:
                             ax.text(start + w / 2, yi, str(k), ha="center", va="center", color=ink, fontsize=fs + 0.5, fontweight="bold",
                                     path_effects=[pe.withStroke(linewidth=1.6, foreground="#00000055")])
                         start += w
@@ -121,7 +125,7 @@ def draw(ROWS, fname, fs=8, panel=1.75, rowh=0.30, counts=False):
             if gi == 0:
                 ax.set_title(next((v for k, v in SHORT.items() if k in model), model), color=INK, fontsize=fs - 1.5, fontweight="bold", loc="left")
             if mi == 0:
-                ax.set_ylabel(gname, color=INK, fontsize=fs)
+                ax.set_ylabel(gname, color=INK, fontsize=fs - 2.5 if counts else fs, fontweight="bold" if counts else "normal", labelpad=8)
     handles = [plt.Rectangle((0, 0), 1, 1, color=c) for _, _, c in PARTS]
     fig.legend(handles, [p[1] for p in PARTS], loc="upper center", ncol=5, frameon=False, bbox_to_anchor=(0.5, 0.99), labelcolor=INK,
                fontsize=fs - 1, columnspacing=1.2, handlelength=1.2)
