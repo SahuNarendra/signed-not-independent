@@ -1,0 +1,1 @@
+{"model": "alt:claude-sonnet-5-5", "tag": "coder-v1", "text": "The reply gives \"48 million\" as its answer and adds a note that two sources report 12 million. Because it commits to 48 million and mentions B only as a caveat, the label is A.\n\nA"}

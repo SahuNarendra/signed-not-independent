@@ -44,7 +44,8 @@ Any of these may turn out false. Results are reported either way.
 - Controls 3 (8 conditions, Claude models): three of the five outlets under one owner, the tool without its closing sentence, and reasoning before the answer.
 - Second article set (4 conditions, Claude models): articles from a different writer with consistent details on each side (`data/articles2.json`, `results/runs_set2.jsonl`).
 - Retest (`--retest`, GPT-5.4 and Claude models): the headline condition with permission to abstain, with reasoning first, with the owner line alone, and with a note saying ownership is unknown and no instruction.
-- Controls 4 (`--controls4`, Claude models): a forged ownership note inside an article in two versions, and signatures with separate keys and with one shared key, against two dissenting outlets.
+- Controls 4 (`--controls4`, GPT-5.4 and Claude models): a forged ownership note inside an article in two versions, and signatures with separate keys and with one shared key, against two dissenting outlets.
+- Controls 5 (`--controls5`, GPT-5.4 and Claude models): the matched baseline for the forged note, one guard sentence in the system prompt, and the signer shown as a publishing platform shared by the five outlets, with and without five separate owners attested.
 - The report calls the origin count tool the "ownership note", because it is a paragraph of text in the prompt and not a tool call.
 
 The provenance check output is simulated text. No real signing takes place in this version.
@@ -96,7 +97,7 @@ Six models, 40 claims each: gpt-5.4-mini, gpt-5.4, gpt-5.5, Claude Haiku 5.5, Cl
 3. An instruction to count origins removed most planted answers. One wording also made some models decline to answer when the sources really were separately owned. A second wording did not, but left two models mostly unchanged.
 4. Merging by owner in the harness moved five of the six models to the other side, on three source orders, with no extra abstention on separately owned sources. The smallest model followed whichever source was listed first. Under partial ownership the merge cost one model answers that the second instruction kept.
 5. The "says one source, still follows the five" behaviour depends on the prompt. One sentence permitting "undetermined", or asking for reasoning before the answer, removed most of it on GPT-5.4 and Sonnet 5.5 (`--retest`).
-6. A forged ownership note planted inside an article moved all three Claude models off a well-supported answer. A signing key shared by the five outlets was read as common ownership by the two larger Claude models with no explanation given (`--controls4`).
+6. A forged ownership note planted inside an article moved the three Claude models off the better-supported answer and did not move GPT-5.4. One guard sentence in the system prompt restored all four. A signing key shared by the five outlets shifted the two larger Claude models toward the dissenting answer with no explanation given; shown as a shared publishing platform it still shifted the largest one, unless separate owners were attested (`--controls4`, `--controls5`).
 7. Asked twice, the same model gave the same outcome in 92% to 93% of question and condition pairs (gpt-5.4-mini, Haiku 5.5, Sonnet 5.5, Opus 5.5). Counts per condition moved by up to 7 of 40.
 
 H1 held. H2 was not supported. H3 held in part. H4 was not supported, except that the "unknown" output reduced acceptance together with the instruction. Every fix depends on a truthful ownership record, and five shell owners defeat it.
