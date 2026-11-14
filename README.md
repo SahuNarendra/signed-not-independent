@@ -100,7 +100,7 @@ Six models, 40 claims each: gpt-5.4-mini, gpt-5.4, gpt-5.5, Claude Haiku 5.5, Cl
 6. A forged ownership note planted inside an article moved the three Claude models off the better-supported answer and did not move GPT-5.4. One guard sentence in the system prompt restored all four. A signing key shared by the five outlets shifted the two larger Claude models toward the dissenting answer with no explanation given; shown as a shared publishing platform it still shifted the largest one, unless separate owners were attested (`--controls4`, `--controls5`).
 7. Asked twice, the same model gave the same outcome in 92% to 93% of question and condition pairs (gpt-5.4-mini, Haiku 5.5, Sonnet 5.5, Opus 5.5). Counts per condition moved by up to 7 of 40.
 
-H1 held. H2 was not supported. H3 held in part. H4 was not supported, except that the "unknown" output reduced acceptance together with the instruction. Every fix depends on a truthful ownership record, and five shell owners defeat it.
+H1: no reduction detected. H2 could not be tested on answers because acceptance was already at the ceiling. H3 held in part. H4 was not supported, except that the "unknown" output reduced acceptance together with the instruction. Every fix depends on a truthful ownership record, and five shell owners defeat it.
 
 ## Work done before the sprint
 
