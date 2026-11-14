@@ -87,7 +87,7 @@ All outlets, people and claims are fictional. Nothing was published to the web. 
 
 ## Report
 
-`paper/build_report.py` builds the PDF report from `results/runs.jsonl`. The report has a statement on how AI tools were used in this work.
+`paper/build_report.py` builds the PDF report from `results/runs.jsonl`. AI tools supported the literature search, coding and drafting. The report's LLM Usage Statement gives the details.
 
 ## Sprint log
 
