@@ -88,6 +88,10 @@ python paper/build_report.py
 
 Every model call is cached in `results/cache/`. With the cache present, all tables and figures can be regenerated with no API key. Set `MOCK=1` to test the plumbing offline.
 
+## Report
+
+`paper/signed-not-independent-report-draft.pdf` is the report. `paper/supplementary-tables.pdf` holds the tables, figure and prompt wording that the report cites and that were moved out of its appendices to keep it short. Both are built by `python paper/build_report.py`.
+
 ## Results
 
 Six models, 40 claims each: gpt-5.4-mini, gpt-5.4, gpt-5.5, Claude Haiku 5.5, Claude Sonnet 5.5 and Claude Opus 5.5. All six ran the 19 core conditions. Five ran all of controls 1 and gpt-5.5 ran 5 of them. Controls 2 and 3 and the second article set ran on the three Claude models. The report is the reference for numbers; `results/table1.md`, `results/stats.md`, `results/extra.md` and `results/repeat.md` hold the full output. Figures: `results/fig_setup.png`, `results/fig_main.png`, `results/fig_outcomes.png`.
